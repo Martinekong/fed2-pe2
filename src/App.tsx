@@ -1,9 +1,13 @@
+import AppRoutes from './app/routes';
+
 function App() {
   return (
     <>
-      <div>
-        <h1>The app</h1>
-      </div>
+      <header></header>
+      <main>
+        <AppRoutes />
+      </main>
+      <footer></footer>
     </>
   );
 }
