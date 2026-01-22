@@ -3,30 +3,34 @@
 @tailwind utilities;
 
 @layer base {
-    body {
-        @apply font-body bg-[#FBFBF9]
-    }
+  #root {
+    @apply flex min-h-screen flex-col;
+  }
 
-    main {
-        @apply m-8
-        /* Fix with media queries later */
-    }
+  body {
+    @apply bg-[#FBFBF9] font-body;
+  }
 
-    h1 {
-        @apply font-medium font-heading text-[40px]
-    }
+  main {
+    @apply m-8 flex-grow;
+    /* Fix with media queries later */
+  }
+
+  h1 {
+    @apply font-heading text-[40px] font-medium;
+  }
 }
 
 @layer components {
-    .profile-btn {
-        @apply  bg-primary text-white shadow-md transition duration-300 hover:bg-primary_hover hover:shadow-lg flex justify-center rounded-full px-3 py-1
-    }
+  .profile-btn {
+    @apply flex justify-center rounded-full bg-primary px-3 py-1 text-white shadow-md transition duration-300 hover:bg-primary_hover hover:shadow-lg;
+  }
 
-    .primary-btn {
-        @apply bg-primary text-white shadow-md transition duration-300 hover:bg-primary_hover hover:shadow-lg flex justify-center w-20 rounded-2xl p-1
-    }
+  .primary-btn {
+    @apply flex w-20 justify-center rounded-2xl bg-primary p-1 text-white shadow-md transition duration-300 hover:bg-primary_hover hover:shadow-lg;
+  }
 
-    .secondary-btn {
-       @apply flex w-20 justify-center rounded-2xl border border-secondary p-1 text-secondary shadow-md transition duration-300 hover:shadow-lg
-    }
+  .secondary-btn {
+    @apply flex w-20 justify-center rounded-2xl border border-secondary p-1 text-secondary shadow-md transition duration-300 hover:shadow-lg;
+  }
 }

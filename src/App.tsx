@@ -1,6 +1,7 @@
 import AppRoutes from './app/routes';
 import { Toaster } from 'react-hot-toast';
 import Header from './components/navigation/Header';
+import Footer from './components/navigation/Footer';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <main>
         <AppRoutes />
       </main>
-      <footer></footer>
+      <Footer />
     </>
   );
 }
