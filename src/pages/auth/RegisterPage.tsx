@@ -20,6 +20,7 @@ export default function RegisterPage() {
   const [password, setPassword] = useState('');
 
   const [errors, setErrors] = useState<FieldErrors>({});
+  const [apiError, setApiError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   function validate() {
@@ -45,6 +46,8 @@ export default function RegisterPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
+    setApiError(null);
+
     const validation = validate();
     if (!validation.ok) {
       toast.error('Please fix the errors in the form');
@@ -58,23 +61,29 @@ export default function RegisterPage() {
       toast.success('Account created! You can now log in.');
       navigate('/login');
     } catch (err) {
-      toast.error(
-        err instanceof ApiError ? err.message : 'Something went wrong',
-      );
+      err instanceof ApiError
+        ? setApiError(err.message)
+        : setApiError('Something went wrong');
+      // toast.error(
+      //   err instanceof ApiError ? err.message : 'Something went wrong',
+      // );
     } finally {
       setIsSubmitting(false);
     }
   }
 
   const inputClass = (hasError: boolean) =>
-    `border rounded px-3 py-2 ${hasError ? 'border-red-500' : 'border-gray-300'}`;
+    `input-field ${hasError ? 'input-field-error' : ''}`;
 
   return (
-    <>
-      <h1>Register</h1>
+    <div className="mx-auto flex max-w-[450px] flex-col items-center px-4">
+      <h1 className="mb-8">Register</h1>
 
-      <form onSubmit={handleSubmit}>
-        <label>
+      <form
+        onSubmit={handleSubmit}
+        className="flex w-full flex-col items-center gap-10"
+      >
+        <label className="flex w-full flex-col">
           Username
           <input
             className={inputClass(Boolean(errors.name))}
@@ -83,10 +92,12 @@ export default function RegisterPage() {
             onChange={(e) => setName(e.target.value)}
             placeholder="KariNordmann"
           />
+          {errors.name && (
+            <p className="pl-4 pt-2 text-sm text-error">{errors.name}</p>
+          )}
         </label>
-        {errors.name && <p className="text-sm text-red-600">{errors.name}</p>}
 
-        <label>
+        <label className="flex w-full flex-col">
           Email
           <input
             className={inputClass(Boolean(errors.email))}
@@ -95,10 +106,12 @@ export default function RegisterPage() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter stud.noroff.no email"
           />
+          {errors.email && (
+            <p className="pl-4 pt-2 text-sm text-error">{errors.email}</p>
+          )}
         </label>
-        {errors.email && <p className="text-sm text-red-600">{errors.email}</p>}
 
-        <label>
+        <label className="flex w-full flex-col">
           Password
           <input
             className={inputClass(Boolean(errors.password))}
@@ -107,19 +120,28 @@ export default function RegisterPage() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter password"
           />
+          {errors.password && (
+            <p className="pl-4 pt-2 text-sm text-error">{errors.password}</p>
+          )}
         </label>
-        {errors.password && (
-          <p className="text-sm text-red-600">{errors.password}</p>
-        )}
 
-        <button type="submit" disabled={isSubmitting}>
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="primary-btn w-full"
+        >
           {isSubmitting ? 'Signing up...' : 'Sign up'}
         </button>
 
+        {apiError && <p className="text-error">{apiError}</p>}
+
         <p>
-          Already have an account? <Link to="/login">Log in!</Link>
+          Already have an account?{' '}
+          <Link to="/login" className="font-bold">
+            Log in!
+          </Link>
         </p>
       </form>
-    </>
+    </div>
   );
 }
