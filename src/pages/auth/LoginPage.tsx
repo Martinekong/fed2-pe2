@@ -86,6 +86,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your stud.noroff.no email"
+            disabled={isSubmitting}
           />
           {errors.email && (
             <p className="pl-4 pt-2 text-sm text-error">{errors.email}</p>
@@ -100,6 +101,7 @@ export default function LoginPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Your password"
+            disabled={isSubmitting}
           />
           {errors.password && (
             <p className="pl-4 pt-2 text-sm text-error">{errors.password}</p>

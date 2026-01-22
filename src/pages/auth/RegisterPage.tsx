@@ -64,9 +64,6 @@ export default function RegisterPage() {
       err instanceof ApiError
         ? setApiError(err.message)
         : setApiError('Something went wrong');
-      // toast.error(
-      //   err instanceof ApiError ? err.message : 'Something went wrong',
-      // );
     } finally {
       setIsSubmitting(false);
     }
@@ -91,6 +88,7 @@ export default function RegisterPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="KariNordmann"
+            disabled={isSubmitting}
           />
           {errors.name && (
             <p className="pl-4 pt-2 text-sm text-error">{errors.name}</p>
@@ -105,6 +103,7 @@ export default function RegisterPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter stud.noroff.no email"
+            disabled={isSubmitting}
           />
           {errors.email && (
             <p className="pl-4 pt-2 text-sm text-error">{errors.email}</p>
@@ -119,6 +118,7 @@ export default function RegisterPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter password"
+            disabled={isSubmitting}
           />
           {errors.password && (
             <p className="pl-4 pt-2 text-sm text-error">{errors.password}</p>
