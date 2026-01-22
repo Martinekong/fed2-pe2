@@ -1,11 +1,12 @@
 import AppRoutes from './app/routes';
 import { Toaster } from 'react-hot-toast';
+import Header from './components/navigation/Header';
 
 function App() {
   return (
     <>
       <Toaster position="bottom-right" />
-      <header></header>
+      <Header />
       <main>
         <AppRoutes />
       </main>
