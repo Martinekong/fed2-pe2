@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import { login } from '../../api/auth';
 import { ApiError } from '../../api/client';
 import { loginSchema } from '../../lib/validation';
-import Button from '../../components/ui/Buttons';
+import Button from '../../components/ui/Button';
 
 type FieldErrors = {
   email?: string;
