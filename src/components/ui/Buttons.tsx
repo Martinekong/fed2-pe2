@@ -30,9 +30,3 @@ export default function Button({
     />
   );
 }
-
-//  .primary-btn
-//     min-h-[34px] min-w-20 p-1
-
-// .secondary-btn
-//     w-20 p-1
