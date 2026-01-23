@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { register } from '../../api/auth';
 import { ApiError } from '../../api/client';
 import { registerSchema } from '../../lib/validation';
+import Button from '../../components/ui/Buttons';
 
 type FieldErrors = {
   name?: string;
@@ -125,13 +126,14 @@ export default function RegisterPage() {
           )}
         </label>
 
-        <button
+        <Button
+          variant="primary"
           type="submit"
+          fullWidth
           disabled={isSubmitting}
-          className="primary-btn w-full"
         >
           {isSubmitting ? 'Signing up...' : 'Sign up'}
-        </button>
+        </Button>
 
         {apiError && <p className="text-error">{apiError}</p>}
 

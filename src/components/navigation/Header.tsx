@@ -39,20 +39,20 @@ export default function Header() {
             <Link
               to="/profile"
               aria-label="go to profile"
-              className="profile-btn"
+              className="header-profile-btn"
             >
               {initial}
             </Link>
-            <button onClick={handleLogout} className="secondary-btn">
+            <button onClick={handleLogout} className="header-secondary-btn">
               Log out
             </button>
           </>
         ) : (
           <>
-            <Link to="/login" className="primary-btn">
+            <Link to="/login" className="header-primary-btn">
               Log in
             </Link>
-            <Link to="/register" className="secondary-btn">
+            <Link to="/register" className="header-secondary-btn">
               Sign up
             </Link>
           </>

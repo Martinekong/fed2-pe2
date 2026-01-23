@@ -5,6 +5,7 @@ import toast from 'react-hot-toast';
 import { login } from '../../api/auth';
 import { ApiError } from '../../api/client';
 import { loginSchema } from '../../lib/validation';
+import Button from '../../components/ui/Buttons';
 
 type FieldErrors = {
   email?: string;
@@ -108,13 +109,14 @@ export default function LoginPage() {
           )}
         </label>
 
-        <button
+        <Button
+          variant="primary"
           type="submit"
+          fullWidth
           disabled={isSubmitting}
-          className="primary-btn w-full"
         >
           {isSubmitting ? 'Logging in...' : 'Log in'}
-        </button>
+        </Button>
 
         {apiError && <p className="text-error">{apiError}</p>}
 

@@ -19,19 +19,27 @@
   h1 {
     @apply font-heading text-[40px] font-medium;
   }
+
+  h2 {
+    @apply font-heading text-3xl font-medium capitalize;
+  }
 }
 
 @layer components {
-  .profile-btn {
+  .page-wrapper {
+    @apply mx-auto flex max-w-4xl flex-col gap-10;
+  }
+
+  .header-profile-btn {
     @apply flex justify-center rounded-full bg-primary px-3 py-1 text-white shadow-md transition duration-300 hover:bg-primary_hover hover:shadow-lg;
   }
 
-  .primary-btn {
-    @apply flex min-h-[34px] w-20 justify-center rounded-2xl bg-primary p-1 text-white shadow-md transition duration-300 hover:bg-primary_hover hover:shadow-lg;
+  .header-primary-btn {
+    @apply flex w-20 items-center justify-center rounded-2xl bg-primary p-1 text-white shadow-md transition duration-300 hover:bg-primary_hover hover:shadow-lg;
   }
 
-  .secondary-btn {
-    @apply flex w-20 justify-center rounded-2xl border border-secondary p-1 text-secondary shadow-md transition duration-300 hover:shadow-lg;
+  .header-secondary-btn {
+    @apply flex w-20 items-center justify-center rounded-2xl border border-secondary p-1 text-secondary shadow-md transition duration-300 hover:shadow-lg;
   }
 
   .input-field {
