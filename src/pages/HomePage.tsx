@@ -1,6 +1,5 @@
-import Button from '../components/ui/Button';
-import Input from '../components/ui/Input';
-import TopVenues from '../components/venues/TopVenues';
+import DiscoverSection from '../components/home/DiscoverSection';
+import TopVenuesSection from '../components/home/TopVenuesSection';
 
 export default function HomePage() {
   return (
@@ -9,29 +8,8 @@ export default function HomePage() {
       {/* Hero section */}
       <section></section>
 
-      {/* Discover section with search field */}
-      <section className="flex flex-col gap-5">
-        <h2>discover</h2>
-        <p>
-          Search through all venues hosted by Holidaze. Wether you dream about
-          the tropics or mountains, want to sleep in a cabin or castle,
-          experience city life or the beach - we've got you!
-        </p>
-        <form className="relative">
-          <Input type="search" placeholder="Search for venues..." />
-          <Button
-            variant="primary"
-            type="submit"
-            className="absolute bottom-0 right-0 top-2"
-          >
-            Search
-          </Button>
-          {/* Add search functionality: redirect to "/venues", and add the search input as a query */}
-        </form>
-      </section>
-
-      {/* Top venues section */}
-      <TopVenues />
+      <DiscoverSection />
+      <TopVenuesSection />
 
       {/* Experience city life */}
       <section>

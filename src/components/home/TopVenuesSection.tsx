@@ -11,7 +11,7 @@ const topVenuesIds = [
   // Change to own id's later
 ];
 
-export default function TopVenues() {
+export default function TopVenuesSection() {
   const [topVenues, setTopVenues] = useState<Venue[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
