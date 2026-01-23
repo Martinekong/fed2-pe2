@@ -5,7 +5,9 @@ import toast from 'react-hot-toast';
 import { login } from '../../api/auth';
 import { ApiError } from '../../api/client';
 import { loginSchema } from '../../lib/validation';
+
 import Button from '../../components/ui/Button';
+import Input from '../../components/ui/Input';
 
 type FieldErrors = {
   email?: string;
@@ -68,9 +70,6 @@ export default function LoginPage() {
     }
   }
 
-  const inputClass = (hasError: boolean) =>
-    `input-field ${hasError ? 'input-field-error' : ''}`;
-
   return (
     <div className="mx-auto flex max-w-[450px] flex-col items-center px-4">
       <h1 className="mb-8">Login</h1>
@@ -79,35 +78,25 @@ export default function LoginPage() {
         onSubmit={handleSubmit}
         className="flex w-full flex-col items-center gap-10"
       >
-        <label className="flex w-full flex-col">
-          Email
-          <input
-            className={inputClass(Boolean(errors.email))}
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your stud.noroff.no email"
-            disabled={isSubmitting}
-          />
-          {errors.email && (
-            <p className="pl-4 pt-2 text-sm text-error">{errors.email}</p>
-          )}
-        </label>
+        <Input
+          label="Email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Your stud.noroff.no email"
+          disabled={isSubmitting}
+          error={errors.email}
+        />
 
-        <label className="flex w-full flex-col">
-          Password
-          <input
-            className={inputClass(Boolean(errors.password))}
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Your password"
-            disabled={isSubmitting}
-          />
-          {errors.password && (
-            <p className="pl-4 pt-2 text-sm text-error">{errors.password}</p>
-          )}
-        </label>
+        <Input
+          label="Password"
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Your password"
+          disabled={isSubmitting}
+          error={errors.password}
+        />
 
         <Button
           variant="primary"

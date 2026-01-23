@@ -1,4 +1,5 @@
 import Button from '../components/ui/Button';
+import Input from '../components/ui/Input';
 
 export default function HomePage() {
   return (
@@ -16,7 +17,7 @@ export default function HomePage() {
           experience city life or the beach - we've got you!
         </p>
         <form className="relative">
-          <input type="search" className="input-field w-full" />
+          <Input type="search" placeholder="Search for venues..." />
           <Button
             variant="primary"
             type="submit"
