@@ -19,7 +19,7 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky flex items-center justify-between p-4 shadow-lg md:grid md:grid-cols-3">
+    <header className="sticky top-0 z-10 flex items-center justify-between bg-white p-4 opacity-[98%] shadow-lg md:grid md:grid-cols-3">
       <Link
         to="/"
         className="items-center font-heading text-2xl font-black capitalize"
