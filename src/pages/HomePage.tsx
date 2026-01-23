@@ -1,5 +1,6 @@
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
+import TopVenues from '../components/venues/TopVenues';
 
 export default function HomePage() {
   return (
@@ -30,9 +31,7 @@ export default function HomePage() {
       </section>
 
       {/* Top venues section */}
-      <section>
-        <h2>top venues</h2>
-      </section>
+      <TopVenues />
 
       {/* Experience city life */}
       <section>

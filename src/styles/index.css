@@ -23,11 +23,15 @@
   h2 {
     @apply font-heading text-3xl font-medium capitalize;
   }
+
+  h3 {
+    @apply text-xl font-bold;
+  }
 }
 
 @layer components {
   .page-wrapper {
-    @apply mx-auto flex max-w-4xl flex-col gap-10;
+    @apply mx-auto flex max-w-4xl flex-col gap-24;
   }
 
   .header-profile-btn {
