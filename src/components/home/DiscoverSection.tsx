@@ -18,7 +18,7 @@ export default function DiscoverSection() {
   }
 
   return (
-    <section className="flex flex-col gap-5">
+    <section className="flex scroll-mt-24 flex-col gap-5" id="discover">
       <h2>discover</h2>
       <p>
         Search through all venues hosted by Holidaze. Wether you dream about the

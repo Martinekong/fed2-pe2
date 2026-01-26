@@ -7,13 +7,16 @@
     @apply flex min-h-screen flex-col;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-[#FBFBF9] font-body;
   }
 
   main {
-    @apply m-8 flex-grow;
-    /* Fix with media queries later */
+    @apply flex-grow;
   }
 
   h1 {
@@ -31,7 +34,7 @@
 
 @layer components {
   .page-wrapper {
-    @apply mx-auto flex max-w-4xl flex-col gap-24;
+    @apply mx-auto flex max-w-4xl flex-col gap-24 p-8;
   }
 
   .header-profile-btn {

@@ -71,7 +71,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="mx-auto flex max-w-[450px] flex-col items-center px-4">
+    <div className="m-8 mx-auto flex max-w-[450px] flex-col items-center px-4">
       <h1 className="mb-8">Login</h1>
 
       <form
