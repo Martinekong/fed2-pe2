@@ -1,14 +1,14 @@
-import parisImg from '../assets/paris.webp';
-import londonImg from '../assets/london.webp';
-import romeImg from '../assets/rome.webp';
+import parisImg from '../assets/destinations/paris.webp';
+import londonImg from '../assets/destinations/london.webp';
+import romeImg from '../assets/destinations/rome.webp';
 
-import maldivesImg from '../assets/maldives.webp';
-import fijiImg from '../assets/fiji.webp';
-import zanzibarImg from '../assets/zanzibar.webp';
+import maldivesImg from '../assets/destinations/maldives.webp';
+import fijiImg from '../assets/destinations/fiji.webp';
+import zanzibarImg from '../assets/destinations/zanzibar.webp';
 
-import castleImg from '../assets/castle.webp';
-import boatImg from '../assets/boat.webp';
-import cabinImg from '../assets/cabin.webp';
+import castleImg from '../assets/destinations/castle.webp';
+import boatImg from '../assets/destinations/boat.webp';
+import cabinImg from '../assets/destinations/cabin.webp';
 
 export type Destination = {
   id: number;
