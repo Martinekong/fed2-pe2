@@ -5,21 +5,38 @@ import WifiIcon from '@mui/icons-material/Wifi';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PetsIcon from '@mui/icons-material/Pets';
 
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import toast from 'react-hot-toast';
+import { useState } from 'react';
+import { toggleFavorite, isFavorite } from '../../lib/storage';
+
 type Props = {
   venue: Venue;
 };
 
 export default function VenueCard({ venue }: Props) {
-  const image = venue.media[0].url;
+  const [favorite, setFavorite] = useState(() => isFavorite(venue.id));
+
+  function handleFavoriteClick(e: React.MouseEvent) {
+    e.preventDefault();
+
+    const nowFavorite = toggleFavorite(venue.id);
+    setFavorite(nowFavorite);
+
+    toast.success(
+      nowFavorite ? 'Venue added to favorites' : 'Venue removed from favorites',
+    );
+  }
 
   return (
     <Link
       to={`/venues/${venue.id}`}
-      className="group flex flex-col rounded-2xl shadow-md transition hover:shadow-lg"
+      className="group relative flex flex-col rounded-2xl shadow-md transition hover:shadow-lg"
     >
       <div className="overflow-hidden rounded-t-2xl">
         <img
-          src={image}
+          src={venue.media[0].url}
           alt={venue.media[0].alt ?? venue.name}
           className="h-60 w-full rounded-t-2xl object-cover transition-transform duration-300 ease-out group-hover:scale-105"
         />
@@ -65,6 +82,15 @@ export default function VenueCard({ venue }: Props) {
           <p className="pt-2 text-sm">/ night</p>
         </div>
       </div>
+
+      <button
+        type="button"
+        onClick={handleFavoriteClick}
+        aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
+        className="absolute right-0 top-0 rounded-bl-2xl rounded-tr-2xl bg-black/50 p-3 text-white"
+      >
+        {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+      </button>
     </Link>
   );
 }

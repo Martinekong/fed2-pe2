@@ -11,6 +11,10 @@ export default function VenuesPage() {
   const initialSearch = searchParams.get('search') ?? '';
   const [search, setSearch] = useState(initialSearch);
 
+  useEffect(() => {
+    setSearch(searchParams.get('search') ?? '');
+  }, [searchParams]);
+
   const [venues, setVenues] = useState<Venue[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -79,7 +83,6 @@ export default function VenuesPage() {
       )}
 
       {!isLoading && !error && venues.length > 0 && (
-        // <p className="pt-4">Found {venues.length} venues</p>
         <VenueGrid venues={venues} />
       )}
     </div>
