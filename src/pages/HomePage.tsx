@@ -7,7 +7,7 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <div className="page-wrapper">
+      <div className="page-wrapper gap-24">
         <DiscoverSection />
         <DestinationSection variant="cities" />
         <TopVenuesSection />
