@@ -6,6 +6,8 @@ import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import VenueGrid from '../../components/venues/VenueGrid';
 
+import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
+
 export default function VenuesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialSearch = searchParams.get('search') ?? '';
@@ -55,25 +57,43 @@ export default function VenuesPage() {
     setSearchParams({ search: q, page: '1' });
   }
 
+  function handleViewAll() {
+    setSearch('');
+    setSearchParams({ page: '1' });
+  }
+
   return (
     <div className="page-wrapper gap-8">
       <h1>Venues</h1>
-      <form className="relative" onSubmit={handleSubmit}>
-        <Input
-          type="search"
-          placeholder="Search for venues..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="mt-0"
-        />
-        <Button
-          variant="primary"
-          type="submit"
-          className="absolute bottom-0 right-0 top-0"
+      <div className="flex items-center gap-4">
+        <form className="relative flex-1" onSubmit={handleSubmit}>
+          <Input
+            type="search"
+            placeholder="Search for venues..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="mt-0"
+          />
+          <Button
+            variant="primary"
+            type="submit"
+            className="absolute bottom-0 right-0 top-0"
+          >
+            Search
+          </Button>
+        </form>
+
+        <button
+          type="button"
+          onClick={handleViewAll}
+          aria-label="View all venues"
+          disabled={!searchParams.get('search')}
+          title="View all venues"
+          className="h-12 w-12"
         >
-          Search
-        </Button>
-      </form>
+          <AllInclusiveIcon />
+        </button>
+      </div>
 
       {error && <p className="pt-4 text-error">{error}</p>}
       {isLoading && <p className="pt-4">Loading...</p>}
