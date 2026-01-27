@@ -4,6 +4,7 @@ import { getAllVenues, searchVenues, type Venue } from '../../api/venues';
 
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
+import VenueGrid from '../../components/venues/VenueGrid';
 
 export default function VenuesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -51,7 +52,7 @@ export default function VenuesPage() {
   }
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper gap-8">
       <h1>Venues</h1>
       <form className="relative" onSubmit={handleSubmit}>
         <Input
@@ -59,11 +60,12 @@ export default function VenuesPage() {
           placeholder="Search for venues..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          className="mt-0"
         />
         <Button
           variant="primary"
           type="submit"
-          className="absolute bottom-0 right-0 top-2"
+          className="absolute bottom-0 right-0 top-0"
         >
           Search
         </Button>
@@ -77,7 +79,8 @@ export default function VenuesPage() {
       )}
 
       {!isLoading && !error && venues.length > 0 && (
-        <p className="pt-4">Found {venues.length} venues</p>
+        // <p className="pt-4">Found {venues.length} venues</p>
+        <VenueGrid venues={venues} />
       )}
     </div>
   );

@@ -68,7 +68,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-black/35" />
 
       <div className="relative h-full">
-        <div className="mx-auto flex h-full max-w-4xl flex-row items-center gap-8 px-8 sm:gap-10 md:gap-12">
+        <div className="mx-auto flex h-full max-w-5xl flex-row items-center gap-8 px-8 sm:gap-10 md:gap-12">
           <div className="flex flex-col items-center gap-8">
             {items.map((item, i) => {
               const isActive = i === activeIndex;
