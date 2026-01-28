@@ -5,6 +5,7 @@ import { getAllVenues, searchVenues, type Venue } from '../../api/venues';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import VenueGrid from '../../components/venues/VenueGrid';
+import Pagination from '../../components/ui/Pagination';
 
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 
@@ -12,6 +13,7 @@ export default function VenuesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const initialSearch = searchParams.get('search') ?? '';
   const [search, setSearch] = useState(initialSearch);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     setSearch(searchParams.get('search') ?? '');
@@ -35,6 +37,8 @@ export default function VenuesPage() {
           ? await searchVenues(q, page, limit)
           : await getAllVenues(page, limit);
         setVenues(res.data);
+        const totalCount = res.meta?.totalCount ?? res.data.length;
+        setTotalPages(Math.max(1, Math.ceil(totalCount / limit)));
       } catch {
         setError('Could not load venues. Please try again.');
       } finally {
@@ -60,6 +64,16 @@ export default function VenuesPage() {
   function handleViewAll() {
     setSearch('');
     setSearchParams({ page: '1' });
+  }
+
+  function goToPage(nextPage: number) {
+    const safe = Math.max(1, Math.min(totalPages, nextPage));
+
+    const params: Record<string, string> = { page: String(safe) };
+    const currentSearch = searchParams.get('search');
+    if (currentSearch) params.search = currentSearch;
+
+    setSearchParams(params);
   }
 
   return (
@@ -103,7 +117,14 @@ export default function VenuesPage() {
       )}
 
       {!isLoading && !error && venues.length > 0 && (
-        <VenueGrid venues={venues} />
+        <>
+          <VenueGrid venues={venues} />
+          <Pagination
+            page={page}
+            totalPages={totalPages}
+            onPageChange={goToPage}
+          />
+        </>
       )}
     </div>
   );
