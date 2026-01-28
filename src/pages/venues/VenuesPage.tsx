@@ -5,6 +5,7 @@ import { getAllVenues, searchVenues, type Venue } from '../../api/venues';
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import VenueGrid from '../../components/venues/VenueGrid';
+import VenueGridSkeleton from '../../components/venues/VenueGridSkeleton';
 import Pagination from '../../components/ui/Pagination';
 
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
@@ -110,7 +111,7 @@ export default function VenuesPage() {
       </div>
 
       {error && <p className="pt-4 text-error">{error}</p>}
-      {isLoading && <p className="pt-4">Loading...</p>}
+      {isLoading && <VenueGridSkeleton count={limit} />}
 
       {!isLoading && !error && venues.length === 0 && (
         <p className="pt-4">No venues match your search.</p>
