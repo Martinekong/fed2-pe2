@@ -11,6 +11,8 @@ import toast from 'react-hot-toast';
 import { useState } from 'react';
 import { toggleFavorite, isFavorite } from '../../lib/storage';
 
+import PlaceholderImage from '../../assets/placeholder_image.jpg';
+
 type Props = {
   venue: Venue;
 };
@@ -29,6 +31,9 @@ export default function VenueCard({ venue }: Props) {
     );
   }
 
+  const imageUrl = venue.media[0]?.url || PlaceholderImage;
+  const imageAlt = venue.media[0]?.alt || venue.name;
+
   return (
     <Link
       to={`/venues/${venue.id}`}
@@ -36,8 +41,8 @@ export default function VenueCard({ venue }: Props) {
     >
       <div className="overflow-hidden rounded-t-2xl">
         <img
-          src={venue.media[0].url}
-          alt={venue.media[0].alt ?? venue.name}
+          src={imageUrl}
+          alt={imageAlt}
           className="h-60 w-full rounded-t-2xl object-cover transition-transform duration-300 ease-out group-hover:scale-105"
         />
       </div>
