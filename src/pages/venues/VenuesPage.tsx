@@ -110,11 +110,11 @@ export default function VenuesPage() {
         </button>
       </div>
 
-      {error && <p className="pt-4 text-error">{error}</p>}
+      {error && <p className="text-error">{error}</p>}
       {isLoading && <VenueGridSkeleton count={limit} />}
 
       {!isLoading && !error && venues.length === 0 && (
-        <p className="pt-4">No venues match your search.</p>
+        <p>No venues match your search.</p>
       )}
 
       {!isLoading && !error && venues.length > 0 && (

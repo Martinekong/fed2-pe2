@@ -1,7 +1,63 @@
+import { useEffect, useState } from 'react';
+import VenueGrid from '../../components/venues/VenueGrid';
+import VenueGridSkeleton from '../../components/venues/VenueGridSkeleton';
+import { getFavorites } from '../../lib/storage';
+import { getVenuesByIds, type Venue } from '../../api/venues';
+
 export default function FavoritesPage() {
+  const [favoritesIds, setFavoritesIds] = useState<string[]>([]);
+  const [venues, setVenues] = useState<Venue[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setFavoritesIds(getFavorites());
+  }, []);
+
+  useEffect(() => {
+    async function loadFavorites() {
+      setIsLoading(true);
+      setError(null);
+
+      try {
+        if (favoritesIds.length === 0) {
+          setVenues([]);
+          return;
+        }
+
+        const data = await getVenuesByIds(favoritesIds);
+        setVenues(data);
+      } catch {
+        setError('Could not load favorites. Please try again.');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadFavorites();
+  }, [favoritesIds]);
+
+  function handleFavoriteChange(venueId: string, nowFavorite: boolean) {
+    if (!nowFavorite) {
+      setVenues((prev) => prev.filter((v) => v.id !== venueId));
+      setFavoritesIds((prev) => prev.filter((id) => id !== venueId));
+    }
+  }
+
   return (
-    <div>
-      <h1>Favorites page</h1>
+    <div className="page-wrapper gap-8">
+      <h1>Favorites</h1>
+
+      {error && <p className="text-error">{error}</p>}
+
+      {isLoading && <VenueGridSkeleton count={12} />}
+
+      {!isLoading && !error && venues.length === 0 && (
+        <p>You have no favorited venues</p>
+      )}
+      {!isLoading && !error && venues.length > 0 && (
+        <VenueGrid venues={venues} onFavoriteChange={handleFavoriteChange} />
+      )}
     </div>
   );
 }

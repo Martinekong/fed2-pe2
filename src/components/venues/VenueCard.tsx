@@ -15,9 +15,10 @@ import PlaceholderImage from '../../assets/placeholder_image.jpg';
 
 type Props = {
   venue: Venue;
+  onFavoriteChange?: (venueId: string, nowFavorite: boolean) => void;
 };
 
-export default function VenueCard({ venue }: Props) {
+export default function VenueCard({ venue, onFavoriteChange }: Props) {
   const [favorite, setFavorite] = useState(() => isFavorite(venue.id));
 
   function handleFavoriteClick(e: React.MouseEvent) {
@@ -29,6 +30,8 @@ export default function VenueCard({ venue }: Props) {
     toast.success(
       nowFavorite ? 'Venue added to favorites' : 'Venue removed from favorites',
     );
+
+    onFavoriteChange?.(venue.id, nowFavorite);
   }
 
   const imageUrl = venue.media[0]?.url || PlaceholderImage;
@@ -49,7 +52,7 @@ export default function VenueCard({ venue }: Props) {
 
       <div className="flex flex-1 flex-col gap-4 p-4">
         <div className="flex flex-col gap-1">
-          <h3>{venue.name}</h3>
+          <h3 className="truncate">{venue.name}</h3>
           <div className="flex opacity-70">
             <FmdGoodOutlinedIcon fontSize="small" />
             <p className="text-sm">
