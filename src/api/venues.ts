@@ -10,6 +10,25 @@ export type Venue = {
   maxGuests: number;
   meta: { wifi: boolean; parking: boolean; breakfast: boolean; pets: boolean };
   created: string;
+  owner: VenueOwner;
+  bookings: Booking[];
+};
+
+export type VenueOwner = {
+  name: string;
+  email: string;
+  bio: string;
+  avatar: {
+    url: string;
+    alt: string;
+  };
+};
+
+export type Booking = {
+  id: string;
+  dateFrom: string;
+  dateTo: string;
+  guests: number;
 };
 
 type VenueResponse = { data: Venue };
@@ -34,9 +53,12 @@ export async function getAllVenues(
 }
 
 export async function getVenue(id: string) {
-  const res = await request<VenueResponse>(`/holidaze/venues/${id}`, {
-    auth: false,
-  });
+  const res = await request<VenueResponse>(
+    `/holidaze/venues/${id}?_owner=true&_bookings=true`,
+    {
+      auth: false,
+    },
+  );
   return res.data;
 }
 
