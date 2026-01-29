@@ -28,7 +28,7 @@
   }
 
   h3 {
-    @apply text-xl font-bold;
+    @apply font-heading text-xl font-semibold;
   }
 }
 
