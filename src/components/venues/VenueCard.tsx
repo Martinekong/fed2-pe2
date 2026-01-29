@@ -95,7 +95,7 @@ export default function VenueCard({ venue, onFavoriteChange }: Props) {
         type="button"
         onClick={handleFavoriteClick}
         aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
-        className="absolute right-0 top-0 rounded-bl-2xl rounded-tr-2xl bg-black/50 p-3 text-white"
+        className="absolute right-0 top-0 rounded-bl-2xl rounded-tr-2xl bg-black/50 p-3 text-white backdrop-blur"
       >
         {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
       </button>
