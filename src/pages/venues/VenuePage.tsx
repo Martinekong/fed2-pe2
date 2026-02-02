@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getVenue, type Venue } from '../../api/venues';
 import VenueImgCarousel from '../../components/venues/VenueImgCarousel';
 import VenueDetails from '../../components/venues/VenueDetails';
+import VenueRightPanel from '../../components/venues/VenueRightPanel';
 
 export default function VenuePage() {
   const [venue, setVenue] = useState<Venue | null>(null);
@@ -48,13 +49,11 @@ export default function VenuePage() {
         name={venue.name}
       />
 
-      <div className="grid md:grid-cols-2">
+      <div className="grid gap-20 md:grid-cols-2">
         <VenueDetails venue={venue} />
 
         <div>
-          {/* If user logged in: Booking with calendar */}
-          {/* If user not logged in: Login btn to login page */}
-          {/* If user logged in = venue manager: edit btn, delete btn, and upcoming bookings*/}
+          <VenueRightPanel venue={venue} />
         </div>
       </div>
     </section>

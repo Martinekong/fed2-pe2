@@ -29,6 +29,9 @@ export type Booking = {
   dateFrom: string;
   dateTo: string;
   guests: number;
+  customer: {
+    name: string;
+  };
 };
 
 type VenueResponse = { data: Venue };
