@@ -3,10 +3,6 @@ import { request } from './client';
 export type Profile = {
   name: string;
   email: string;
-  banner: {
-    url: string;
-    alt: string;
-  };
   avatar: {
     url: string;
     alt: string;
@@ -25,5 +21,23 @@ export async function getProfile(name: string) {
     // include ?_venues=true&_bookings=true
     { auth: true },
   );
+  return res.data;
+}
+
+export type UpdateProfileInput = {
+  bio?: string;
+  avatar?: { url: string; alt?: string };
+  venueManager?: boolean;
+};
+
+export async function updateProfile(
+  name: string,
+  body: UpdateProfileInput,
+): Promise<Profile> {
+  const res = await request<ProfileResponse>(`/holidaze/profiles/${name}`, {
+    method: 'PUT',
+    auth: true,
+    body,
+  });
   return res.data;
 }
