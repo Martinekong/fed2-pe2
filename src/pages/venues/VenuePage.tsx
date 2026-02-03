@@ -49,7 +49,7 @@ export default function VenuePage() {
         name={venue.name}
       />
 
-      <div className="grid gap-20 md:grid-cols-2">
+      <div className="flex flex-col gap-20 md:grid md:grid-cols-2">
         <VenueDetails venue={venue} />
 
         <div>

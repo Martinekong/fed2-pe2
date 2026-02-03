@@ -1,6 +1,7 @@
 import { getToken } from '../lib/storage';
 
 const BASE_URL = import.meta.env.VITE_API_BASE_URL;
+const API_KEY = import.meta.env.VITE_API_KEY;
 
 type HTTPMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
@@ -31,7 +32,10 @@ export async function request<T>(
 
   if (auth) {
     const token = getToken();
-    if (token) headers.Authorization = `Bearer ${token}`;
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+      headers['X-Noroff-API-Key'] = API_KEY;
+    }
   }
 
   const res = await fetch(`${BASE_URL}${path}`, {
