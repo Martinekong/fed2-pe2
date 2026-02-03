@@ -19,6 +19,7 @@ import CreateVenuePage from '../pages/manager/CreateVenuePage';
 import EditVenuePage from '../pages/manager/EditVenuePage';
 
 import NotFoundPage from '../pages/NotFoundPage';
+import AuthGuard from '../components/navigation/AuthGuard';
 
 export default function AppRoutes() {
   return (
@@ -31,11 +32,13 @@ export default function AppRoutes() {
       <Route path="/venues/:id" element={<VenuePage />} />
       <Route path="/favorites" element={<FavoritesPage />} />
 
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/profile/edit" element={<EditProfilePage />} />
+      <Route element={<AuthGuard />}>
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile/edit" element={<EditProfilePage />} />
 
-      <Route path="/bookings" element={<MyBookingsPage />} />
-      <Route path="/bookings/:id" element={<BookingPage />} />
+        <Route path="/bookings" element={<MyBookingsPage />} />
+        <Route path="/bookings/:id" element={<BookingPage />} />
+      </Route>
 
       <Route path="/manager/venues" element={<MyVenuesPage />} />
       <Route path="/manager/venues/create" element={<CreateVenuePage />} />
