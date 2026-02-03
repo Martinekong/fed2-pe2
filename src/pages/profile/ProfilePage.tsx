@@ -45,7 +45,7 @@ export default function ProfilePage() {
 
   return (
     <div className="page-wrapper gap-8">
-      <h1>Profile page</h1>
+      <h1>Profile</h1>
 
       <div className="flex flex-wrap gap-8">
         <img
