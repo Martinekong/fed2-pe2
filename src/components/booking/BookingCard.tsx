@@ -33,7 +33,10 @@ export default function BookingCard({ booking, onDelete }: Props) {
   const total = venue?.price ? nights * venue.price : null;
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-lg sm:flex-row">
+    <Link
+      to={`/bookings/${booking.id}`}
+      className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-lg sm:flex-row"
+    >
       <img
         src={imageUrl}
         alt={imageAlt}
@@ -74,18 +77,30 @@ export default function BookingCard({ booking, onDelete }: Props) {
         </div>
 
         <div className="flex flex-col justify-between">
-          <Link to={`/bookings/${booking.id}`} className="hover:underline">
-            Edit
-          </Link>
           <button
             type="button"
-            onClick={() => onDelete(booking.id)}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              // open edit modal for booking.id
+            }}
+            className="hover:underline"
+          >
+            Edit
+          </button>
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              onDelete(booking.id);
+            }}
             className="text-error hover:underline"
           >
             Delete
           </button>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
