@@ -33,8 +33,11 @@ export default function MyBookingsPage() {
         }
 
         const data = await getBookingsByProfile(username);
-        //TODO: Sort by upcoming date first, then setBookings(sorted)
-        setBookings(data);
+        const sorted = [...data].sort(
+          (a, b) =>
+            new Date(a.dateFrom).getTime() - new Date(b.dateFrom).getTime(),
+        );
+        setBookings(sorted);
         console.log('data:', data);
       } catch {
         setError('Could not load bookings. Please try again.');
