@@ -10,6 +10,7 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 
 type Props = {
   booking: Booking;
+  onEdit: (id: string) => void;
   onDelete: (id: string) => void;
 };
 
@@ -23,7 +24,7 @@ function nightsBetween(from: string, to: string) {
   return Math.max(0, differenceInCalendarDays(new Date(to), new Date(from)));
 }
 
-export default function BookingCard({ booking, onDelete }: Props) {
+export default function BookingCard({ booking, onEdit, onDelete }: Props) {
   const venue = booking.venue;
 
   const imageUrl = venue?.media[0]?.url || PlaceholderImage;
@@ -82,6 +83,7 @@ export default function BookingCard({ booking, onDelete }: Props) {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
+              onEdit(booking.id);
               // open edit modal for booking.id
             }}
             className="hover:underline"

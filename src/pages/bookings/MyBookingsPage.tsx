@@ -6,8 +6,10 @@ import BookingCard from '../../components/booking/BookingCard';
 
 import { getUsername } from '../../lib/storage';
 import { getBookingsByProfile } from '../../api/profiles';
-import { deleteBooking, type Booking } from '../../api/bookings';
+import { updateBooking, deleteBooking, type Booking } from '../../api/bookings';
 import toast from 'react-hot-toast';
+
+import CalendarModal from '../../components/booking/CalendarModal';
 import ConfirmModal from '../../components/ui/ConfirmModal';
 
 export default function MyBookingsPage() {
@@ -16,6 +18,9 @@ export default function MyBookingsPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [editId, setEditId] = useState<string | null>(null);
+  const [isEditing, setIsEditing] = useState(false);
 
   const [deleteId, setDeleteId] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -48,6 +53,12 @@ export default function MyBookingsPage() {
 
     load();
   }, [username]);
+
+  const bookingToEdit = bookings.find((b) => b.id === editId) ?? null;
+
+  function handleEditClick(id: string) {
+    setEditId(id);
+  }
 
   function handleDeleteClick(id: string) {
     setDeleteId(id);
@@ -86,6 +97,7 @@ export default function MyBookingsPage() {
               <BookingCard
                 key={b.id}
                 booking={b}
+                onEdit={handleEditClick}
                 onDelete={handleDeleteClick}
               />
             ))}
@@ -96,6 +108,38 @@ export default function MyBookingsPage() {
               Go to venues
             </Button>
           </Link>
+
+          <CalendarModal
+            open={editId !== null}
+            booking={bookingToEdit}
+            isSaving={isEditing}
+            onClose={() => !isEditing && setEditId(null)}
+            onSave={async (next) => {
+              if (!bookingToEdit) return;
+
+              setIsEditing(true);
+              try {
+                await updateBooking(bookingToEdit.id, next);
+
+                toast.success('Booking updated!');
+                setEditId(null);
+
+                if (username) {
+                  const data = await getBookingsByProfile(username);
+                  const sorted = [...data].sort(
+                    (a, b) =>
+                      new Date(a.dateFrom).getTime() -
+                      new Date(b.dateFrom).getTime(),
+                  );
+                  setBookings(sorted);
+                }
+              } catch {
+                toast.error('Could not update booking');
+              } finally {
+                setIsEditing(false);
+              }
+            }}
+          />
 
           <ConfirmModal
             open={deleteId !== null}
