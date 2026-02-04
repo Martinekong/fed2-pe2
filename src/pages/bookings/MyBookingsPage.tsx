@@ -6,7 +6,9 @@ import BookingCard from '../../components/booking/BookingCard';
 
 import { getUsername } from '../../lib/storage';
 import { getBookingsByProfile } from '../../api/profiles';
-import type { Booking } from '../../api/bookings';
+import { deleteBooking, type Booking } from '../../api/bookings';
+import toast from 'react-hot-toast';
+import ConfirmModal from '../../components/ui/ConfirmModal';
 
 export default function MyBookingsPage() {
   const username = getUsername();
@@ -14,6 +16,9 @@ export default function MyBookingsPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     async function load() {
@@ -41,8 +46,24 @@ export default function MyBookingsPage() {
     load();
   }, [username]);
 
-  function handleDelete(id: string) {
-    //TODO: confirm modal + call delete endpoint
+  function handleDeleteClick(id: string) {
+    setDeleteId(id);
+  }
+
+  async function handleConfirmDelete() {
+    if (!deleteId) return;
+
+    setIsDeleting(true);
+    try {
+      await deleteBooking(deleteId);
+      setBookings((prev) => prev.filter((b) => b.id !== deleteId));
+      toast.success('Booking deleted');
+      setDeleteId(null);
+    } catch {
+      toast.error('Could not delete booking');
+    } finally {
+      setIsDeleting(false);
+    }
   }
 
   return (
@@ -59,15 +80,27 @@ export default function MyBookingsPage() {
         <>
           <div className="flex flex-col gap-8">
             {bookings.map((b) => (
-              <BookingCard key={b.id} booking={b} />
+              <BookingCard
+                key={b.id}
+                booking={b}
+                onDelete={handleDeleteClick}
+              />
             ))}
           </div>
 
-          <Link to="/venuea">
+          <Link to="/venues">
             <Button variant="primary" className="w-56">
               Go to venues
             </Button>
           </Link>
+
+          <ConfirmModal
+            open={deleteId !== null}
+            title="booking"
+            onClose={() => !isDeleting && setDeleteId(null)}
+            onConfirm={handleConfirmDelete}
+            isConfirming={isDeleting}
+          />
         </>
       )}
     </div>

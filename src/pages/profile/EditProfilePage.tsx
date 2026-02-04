@@ -88,7 +88,6 @@ export default function EditProfilePage() {
     const alt = avatarAlt.trim();
 
     if (!url) {
-      // NØDVENDIG?
       toast.error('Please add an image url.');
     }
 

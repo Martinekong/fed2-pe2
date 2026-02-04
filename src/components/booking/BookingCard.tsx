@@ -10,7 +10,7 @@ import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined
 
 type Props = {
   booking: Booking;
-  // onDelete here later
+  onDelete: (id: string) => void;
 };
 
 function formatDateRange(from: string, to: string) {
@@ -23,7 +23,7 @@ function nightsBetween(from: string, to: string) {
   return Math.max(0, differenceInCalendarDays(new Date(to), new Date(from)));
 }
 
-export default function BookingCard({ booking }: Props) {
+export default function BookingCard({ booking, onDelete }: Props) {
   const venue = booking.venue;
 
   const imageUrl = venue?.media[0]?.url || PlaceholderImage;
@@ -77,9 +77,12 @@ export default function BookingCard({ booking }: Props) {
           <Link to={`/bookings/${booking.id}`} className="hover:underline">
             Edit
           </Link>
-          <button type="button" className="text-error hover:underline">
+          <button
+            type="button"
+            onClick={() => onDelete(booking.id)}
+            className="text-error hover:underline"
+          >
             Delete
-            {/* Fix delete functionality later */}
           </button>
         </div>
       </div>

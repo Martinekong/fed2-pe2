@@ -44,6 +44,10 @@ export async function request<T>(
     body: body ? JSON.stringify(body) : undefined,
   });
 
+  if (res.status === 204) {
+    return undefined as T;
+  }
+
   const data = await res.json().catch(() => null);
 
   if (!res.ok) {
