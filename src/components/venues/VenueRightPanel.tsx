@@ -6,7 +6,8 @@ import type { Venue } from '../../api/venues';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
-import BookingCard from '../booking/BookingCard';
+
+import CalendarCard from '../booking/CalendarCard';
 
 type Props = {
   venue: Venue;
@@ -114,7 +115,7 @@ export default function VenueRightPanel({ venue }: Props) {
   return (
     <div className="flex flex-col gap-4">
       <h3>Booking</h3>
-      <BookingCard venue={venue} />
+      <CalendarCard venue={venue} />
     </div>
   );
 }

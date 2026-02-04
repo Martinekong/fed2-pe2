@@ -1,4 +1,5 @@
 import { request } from './client';
+import type { Booking } from './bookings';
 
 export type Venue = {
   id: string;
@@ -21,16 +22,6 @@ export type VenueOwner = {
   avatar: {
     url: string;
     alt: string;
-  };
-};
-
-export type Booking = {
-  id: string;
-  dateFrom: string;
-  dateTo: string;
-  guests: number;
-  customer: {
-    name: string;
   };
 };
 
