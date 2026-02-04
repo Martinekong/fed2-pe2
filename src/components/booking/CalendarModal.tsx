@@ -43,6 +43,8 @@ export default function CalendarModal({
   const nights = nightsBetween(range?.from, range?.to);
   const totalPrice = nights * price;
 
+  const maxGuests = booking?.venue?.maxGuests ?? Infinity;
+
   const canSave =
     Boolean(range?.from && range?.to) && nights > 0 && guests >= 1 && !isSaving;
 
@@ -108,8 +110,7 @@ export default function CalendarModal({
                 type="button"
                 onClick={() => setGuests((g) => g + 1)}
                 className="grid h-8 w-8 place-items-center rounded-full bg-primary text-white disabled:opacity-50"
-                disabled={isSaving}
-                // Add disabled to maxGuests of the venue
+                disabled={isSaving || guests > maxGuests}
                 aria-label="Increase guests"
               >
                 +

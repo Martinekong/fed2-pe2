@@ -1,7 +1,10 @@
 import type { Venue } from './venues';
 import { request } from './client';
 
-type BookingVenue = Pick<Venue, 'id' | 'name' | 'price' | 'location' | 'media'>;
+type BookingVenue = Pick<
+  Venue,
+  'id' | 'name' | 'price' | 'location' | 'media' | 'maxGuests'
+>;
 
 export type Booking = {
   id: string;
