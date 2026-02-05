@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 import headerBg from '../../assets/header-bg.jpg';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -24,15 +24,31 @@ export default function Header() {
         </Link>
 
         <nav className="flex gap-4 sm:gap-8">
-          <Link to="/" className="py-2 text-sm">
+          <NavLink
+            to="/"
+            end
+            className={({ isActive }) =>
+              `py-2 text-sm transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
+            }
+          >
             Home
-          </Link>
-          <Link to="/venues" className="py-2 text-sm">
+          </NavLink>
+          <NavLink
+            to="/venues"
+            className={({ isActive }) =>
+              `py-2 text-sm transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
+            }
+          >
             Venues
-          </Link>
-          <Link to="/favorites" className="py-2 text-sm">
+          </NavLink>
+          <NavLink
+            to="/favorites"
+            className={({ isActive }) =>
+              `py-2 text-sm transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
+            }
+          >
             Favorites
-          </Link>
+          </NavLink>
         </nav>
 
         <button
