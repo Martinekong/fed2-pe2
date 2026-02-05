@@ -90,8 +90,16 @@ export default function BookingPage() {
   console.log('Booking:', booking);
 
   return (
-    <div className="page-wrapper md: grid gap-12 md:grid-cols-2">
+    <div className="page-wrapper md: grid gap-8 md:grid-cols-2">
       <h1 className="md:col-span-2">Your booking</h1>
+
+      <div className="md:col-span-2">
+        <VenueImgCarousel
+          venueId={booking.venue!.id}
+          media={booking.venue!.media}
+          name={booking.venue!.name}
+        />
+      </div>
 
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-8">
@@ -211,14 +219,6 @@ export default function BookingPage() {
             <p>{booking.venue?.owner.name}</p>
           </div>
         </div>
-      </div>
-
-      <div className="md:col-span-2">
-        <VenueImgCarousel
-          venueId={booking.venue!.id}
-          media={booking.venue!.media}
-          name={booking.venue!.name}
-        />
       </div>
 
       <CalendarModal
