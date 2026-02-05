@@ -1,67 +1,60 @@
-import { Link, useNavigate } from 'react-router-dom';
-import { getToken, getUsername, clearAuthStorage } from '../../lib/storage';
-import toast from 'react-hot-toast';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+import headerBg from '../../assets/header-bg.jpg';
 import MenuIcon from '@mui/icons-material/Menu';
+import MenuDropdown from './MenuDropdown';
 
 export default function Header() {
-  const navigate = useNavigate();
-
-  const token = getToken();
-  const username = getUsername();
-
-  const loggedIn = Boolean(token);
-  const initial = username ? username.trim().charAt(0).toUpperCase() : '?';
-
-  function handleLogout() {
-    clearAuthStorage();
-    toast.success('Logged out');
-    navigate('/login');
-  }
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-10 flex items-center justify-between bg-white p-4 opacity-[98%] shadow-lg md:grid md:grid-cols-3">
-      <Link
-        to="/"
-        className="items-center font-heading text-2xl font-black capitalize"
-      >
-        holidaze
-      </Link>
+    <header className="relative mb-4 sm:m-4 md:m-6">
+      <div
+        className="absolute inset-0 mx-auto max-w-[1240px] bg-cover bg-center sm:rounded-2xl"
+        style={{
+          backgroundImage: `url('${headerBg}')`,
+        }}
+      />
+      <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/30 sm:rounded-2xl" />
 
-      <nav className="hidden justify-center md:flex md:gap-12">
-        <Link to="/">Home</Link>
-        <Link to="/venues">Venues</Link>
-        <Link to="/favorites">Favorites</Link>
-      </nav>
+      <div className="relative z-10 mx-auto flex max-w-[1240px] items-center justify-between p-4 text-white md:px-6 lg:px-8">
+        <Link to="/" className="font-heading text-lg font-bold tracking-wider">
+          Holidaze
+        </Link>
 
-      <div className="flex justify-end gap-4">
-        {loggedIn ? (
-          <>
-            <Link
-              to="/profile"
-              aria-label="go to profile"
-              className="header-profile-btn"
-            >
-              {initial}
-            </Link>
-            <button onClick={handleLogout} className="header-secondary-btn">
-              Log out
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" className="header-primary-btn">
-              Log in
-            </Link>
-            <Link to="/register" className="header-secondary-btn">
-              Sign up
-            </Link>
-          </>
+        <nav className="flex gap-4 sm:gap-8">
+          <Link to="/" className="py-2 text-sm">
+            Home
+          </Link>
+          <Link to="/venues" className="py-2 text-sm">
+            Venues
+          </Link>
+          <Link to="/favorites" className="py-2 text-sm">
+            Favorites
+          </Link>
+        </nav>
+
+        <button
+          type="button"
+          className="p-2"
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-haspopup="menu"
+          aria-expanded={menuOpen}
+        >
+          <MenuIcon />
+        </button>
+
+        {menuOpen && (
+          <button
+            type="button"
+            className="fixed inset-0 z-40 cursor-default"
+            onClick={() => setMenuOpen(false)}
+            aria-label="Close menu"
+          />
         )}
 
-        <button className="md:hidden">
-          <MenuIcon fontSize="medium" />
-          {/* This button needs to open hamburger menu (<nav>) */}
-        </button>
+        <MenuDropdown open={menuOpen} onClose={() => setMenuOpen(false)} />
       </div>
     </header>
   );
