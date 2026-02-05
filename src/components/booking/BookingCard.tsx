@@ -84,7 +84,6 @@ export default function BookingCard({ booking, onEdit, onDelete }: Props) {
               e.preventDefault();
               e.stopPropagation();
               onEdit(booking.id);
-              // open edit modal for booking.id
             }}
             className="hover:underline"
           >

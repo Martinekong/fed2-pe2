@@ -3,7 +3,15 @@ import { request } from './client';
 
 type BookingVenue = Pick<
   Venue,
-  'id' | 'name' | 'price' | 'location' | 'media' | 'maxGuests'
+  | 'id'
+  | 'name'
+  | 'price'
+  | 'location'
+  | 'media'
+  | 'maxGuests'
+  | 'description'
+  | 'meta'
+  | 'owner'
 >;
 
 export type Booking = {
@@ -16,10 +24,20 @@ export type Booking = {
     name: string;
   };
   venue?: BookingVenue;
+  // Just use type Venue ??
 };
 
 export type BookingResponse = { data: Booking[] };
 export type BookingSingleResponse = { data: Booking };
+
+export async function getSingleBooking(id: string): Promise<Booking> {
+  const res = await request<BookingSingleResponse>(
+    `/holidaze/bookings/${encodeURIComponent(id)}?_venue=true&_customer=true`,
+    { auth: true },
+  );
+
+  return res.data;
+}
 
 export type UpdateBookingInput = {
   dateFrom?: string;
