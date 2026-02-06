@@ -1,13 +1,19 @@
-import { Link } from 'react-router-dom';
-import Button from '../ui/Button';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+
 import { getToken, getUsername } from '../../lib/storage';
-import type { Venue } from '../../api/venues';
+
+import { deleteVenue, type Venue } from '../../api/venues';
+import { ApiError } from '../../api/client';
+
+import CalendarCard from '../booking/CalendarCard';
+import ConfirmModal from '../ui/ConfirmModal';
+import Button from '../ui/Button';
 
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
-
-import CalendarCard from '../booking/CalendarCard';
 
 type Props = {
   venue: Venue;
@@ -25,6 +31,8 @@ function formatDateRange(from: string, to: string) {
 }
 
 export default function VenueRightPanel({ venue }: Props) {
+  const navigate = useNavigate();
+
   const token = getToken();
   const username = getUsername();
   const loggedIn = Boolean(token);
@@ -34,6 +42,25 @@ export default function VenueRightPanel({ venue }: Props) {
     username &&
     venue.owner?.name &&
     username.toLowerCase() === venue.owner.name.toLowerCase();
+
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  async function handleConfirmDelete() {
+    setIsDeleting(true);
+    try {
+      await deleteVenue(venue.id);
+      toast.success('Venue deleted!');
+      setDeleteOpen(false);
+      navigate('/manager/venues');
+    } catch (err) {
+      toast.error(
+        err instanceof ApiError ? err.message : 'Could not delete venue',
+      );
+    } finally {
+      setIsDeleting(false);
+    }
+  }
 
   const now = new Date();
   const upcoming = (venue.bookings ?? [])
@@ -70,12 +97,19 @@ export default function VenueRightPanel({ venue }: Props) {
           variant="tertiary"
           className="w-40"
           type="button"
-          onClick={() => {
-            //TODO: confirm modal / dialog and call delete endpoint
-          }}
+          disabled={isDeleting}
+          onClick={() => setDeleteOpen(true)}
         >
           Delete venue
         </Button>
+
+        <ConfirmModal
+          open={deleteOpen}
+          title="venue"
+          isConfirming={isDeleting}
+          onClose={() => !isDeleting && setDeleteOpen(false)}
+          onConfirm={handleConfirmDelete}
+        />
 
         <div>
           <h3 className="py-4">Upcoming bookings</h3>
