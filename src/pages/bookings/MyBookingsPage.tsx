@@ -92,7 +92,7 @@ export default function MyBookingsPage() {
 
       {!isLoading && !error && bookings.length > 0 && (
         <>
-          <p>You have {bookings.length} upcoming bookings.</p>
+          <p>You have {bookings.length} upcoming bookings:</p>
           <div className="flex flex-col gap-8">
             {bookings.map((b) => (
               <BookingCard
