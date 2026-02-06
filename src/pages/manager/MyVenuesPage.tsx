@@ -83,7 +83,7 @@ export default function MyVenuesPage() {
 
       {!isLoading && !error && venues.length > 0 && (
         <>
-          <div>You have {venues.length} venues</div>
+          <div>You have {venues.length} venues.</div>
           <div className="flex flex-col gap-8">
             {venues.map((v) => (
               <MyVenueCard
@@ -107,7 +107,7 @@ export default function MyVenuesPage() {
 
       <Link to={'/manager/venues/create'}>
         <Button variant="primary" className="w-72">
-          Create venue
+          Add new venue
         </Button>
       </Link>
     </div>
