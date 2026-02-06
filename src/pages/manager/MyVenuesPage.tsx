@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import Button from '../../components/ui/Button';
+import MyVenueCard from '../../components/venues/MyVenueCard';
+import ConfirmModal from '../../components/ui/ConfirmModal';
 
 import { getUsername } from '../../lib/storage';
 import { deleteVenue, type Venue } from '../../api/venues';
 import { getVenuesByProfile } from '../../api/profiles';
-
-import ConfirmModal from '../../components/ui/ConfirmModal';
-import toast from 'react-hot-toast';
 
 export default function MyVenuesPage() {
   const navigate = useNavigate();
@@ -84,6 +84,24 @@ export default function MyVenuesPage() {
       {!isLoading && !error && venues.length > 0 && (
         <>
           <div>You have {venues.length} venues</div>
+          <div className="flex flex-col gap-8">
+            {venues.map((v) => (
+              <MyVenueCard
+                key={v.id}
+                venue={v}
+                onEdit={handleEditClick}
+                onDelete={handleDeleteClick}
+              />
+            ))}
+          </div>
+
+          <ConfirmModal
+            open={deleteId !== null}
+            title="venue"
+            onClose={() => !isDeleting && setDeleteId(null)}
+            onConfirm={handleConfirmDelete}
+            isConfirming={isDeleting}
+          />
         </>
       )}
     </div>
