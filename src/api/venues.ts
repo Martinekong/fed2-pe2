@@ -81,10 +81,39 @@ export async function searchVenues(
   };
 }
 
-// createVenue
+export type VenueInput = {
+  name: string;
+  description: string;
+  price: number;
+  maxGuests: number;
+
+  media?: { url: string; alt?: string }[];
+  meta?: {
+    wifi: boolean;
+    parking: boolean;
+    breakfast: boolean;
+    pets: boolean;
+  };
+
+  location?: {
+    address?: string;
+    city?: string;
+    country?: string;
+  };
+};
+
+export async function createVenue(body: VenueInput): Promise<Venue> {
+  const res = await request<VenueResponse>('/holidaze/venues', {
+    method: 'POST',
+    auth: true,
+    body,
+  });
+
+  return res.data;
+}
+
 // updateVenue
 
-// deleteVenue
 export async function deleteVenue(id: string): Promise<void> {
   await request(`/holidaze/venues/${encodeURIComponent(id)}`, {
     method: 'DELETE',
