@@ -94,7 +94,7 @@ export default function CalendarCard({ venue }: Props) {
       <div className="mt-6 flex flex-col gap-4">
         <div className="flex items-center justify-between">
           <p>Total {nights} nights:</p>
-          <p className="font-semibold tracking-wide">{totalPrice} NOK</p>
+          <p className="font-semibold tracking-wide">$ {totalPrice}</p>
         </div>
 
         <div className="flex items-center justify-between">

@@ -167,7 +167,7 @@ export default function CreateVenuePage() {
               error={errors.maxGuests}
             />
             <Input
-              label="Price/night (NOK)*"
+              label="Price/night ($)*"
               type="number"
               min={1}
               placeholder="800"

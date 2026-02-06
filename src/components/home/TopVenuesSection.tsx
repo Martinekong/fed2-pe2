@@ -81,7 +81,9 @@ export default function TopVenuesSection() {
                   </Link>
                   <p>
                     Only{' '}
-                    <span className="font-bold">NOK {venue.price}/day</span>
+                    <span className="font-bold tracking-wide">
+                      ${venue.price} /night
+                    </span>
                   </p>
                 </div>
               </div>

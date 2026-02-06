@@ -50,7 +50,7 @@ export default function MyVenueCard({ venue, onEdit, onDelete }: Props) {
           <div className="mt-auto flex flex-wrap items-center gap-5">
             <div className="flex items-center gap-2">
               <AccountBalanceWalletOutlinedIcon fontSize="small" />
-              <p className="text-small">NOK {venue.price}/night</p>
+              <p className="text-small">${venue.price}/night</p>
             </div>
             <div className="flex items-center gap-2">
               <CalendarMonthOutlinedIcon fontSize="small" />

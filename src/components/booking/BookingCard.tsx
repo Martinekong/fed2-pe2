@@ -65,7 +65,7 @@ export default function BookingCard({ booking, onEdit, onDelete }: Props) {
             <div className="flex items-center gap-2">
               <AccountBalanceWalletOutlinedIcon fontSize="small" />
               <p className="text-sm">
-                {total !== null ? `$ ${total.toLocaleString('en-GB')}` : '-'}
+                {total !== null ? `$${total.toLocaleString('en-GB')}` : '-'}
               </p>
             </div>
             <div className="flex items-center gap-2">
