@@ -104,6 +104,12 @@ export default function MyVenuesPage() {
           />
         </>
       )}
+
+      <Link to={'/manager/venues/create'}>
+        <Button variant="primary" className="w-72">
+          Create venue
+        </Button>
+      </Link>
     </div>
   );
 }
