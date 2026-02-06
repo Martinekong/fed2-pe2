@@ -110,7 +110,7 @@ export default function CalendarModal({
                 type="button"
                 onClick={() => setGuests((g) => g + 1)}
                 className="grid h-8 w-8 place-items-center rounded-full bg-primary text-white disabled:opacity-50"
-                disabled={isSaving || guests > maxGuests}
+                disabled={isSaving || guests >= maxGuests}
                 aria-label="Increase guests"
               >
                 +
