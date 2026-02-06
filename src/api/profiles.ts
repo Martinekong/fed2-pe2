@@ -1,5 +1,6 @@
 import { request } from './client';
 import type { BookingResponse } from './bookings';
+import type { VenuesResponse } from './venues';
 
 export type Profile = {
   name: string;
@@ -40,6 +41,14 @@ export async function updateProfile(
 export async function getBookingsByProfile(name: string) {
   const res = await request<BookingResponse>(
     `/holidaze/profiles/${encodeURIComponent(name)}/bookings?_venue=true`,
+    { auth: true },
+  );
+  return res.data;
+}
+
+export async function getVenuesByProfile(name: string) {
+  const res = await request<VenuesResponse>(
+    `/holidaze/profiles/${encodeURIComponent(name)}/venues?_bookings=true`,
     { auth: true },
   );
   return res.data;

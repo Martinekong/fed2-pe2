@@ -26,7 +26,7 @@ export type VenueOwner = {
 };
 
 type VenueResponse = { data: Venue };
-type VenuesResponse = { data: Venue[]; meta?: { totalCount?: number } };
+export type VenuesResponse = { data: Venue[]; meta?: { totalCount?: number } };
 
 export async function getAllVenues(
   page = 1,
@@ -83,4 +83,11 @@ export async function searchVenues(
 
 // createVenue
 // updateVenue
+
 // deleteVenue
+export async function deleteVenue(id: string): Promise<void> {
+  await request(`/holidaze/venues/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+    auth: true,
+  });
+}
