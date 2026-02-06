@@ -1,7 +1,7 @@
 export default function NotFoundPage() {
   return (
-    <div>
-      <h1>Not Found page</h1>
+    <div className="page-wrapper gap-8">
+      <h1>Page not found</h1>
     </div>
   );
 }

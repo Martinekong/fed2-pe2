@@ -1,7 +1,7 @@
 export default function EditVenuePage() {
   return (
-    <div>
-      <h1>Edit Venue page</h1>
+    <div className="page-wrapper gap-8">
+      <h1>Edit Venue</h1>
     </div>
   );
 }
