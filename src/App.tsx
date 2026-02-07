@@ -3,6 +3,7 @@ import ToastContainer from './components/ui/Toaster';
 import Header from './components/navigation/Header';
 import Footer from './components/navigation/Footer';
 import ScrollToTop from './components/navigation/ScrollToTop';
+import ScrollToTopButton from './components/navigation/ScrollToTopButton';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <ScrollToTop />
         <AppRoutes />
       </main>
+      <ScrollToTopButton />
       <Footer />
     </>
   );
