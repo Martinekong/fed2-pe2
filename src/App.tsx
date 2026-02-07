@@ -1,5 +1,5 @@
 import AppRoutes from './app/routes';
-import { Toaster } from 'react-hot-toast';
+import ToastContainer from './components/ui/Toaster';
 import Header from './components/navigation/Header';
 import Footer from './components/navigation/Footer';
 import ScrollToTop from './components/navigation/ScrollToTop';
@@ -7,7 +7,7 @@ import ScrollToTop from './components/navigation/ScrollToTop';
 function App() {
   return (
     <>
-      <Toaster position="bottom-right" />
+      <ToastContainer />
       <Header />
       <main>
         <ScrollToTop />
