@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { getToken, getUsername, clearAuthStorage } from '../../lib/storage';
-import { getProfile, type Profile } from '../../api/profiles';
+import { useAuth } from '../../app/authContext';
 
 import ExitToAppOutlinedIcon from '@mui/icons-material/ExitToAppOutlined';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
@@ -17,40 +15,12 @@ type Props = {
 
 export default function MenuDropdown({ open, onClose }: Props) {
   const navigate = useNavigate();
-  const token = getToken();
-  const username = getUsername();
-  const loggedIn = Boolean(token);
-
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [isLoadingProfile, setIsLoadingProfile] = useState(false);
-
-  useEffect(() => {
-    if (!open) return;
-
-    if (!loggedIn || !username) {
-      setProfile(null);
-      return;
-    }
-
-    if (profile) return;
-
-    (async () => {
-      setIsLoadingProfile(true);
-      try {
-        const data = await getProfile(username);
-        setProfile(data);
-      } catch {
-        console.log('Something went wrong.');
-      } finally {
-        setIsLoadingProfile(false);
-      }
-    })();
-  }, [open, loggedIn, username]);
+  const { loggedIn, isVenueManager, logout } = useAuth();
 
   if (!open) return null;
 
   function handleLogout() {
-    clearAuthStorage();
+    logout();
     onClose();
     navigate('/');
   }
@@ -98,7 +68,7 @@ export default function MenuDropdown({ open, onClose }: Props) {
             <p>My bookings</p>
           </Link>
 
-          {!isLoadingProfile && profile?.venueManager && (
+          {isVenueManager && (
             <Link
               to="/manager/venues"
               onClick={onClose}

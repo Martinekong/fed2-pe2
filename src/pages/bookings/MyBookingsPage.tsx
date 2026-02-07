@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../app/authContext';
 
 import Button from '../../components/ui/Button';
 import BookingCard from '../../components/booking/BookingCard';
 
-import { getUsername } from '../../lib/storage';
 import { getBookingsByProfile } from '../../api/profiles';
 import { updateBooking, deleteBooking, type Booking } from '../../api/bookings';
 import toast from 'react-hot-toast';
@@ -13,7 +13,7 @@ import CalendarModal from '../../components/booking/CalendarModal';
 import ConfirmModal from '../../components/ui/ConfirmModal';
 
 export default function MyBookingsPage() {
-  const username = getUsername();
+  const { username } = useAuth();
 
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [isLoading, setIsLoading] = useState(true);

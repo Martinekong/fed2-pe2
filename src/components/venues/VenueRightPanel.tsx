@@ -2,8 +2,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import { getToken, getUsername } from '../../lib/storage';
-
 import { deleteVenue, type Venue } from '../../api/venues';
 import { ApiError } from '../../api/client';
 
@@ -14,6 +12,7 @@ import Button from '../ui/Button';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
+import { useAuth } from '../../app/authContext';
 
 type Props = {
   venue: Venue;
@@ -33,15 +32,10 @@ function formatDateRange(from: string, to: string) {
 export default function VenueRightPanel({ venue }: Props) {
   const navigate = useNavigate();
 
-  const token = getToken();
-  const username = getUsername();
-  const loggedIn = Boolean(token);
+  const { username, loggedIn } = useAuth();
 
-  const isOwner =
-    loggedIn &&
-    username &&
-    venue.owner?.name &&
-    username.toLowerCase() === venue.owner.name.toLowerCase();
+  const ownerName = venue.owner?.name.toLowerCase();
+  const isOwner = loggedIn && username?.toLowerCase() === ownerName;
 
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -62,13 +56,6 @@ export default function VenueRightPanel({ venue }: Props) {
     }
   }
 
-  const now = new Date();
-  const upcoming = (venue.bookings ?? [])
-    .filter((b) => new Date(b.dateTo) >= now)
-    .sort(
-      (a, b) => new Date(a.dateFrom).getTime() - new Date(b.dateFrom).getTime(),
-    );
-
   if (!loggedIn) {
     return (
       <div className="flex flex-col gap-4">
@@ -84,6 +71,14 @@ export default function VenueRightPanel({ venue }: Props) {
   }
 
   if (isOwner) {
+    const now = new Date();
+    const upcoming = (venue.bookings ?? [])
+      .filter((b) => new Date(b.dateTo) >= now)
+      .sort(
+        (a, b) =>
+          new Date(a.dateFrom).getTime() - new Date(b.dateFrom).getTime(),
+      );
+
     return (
       <div className="flex flex-col gap-8">
         <div>

@@ -6,6 +6,8 @@ import { login } from '../../api/auth';
 import { ApiError } from '../../api/client';
 import { loginSchema } from '../../lib/validation';
 
+import { useAuth } from '../../app/authContext';
+
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 
@@ -19,6 +21,8 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const { setAuth } = useAuth();
 
   const [errors, setErrors] = useState<FieldErrors>({});
   const [apiError, setApiError] = useState<string | null>(null);
@@ -59,6 +63,7 @@ export default function LoginPage() {
 
     try {
       const user = await login(validation.data);
+      setAuth({ token: user.accessToken, username: user.name });
       toast.success(`Welcome back ${user.name}`);
       navigate('/');
     } catch (err) {

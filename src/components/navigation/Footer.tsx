@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import headerBg from '../../assets/header-bg.jpg';
-import { getToken } from '../../lib/storage';
+import { useAuth } from '../../app/authContext';
 
 export default function Footer() {
   const [currentYear] = useState(() => new Date().getFullYear());
-  const token = getToken();
-  const loggedIn = Boolean(token);
+
+  const { loggedIn, isVenueManager } = useAuth();
 
   return (
     <footer className="relative mt-16 flex flex-col items-center gap-4 bg-secondary p-8 text-white">
@@ -30,21 +30,27 @@ export default function Footer() {
 
         <nav className="flex flex-wrap justify-center gap-4 tracking-wide">
           <Link to="/">Home</Link>
-          <p className="mt-1 h-3 w-px bg-[#526E6B]"></p>
+          <Divider />
           <Link to="/venues">Venues</Link>
-          <p className="mt-1 h-3 w-px bg-[#526E6B]"></p>
+          <Divider />
           <Link to="/favorites">Favorites</Link>
-          <p className="mt-1 h-3 w-px bg-[#526E6B]"></p>
+          <Divider />
           {loggedIn ? (
             <>
               <Link to="/profile">Profile</Link>
-              <p className="mt-1 h-3 w-px bg-[#526E6B]"></p>
+              <Divider />
               <Link to="/bookings">My bookings</Link>
+              {isVenueManager && (
+                <>
+                  <Divider />
+                  <Link to="/manager/venues">My venues</Link>
+                </>
+              )}
             </>
           ) : (
             <>
               <Link to="/login">Log in</Link>
-              <p className="mt-1 h-3 w-px bg-[#526E6B]"></p>
+              <Divider />
               <Link to="/register">Sign up</Link>
             </>
           )}
@@ -56,4 +62,8 @@ export default function Footer() {
       </div>
     </footer>
   );
+}
+
+function Divider() {
+  return <span className="mt-2 h-3 w-px bg-[#526E6B]" />;
 }

@@ -1,21 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../app/authContext';
 import toast from 'react-hot-toast';
 
 import Button from '../../components/ui/Button';
 import Textarea from '../../components/ui/Textarea';
 
-import { getUsername } from '../../lib/storage';
-import { getProfile, updateProfile, type Profile } from '../../api/profiles';
+import { updateProfile } from '../../api/profiles';
 
 import AvatarModal from '../../components/profile/AvatarModal';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 export default function EditProfilePage() {
   const navigate = useNavigate();
-  const username = getUsername();
 
-  const [profile, setProfile] = useState<Profile | null>(null);
+  const { username, profile, isLoadingProfile, setProfile } = useAuth();
 
   const [bio, setBio] = useState('');
   const [venueManager, setVenueManager] = useState(false);
@@ -24,46 +23,22 @@ export default function EditProfilePage() {
   const [avatarUrl, setAvatarUrl] = useState('');
   const [avatarAlt, setAvatarAlt] = useState('');
 
-  const [isLoading, setIsLoading] = useState(true);
   const [isSaving, setIsSaving] = useState(false);
   const [isSavingAvatar, setIsSavingAvatar] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    async function load() {
-      setIsLoading(true);
-      setError(null);
-
-      try {
-        if (!username) {
-          setError('Missing username. Please log in again.');
-          return;
-        }
-
-        const data = await getProfile(username);
-        setProfile(data);
-
-        setBio(data.bio ?? '');
-        setVenueManager(Boolean(data.venueManager));
-
-        setAvatarUrl(data.avatar.url ?? '');
-        setAvatarAlt(data.avatar.alt ?? '');
-      } catch {
-        setError('Could not load profile.');
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    load();
-  }, [username]);
+    if (!profile) return;
+    setBio(profile.bio ?? '');
+    setVenueManager(Boolean(profile.venueManager));
+    setAvatarUrl(profile.avatar?.url ?? '');
+    setAvatarAlt(profile.avatar?.alt ?? '');
+  }, [profile]);
 
   async function handleSaveProfile(e: React.FormEvent) {
     e.preventDefault();
     if (!username) return;
 
     setIsSaving(true);
-    setError(null);
 
     try {
       const updated = await updateProfile(username, {
@@ -75,7 +50,7 @@ export default function EditProfilePage() {
       toast.success('Profile updated!');
       navigate('/profile');
     } catch {
-      setError('Could not update profile.');
+      toast.error('Could not update profile. Please try again.');
     } finally {
       setIsSaving(false);
     }
@@ -89,10 +64,10 @@ export default function EditProfilePage() {
 
     if (!url) {
       toast.error('Please add an image url.');
+      return;
     }
 
     setIsSavingAvatar(true);
-    setError(null);
 
     try {
       const updated = await updateProfile(username, { avatar: { url, alt } });
@@ -101,14 +76,19 @@ export default function EditProfilePage() {
       toast.success('Profile image updated!');
       setAvatarOpen(false);
     } catch {
-      toast.error('Could not update profile image.');
+      toast.error('Could not update profile image. Please try again.');
     } finally {
       setIsSavingAvatar(false);
     }
   }
 
-  if (isLoading) return <div className="page-wrapper">Loading...</div>;
-  if (error) return <div className="page-wrapper text-error">{error}</div>;
+  if (isLoadingProfile) return <div className="page-wrapper">Loading...</div>;
+  if (!username)
+    return (
+      <div className="page-wrapper text-error">
+        Missing username. Please log in again.
+      </div>
+    );
   if (!profile) return <div className="page-wrapper">Profile not found</div>;
 
   return (
@@ -151,6 +131,7 @@ export default function EditProfilePage() {
             onChange={(e) => setBio(e.target.value)}
             placeholder="Write something about yourself..."
             className="min-h-[120px]"
+            disabled={isSaving || isSavingAvatar}
           />
         </div>
 

@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../app/authContext';
 import toast from 'react-hot-toast';
 
 import Button from '../../components/ui/Button';
 import MyVenueCard from '../../components/venues/MyVenueCard';
 import ConfirmModal from '../../components/ui/ConfirmModal';
 
-import { getUsername } from '../../lib/storage';
 import { deleteVenue, type Venue } from '../../api/venues';
 import { getVenuesByProfile } from '../../api/profiles';
 
@@ -15,7 +15,7 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 export default function MyVenuesPage() {
   const navigate = useNavigate();
 
-  const username = getUsername();
+  const { username } = useAuth();
 
   const [venues, setVenues] = useState<Venue[]>([]);
   const [isLoading, setIsLoading] = useState(true);
