@@ -7,7 +7,7 @@ export type Venue = {
   description: string;
   media: { url: string; alt: string }[];
   price: number;
-  location: { city: string; country: string };
+  location: { city: string; country: string; address: string };
   maxGuests: number;
   meta: { wifi: boolean; parking: boolean; breakfast: boolean; pets: boolean };
   created: string;
@@ -112,7 +112,18 @@ export async function createVenue(body: VenueInput): Promise<Venue> {
   return res.data;
 }
 
-// updateVenue
+export async function updateVenue(
+  id: string,
+  body: VenueInput,
+): Promise<Venue> {
+  const res = await request<VenueResponse>(`/holidaze/venues/${id}`, {
+    method: 'PUT',
+    auth: true,
+    body,
+  });
+
+  return res.data;
+}
 
 export async function deleteVenue(id: string): Promise<void> {
   await request(`/holidaze/venues/${encodeURIComponent(id)}`, {
