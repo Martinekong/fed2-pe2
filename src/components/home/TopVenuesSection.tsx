@@ -5,10 +5,9 @@ import Button from '../ui/Button';
 import { Link } from 'react-router-dom';
 
 const topVenuesIds = [
-  'c5a6f0c4-22e5-4cfb-8982-184ead6913da',
-  '715fc343-7eb9-4db7-804d-5a299753506d',
-  '9020fe6a-6a2d-402e-88c2-2f26272ade94',
-  // Change to own id's later
+  '9de39374-ac34-46fa-8980-1b1e3aadd426',
+  'c3e926fe-aa73-4a0a-a4b8-31bdf674dcda',
+  '2a8ad58c-01e4-46a3-9f1b-b38bcb137c3b',
 ];
 
 export default function TopVenuesSection() {
@@ -43,7 +42,6 @@ export default function TopVenuesSection() {
 
       {error && <p className="pl-2 pt-4 text-error">{error}</p>}
 
-      {/* Change the loading to reusable UI spinner or cards? */}
       {isLoading ? (
         <p className="pl-2 pt-4">Loading...</p>
       ) : (
@@ -54,7 +52,7 @@ export default function TopVenuesSection() {
               className="flex flex-col border-b border-tertiary py-8 md:grid md:grid-cols-2 md:gap-6"
             >
               <img
-                className="h-52 w-full rounded-2xl object-cover md:h-full"
+                className="h-52 w-full rounded-2xl object-cover md:h-80"
                 src={venue.media[0].url ?? ''}
                 alt={venue.media[0].alt ?? venue.name}
               />
@@ -77,7 +75,9 @@ export default function TopVenuesSection() {
 
                 <div className="flex items-center gap-8">
                   <Link to={`/venues/${venue.id}`}>
-                    <Button variant="primary">View more</Button>
+                    <Button variant="primary" className="w-32">
+                      View more
+                    </Button>
                   </Link>
                   <p>
                     Only{' '}
