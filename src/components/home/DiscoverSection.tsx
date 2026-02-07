@@ -35,11 +35,10 @@ export default function DiscoverSection() {
         <Button
           variant="primary"
           type="submit"
-          className="absolute bottom-0 right-0 top-2"
+          className="absolute bottom-0 right-0 top-2 w-28"
         >
           Search
         </Button>
-        {/* Add search functionality: redirect to "/venues", and add the search input as a query */}
       </form>
     </section>
   );

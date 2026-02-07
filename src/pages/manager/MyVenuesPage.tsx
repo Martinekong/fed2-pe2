@@ -10,6 +10,8 @@ import { getUsername } from '../../lib/storage';
 import { deleteVenue, type Venue } from '../../api/venues';
 import { getVenuesByProfile } from '../../api/profiles';
 
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+
 export default function MyVenuesPage() {
   const navigate = useNavigate();
 
@@ -73,7 +75,15 @@ export default function MyVenuesPage() {
 
   return (
     <div className="page-wrapper gap-8">
-      <h1>My Venues</h1>
+      <div className="flex flex-wrap justify-between gap-6">
+        <h1>My Venues</h1>
+        <Link to={'/manager/venues/create'} className="mb-2 mt-auto">
+          <Button variant="primary" className="w-56">
+            <AddOutlinedIcon fontSize="small" className="mr-2" />
+            Add venue
+          </Button>
+        </Link>
+      </div>
 
       {isLoading && <p>Loading...</p>}
       {error && <p className="text-error">{error}</p>}
@@ -104,12 +114,6 @@ export default function MyVenuesPage() {
           />
         </>
       )}
-
-      <Link to={'/manager/venues/create'}>
-        <Button variant="primary" className="w-72">
-          Add new venue
-        </Button>
-      </Link>
     </div>
   );
 }

@@ -80,7 +80,7 @@ export default function VenuesPage() {
   return (
     <div className="page-wrapper gap-8">
       <h1>Venues</h1>
-      <div className="flex items-center gap-4 sm:gap-8">
+      <div className="flex flex-wrap items-center gap-4 sm:gap-8">
         <form className="relative flex-1" onSubmit={handleSubmit}>
           <Input
             type="search"
@@ -92,7 +92,7 @@ export default function VenuesPage() {
           <Button
             variant="primary"
             type="submit"
-            className="absolute bottom-0 right-0 top-0"
+            className="absolute bottom-0 right-0 top-0 sm:w-28"
           >
             Search
           </Button>
