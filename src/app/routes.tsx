@@ -21,6 +21,7 @@ import EditVenuePage from '../pages/manager/EditVenuePage';
 import NotFoundPage from '../pages/NotFoundPage';
 
 import AuthGuard from './AuthGuard';
+import ManagerGuard from './ManagerGuard';
 
 export default function AppRoutes() {
   return (
@@ -41,9 +42,11 @@ export default function AppRoutes() {
         <Route path="/bookings/:id" element={<BookingPage />} />
       </Route>
 
-      <Route path="/manager/venues" element={<MyVenuesPage />} />
-      <Route path="/manager/venues/create" element={<CreateVenuePage />} />
-      <Route path="/manager/venues/:id/edit" element={<EditVenuePage />} />
+      <Route element={<ManagerGuard />}>
+        <Route path="/manager/venues" element={<MyVenuesPage />} />
+        <Route path="/manager/venues/create" element={<CreateVenuePage />} />
+        <Route path="/manager/venues/:id/edit" element={<EditVenuePage />} />
+      </Route>
 
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
