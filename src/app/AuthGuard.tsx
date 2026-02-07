@@ -1,11 +1,11 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { getToken } from '../../lib/storage';
+import { useAuth } from './authContext';
 
 export default function AuthGuard() {
-  const token = getToken();
+  const { loggedIn } = useAuth();
   const location = useLocation();
 
-  if (!token) {
+  if (!loggedIn) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 

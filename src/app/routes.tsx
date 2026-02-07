@@ -19,7 +19,8 @@ import CreateVenuePage from '../pages/manager/CreateVenuePage';
 import EditVenuePage from '../pages/manager/EditVenuePage';
 
 import NotFoundPage from '../pages/NotFoundPage';
-import AuthGuard from '../components/navigation/AuthGuard';
+
+import AuthGuard from './AuthGuard';
 
 export default function AppRoutes() {
   return (

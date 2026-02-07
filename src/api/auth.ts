@@ -27,9 +27,6 @@ export async function login(input: LoginInput) {
     auth: false,
   });
 
-  setToken(res.data.accessToken);
-  setUsername(res.data.name);
-
   return res.data;
 }
 
