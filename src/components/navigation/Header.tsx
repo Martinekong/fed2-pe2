@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import headerBg from '../../assets/header-bg.jpg';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -7,28 +7,51 @@ import MenuDropdown from './MenuDropdown';
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const { pathname } = useLocation();
+
+  const isHome = pathname === '/';
 
   return (
-    <header className="relative mb-4 sm:m-4 md:m-6">
-      <div
-        className="absolute inset-0 mx-auto max-w-[1240px] bg-cover bg-center sm:rounded-2xl"
-        style={{
-          backgroundImage: `url('${headerBg}')`,
-        }}
-      />
-      <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/30 sm:rounded-2xl" />
+    <header
+      className={[
+        'relative',
+        isHome
+          ? 'absolute top-0 z-50 sm:top-4 sm:mx-4 md:top-6 md:mx-6'
+          : 'mb-4 sm:m-4 md:m-6',
+      ].join(' ')}
+    >
+      {!isHome && (
+        <>
+          <div
+            className="absolute inset-0 mx-auto max-w-[1240px] bg-cover bg-center sm:rounded-2xl"
+            style={{
+              backgroundImage: `url('${headerBg}')`,
+            }}
+          />
+          <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/30 sm:rounded-2xl" />
+        </>
+      )}
 
-      <div className="relative z-10 mx-auto flex max-w-[1240px] items-center justify-between p-4 text-white md:px-6 lg:px-8">
+      {isHome && (
+        <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/50 backdrop-blur-sm sm:rounded-2xl" />
+      )}
+
+      <div
+        className={[
+          'relative z-10 mx-auto flex max-w-[1240px] items-center justify-between p-4 text-white sm:py-3 md:px-6 lg:px-8',
+          !isHome ? '' : 'px-6',
+        ].join(' ')}
+      >
         <Link to="/" className="font-heading text-lg font-bold tracking-wider">
           Holidaze
         </Link>
 
-        <nav className="flex gap-4 sm:gap-8">
+        <nav className="flex gap-4 sm:gap-8 md:gap-12">
           <NavLink
             to="/"
             end
             className={({ isActive }) =>
-              `py-2 text-sm transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
+              `pb-2 pt-[10px] text-sm tracking-wider transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
             }
           >
             Home
@@ -36,7 +59,7 @@ export default function Header() {
           <NavLink
             to="/venues"
             className={({ isActive }) =>
-              `py-2 text-sm transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
+              `pb-2 pt-[10px] text-sm tracking-wider transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
             }
           >
             Venues
@@ -44,7 +67,7 @@ export default function Header() {
           <NavLink
             to="/favorites"
             className={({ isActive }) =>
-              `py-2 text-sm transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
+              `pb-2 pt-[10px] text-sm tracking-wider transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
             }
           >
             Favorites

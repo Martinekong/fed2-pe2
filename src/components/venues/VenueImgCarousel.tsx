@@ -84,6 +84,20 @@ export default function VenueImgCarousel({ venueId, media = [], name }: Props) {
           >
             <ArrowForwardIcon />
           </button>
+
+          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-3 py-2 backdrop-blur">
+            <div className="flex items-center gap-3">
+              {Array.from({ length: total }).map((_, i) => (
+                <span
+                  key={i}
+                  className={[
+                    'h-2 w-2 rounded-full transition',
+                    i === safeIndex ? 'bg-white' : 'bg-white/30',
+                  ].join(' ')}
+                ></span>
+              ))}
+            </div>
+          </div>
         </>
       )}
     </div>

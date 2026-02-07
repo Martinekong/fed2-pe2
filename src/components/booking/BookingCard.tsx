@@ -36,12 +36,12 @@ export default function BookingCard({ booking, onEdit, onDelete }: Props) {
   return (
     <Link
       to={`/bookings/${booking.id}`}
-      className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-lg sm:max-h-[170px] sm:flex-row"
+      className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-lg sm:max-h-40 sm:flex-row"
     >
       <img
         src={imageUrl}
         alt={imageAlt}
-        className="h-40 w-full object-cover sm:h-auto sm:w-56"
+        className="h-40 w-full object-cover sm:h-auto sm:min-h-40 sm:w-56 sm:shrink-0"
       />
 
       <div className="flex w-full justify-between gap-4 p-4">

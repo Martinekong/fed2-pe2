@@ -51,17 +51,15 @@ export default function CalendarModal({
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4">
       <div className="relative flex max-w-[314px] flex-col gap-4 rounded-2xl bg-white p-6 shadow-lg sm:max-w-[398px]">
-        <div className="flex items-start justify-between">
-          <h2>Edit booking</h2>
-          <button
-            type="button"
-            onClick={() => !isSaving && onClose()}
-            className="rounded-lg px-3 py-1 text-xl"
-            aria-label="Close"
-          >
-            x
-          </button>
-        </div>
+        <h2>Edit booking</h2>
+        <button
+          type="button"
+          onClick={() => !isSaving && onClose()}
+          className="absolute right-1 top-1 px-3 py-1 text-xl"
+          aria-label="Close"
+        >
+          x
+        </button>
 
         <DayPicker
           mode="range"

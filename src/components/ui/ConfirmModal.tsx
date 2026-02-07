@@ -24,17 +24,15 @@ export default function ConfirmModal({
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4">
       <div className="relative flex w-full max-w-lg flex-col gap-4 rounded-2xl bg-white p-6 shadow-lg">
-        <div className="flex items-start justify-between">
-          <h2>Delete {title}?</h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg px-3 py-1 text-xl"
-            aria-label="Close"
-          >
-            x
-          </button>
-        </div>
+        <h2>Delete {title}?</h2>
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute right-1 top-1 rounded-lg px-3 py-1 text-xl"
+          aria-label="Close"
+        >
+          x
+        </button>
 
         <p>
           Are you sure you want to delete this {title}? This action cannot be

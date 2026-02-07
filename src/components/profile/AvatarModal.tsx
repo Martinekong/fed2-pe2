@@ -26,18 +26,16 @@ export default function AvatarModal({
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4">
-      <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-lg">
-        <div className="flex items-start justify-between">
-          <h2>Profile image</h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg px-3 py-1 text-xl"
-            aria-label="Close"
-          >
-            x
-          </button>
-        </div>
+      <div className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-lg">
+        <h2>Profile image</h2>
+        <button
+          type="button"
+          onClick={onClose}
+          className="absolute right-1 top-1 px-3 py-1 text-xl"
+          aria-label="Close"
+        >
+          x
+        </button>
 
         <div className="mt-6 flex flex-col gap-4">
           <Input

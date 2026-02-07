@@ -80,11 +80,11 @@ export default function VenuesPage() {
   return (
     <div className="page-wrapper gap-8">
       <h1>Venues</h1>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 sm:gap-8">
         <form className="relative flex-1" onSubmit={handleSubmit}>
           <Input
             type="search"
-            placeholder="Search for venues..."
+            placeholder="Search venues..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="mt-0"
@@ -104,9 +104,10 @@ export default function VenuesPage() {
           aria-label="View all venues"
           disabled={!searchParams.get('search')}
           title="View all venues"
-          className="h-12 w-12"
+          className="flex h-12 items-center gap-2"
         >
           <AllInclusiveIcon />
+          View all
         </button>
       </div>
 

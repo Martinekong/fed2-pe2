@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { DayPicker, type DateRange } from 'react-day-picker';
 import { addDays, differenceInCalendarDays, parseISO } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 import Button from '../ui/Button';
 import type { Venue } from '../../api/venues';
 import { request } from '../../api/client';
-import toast from 'react-hot-toast';
 
 type Props = { venue: Venue };
 
@@ -15,6 +16,8 @@ function nightsBetween(from?: Date, to?: Date) {
 }
 
 export default function CalendarCard({ venue }: Props) {
+  const navigate = useNavigate();
+
   const [range, setRange] = useState<DateRange | undefined>();
   const [guests, setGuests] = useState(1);
 
@@ -55,7 +58,7 @@ export default function CalendarCard({ venue }: Props) {
       });
 
       toast.success('Booking created!');
-      // Redirect to my bookings ?
+      navigate('/bookings');
 
       setRange(undefined);
       setGuests(1);

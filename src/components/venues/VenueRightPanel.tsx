@@ -86,16 +86,19 @@ export default function VenueRightPanel({ venue }: Props) {
   if (isOwner) {
     return (
       <div className="flex flex-col gap-8">
-        <h2>Manage venue</h2>
+        <div>
+          <h2>Manage venue</h2>
+          <p className="mt-1 text-sm opacity-80">This venue belongs to you.</p>
+        </div>
         <Link to={`/manager/venues/${venue.id}/edit`}>
-          <Button variant="primary" className="w-40">
+          <Button variant="primary" className="w-72">
             Edit venue
           </Button>
         </Link>
 
         <Button
           variant="tertiary"
-          className="w-40"
+          className="w-72"
           type="button"
           disabled={isDeleting}
           onClick={() => setDeleteOpen(true)}
