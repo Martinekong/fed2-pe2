@@ -118,10 +118,11 @@ export default function CreateVenuePage() {
         ...(location && { location }),
       };
 
-      await createVenue(body);
+      const created = await createVenue(body);
 
       toast.success('Venue created!');
-      navigate('/manager/venues');
+
+      navigate(`/venues/${created.id}`);
     } catch (err) {
       err instanceof ApiError
         ? setApiError(err.message)

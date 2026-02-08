@@ -163,10 +163,11 @@ export default function EditVenuePage() {
         ...(location && { location }),
       };
 
-      await updateVenue(id!, body);
+      const updated = await updateVenue(id!, body);
 
       toast.success('Venue updated!');
-      navigate('/manager/venues');
+
+      navigate(`/venues/${updated.id}`);
     } catch (err) {
       err instanceof ApiError
         ? setApiError(err.message)
