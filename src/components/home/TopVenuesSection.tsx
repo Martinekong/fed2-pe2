@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
-import { getVenuesByIds, type Venue } from '../../api/venues';
-import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
-import Button from '../ui/Button';
 import { Link } from 'react-router-dom';
+
+import { getVenuesByIds, type Venue } from '../../api/venues';
+import Button from '../ui/Button';
+import LoadingLine from '../ui/LoadingLine';
+
+import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 
 const topVenuesIds = [
   '9de39374-ac34-46fa-8980-1b1e3aadd426',
@@ -16,35 +19,36 @@ export default function TopVenuesSection() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let isMounted = true;
-
     async function loadTopVenues() {
       setIsLoading(true);
+      setError(null);
+
       try {
         const venues = await getVenuesByIds(topVenuesIds);
-        if (isMounted) setTopVenues(venues);
+        setTopVenues(venues);
       } catch {
         setError('Failed to load top venues. Please try again later.');
       } finally {
-        if (isMounted) setIsLoading(false);
+        setIsLoading(false);
       }
     }
 
     loadTopVenues();
-    return () => {
-      isMounted = false;
-    };
   }, []);
 
   return (
-    <section className="flex flex-col">
+    <section className="flex flex-col gap-2">
       <h2>top venues</h2>
 
-      {error && <p className="pl-2 pt-4 text-error">{error}</p>}
+      {isLoading && <LoadingLine text="Getting top venues..." />}
 
-      {isLoading ? (
-        <p className="pl-2 pt-4">Loading...</p>
-      ) : (
+      {!isLoading && error && <p className="text-error">{error}</p>}
+
+      {!isLoading && !error && topVenues.length === 0 && (
+        <p>No top venues to show right now.</p>
+      )}
+
+      {!isLoading && !error && topVenues.length > 0 && (
         <article className="flex flex-col">
           {topVenues.map((venue) => (
             <div
