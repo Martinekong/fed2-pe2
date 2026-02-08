@@ -1,5 +1,5 @@
 import { request } from './client';
-import { setToken, setUsername, clearAuthStorage } from '../lib/storage';
+import { clearAuthStorage } from '../lib/storage';
 
 export type LoginInput = {
   email: string;

@@ -9,6 +9,7 @@ import VenueGridSkeleton from '../../components/venues/VenueGridSkeleton';
 import Pagination from '../../components/ui/Pagination';
 
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
+import MuiPagination from '../../components/ui/Pagination';
 
 export default function VenuesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -121,7 +122,12 @@ export default function VenuesPage() {
       {!isLoading && !error && venues.length > 0 && (
         <>
           <VenueGrid venues={venues} />
-          <Pagination
+          {/* <Pagination
+            page={page}
+            totalPages={totalPages}
+            onPageChange={goToPage}
+          /> */}
+          <MuiPagination
             page={page}
             totalPages={totalPages}
             onPageChange={goToPage}
