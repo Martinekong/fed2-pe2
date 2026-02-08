@@ -7,6 +7,7 @@ import {
   setUsername,
 } from '../lib/storage';
 import { getProfile, type Profile } from '../api/profiles';
+import toast from 'react-hot-toast';
 
 type AuthState = {
   token: string | null;
@@ -61,6 +62,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   function logout() {
+    toast.success(`Goodbye for now ${profile?.name}!`);
     clearAuthStorage();
     setTokenState(null);
     setUsernameState(null);
