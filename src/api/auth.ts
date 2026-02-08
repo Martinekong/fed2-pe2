@@ -10,6 +10,7 @@ export type RegisterInput = {
   name: string;
   email: string;
   password: string;
+  venueManager?: boolean;
 };
 
 export type AuthResponse = {

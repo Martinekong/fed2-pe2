@@ -22,6 +22,8 @@ export default function RegisterPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [venueManager, setVenueManager] = useState(false);
+
   const [errors, setErrors] = useState<FieldErrors>({});
   const [apiError, setApiError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -60,7 +62,7 @@ export default function RegisterPage() {
     setIsSubmitting(true);
 
     try {
-      await register(validation.data);
+      await register({ ...validation.data, venueManager });
       toast.success('Account created! You can now log in.');
       navigate('/login');
     } catch (err) {
@@ -113,6 +115,27 @@ export default function RegisterPage() {
           error={errors.password}
           autoComplete="new-password"
         />
+
+        <label className="flex w-full items-center justify-between gap-4">
+          <div className="flex flex-col">
+            <span className="font-medium">Venue manager</span>
+            <span className="text-sm opacity-70">
+              I want to create and manage venues
+            </span>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setVenueManager((v) => !v)}
+            aria-pressed={venueManager}
+            className={`relative h-10 w-20 rounded-full shadow-md transition duration-300 hover:shadow-lg ${venueManager ? 'bg-primary' : 'bg-tertiary'}`}
+            disabled={isSubmitting}
+          >
+            <span
+              className={`absolute top-1 h-8 w-8 rounded-full bg-white transition duration-300 ${venueManager ? 'left-11' : 'left-1'}`}
+            />
+          </button>
+        </label>
 
         <Button
           variant="primary"
