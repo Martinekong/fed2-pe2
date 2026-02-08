@@ -87,7 +87,7 @@ export default function EditProfilePage() {
     <div className="page-wrapper gap-8">
       <h1>Edit Profile</h1>
 
-      {isLoadingProfile && <LoadingLine text="Getting your profile" />}
+      {isLoadingProfile && <LoadingLine text="Getting your profile..." />}
 
       {!isLoadingProfile && !username && (
         <p className="text-error">Please log in to edit your profile.</p>
@@ -111,6 +111,7 @@ export default function EditProfilePage() {
                 onClick={() => setAvatarOpen(true)}
                 aria-label="Edit profile image"
                 className="absolute right-2 top-2 h-12 w-12 rounded-full bg-primary text-white shadow-md hover:bg-primary_hover hover:shadow-lg"
+                disabled={isSaving || isSavingAvatar}
               >
                 <EditOutlinedIcon />
               </button>
@@ -157,14 +158,19 @@ export default function EditProfilePage() {
               <Button
                 variant="primary"
                 type="submit"
-                disabled={isSaving}
+                disabled={isSaving || isSavingAvatar}
                 className="w-48"
               >
                 {isSaving ? 'Saving...' : 'Save'}
               </Button>
 
               <Link to={'/profile'}>
-                <Button variant="secondary" type="button" className="w-48">
+                <Button
+                  variant="secondary"
+                  type="button"
+                  className="w-48"
+                  disabled={isSaving || isSavingAvatar}
+                >
                   Cancel
                 </Button>
               </Link>
