@@ -80,7 +80,7 @@ export default function MyVenuesPage() {
       <div className="flex flex-wrap justify-between gap-6">
         <h1>My Venues</h1>
         <Link to={'/manager/venues/create'} className="mb-2 mt-auto">
-          <Button variant="primary" className="w-56">
+          <Button variant="primary" className="w-56" disabled={isLoading}>
             <AddOutlinedIcon fontSize="small" className="mr-2" />
             Add venue
           </Button>
@@ -90,8 +90,6 @@ export default function MyVenuesPage() {
       {isLoading && (
         <>
           <LoadingLine text="Getting your venues..." />
-          <CardSkeleton />
-          <CardSkeleton />
           <CardSkeleton />
         </>
       )}

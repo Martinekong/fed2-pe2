@@ -248,7 +248,7 @@ export default function BookingPage() {
                     toast.success('Booking updated!');
                     setEditOpen(false);
                   } catch {
-                    toast.error('Could not update booking');
+                    toast.error('Could not update booking. Please try again.');
                   } finally {
                     setIsEditing(false);
                   }
@@ -264,10 +264,10 @@ export default function BookingPage() {
                   setIsDeleting(true);
                   try {
                     await deleteBooking(booking.id);
-                    toast.success('Booking deleted');
+                    toast.success('Booking deleted!');
                     navigate('/bookings');
                   } catch {
-                    toast.error('Could not delete booking');
+                    toast.error('Could not delete booking. Please try again.');
                   } finally {
                     setIsDeleting(false);
                   }

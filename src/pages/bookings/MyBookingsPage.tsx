@@ -75,10 +75,10 @@ export default function MyBookingsPage() {
     try {
       await deleteBooking(deleteId);
       setBookings((prev) => prev.filter((b) => b.id !== deleteId));
-      toast.success('Booking deleted');
+      toast.success('Booking deleted!');
       setDeleteId(null);
     } catch {
-      toast.error('Could not delete booking');
+      toast.error('Could not delete booking. Please try again.');
     } finally {
       setIsDeleting(false);
     }
@@ -91,8 +91,6 @@ export default function MyBookingsPage() {
       {isLoading && (
         <>
           <LoadingLine text="Getting your bookings..." />
-          <BookingCardSkeleton />
-          <BookingCardSkeleton />
           <BookingCardSkeleton />
         </>
       )}
@@ -147,7 +145,7 @@ export default function MyBookingsPage() {
                   setBookings(sorted);
                 }
               } catch {
-                toast.error('Could not update booking');
+                toast.error('Could not update booking. Please try again.');
               } finally {
                 setIsEditing(false);
               }

@@ -55,7 +55,7 @@ export default function RegisterPage() {
 
     const validation = validate();
     if (!validation.ok) {
-      toast.error('Please fix the errors in the form');
+      toast.error('Please fix the errors in the form.');
       return;
     }
 
@@ -68,7 +68,7 @@ export default function RegisterPage() {
     } catch (err) {
       err instanceof ApiError
         ? setApiError(err.message)
-        : setApiError('Something went wrong');
+        : setApiError('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
