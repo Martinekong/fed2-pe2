@@ -21,11 +21,8 @@ import BedtimeOutlinedIcon from '@mui/icons-material/BedtimeOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
-import WifiOutlinedIcon from '@mui/icons-material/WifiOutlined';
-import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
-import LocalParkingOutlinedIcon from '@mui/icons-material/LocalParkingOutlined';
-import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
 import LoadingLine from '../../components/ui/LoadingLine';
+import VenueSpecifications from '../../components/venues/VenueSpecifications';
 
 export default function BookingPage() {
   const navigate = useNavigate();
@@ -179,44 +176,10 @@ export default function BookingPage() {
                   <p>{booking.venue?.description}</p>
                 </div>
 
-                <div className="flex flex-col gap-4">
-                  <h3>Specifications</h3>
-
-                  <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
-                    <BedOutlinedIcon />
-                    <p className="text-sm">
-                      Up to {booking.venue?.maxGuests} guests
-                    </p>
-                  </div>
-
-                  {booking.venue?.meta.wifi && (
-                    <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
-                      <WifiOutlinedIcon />
-                      <p className="text-sm">Wifi</p>
-                    </div>
-                  )}
-
-                  {booking.venue?.meta.breakfast && (
-                    <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
-                      <RestaurantOutlinedIcon />
-                      <p className="text-sm">Breakfast</p>
-                    </div>
-                  )}
-
-                  {booking.venue?.meta.parking && (
-                    <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
-                      <LocalParkingOutlinedIcon />
-                      <p className="text-sm">Parking</p>
-                    </div>
-                  )}
-
-                  {booking.venue?.meta.pets && (
-                    <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
-                      <PetsOutlinedIcon />
-                      <p className="text-sm">Pets allowed</p>
-                    </div>
-                  )}
-                </div>
+                <VenueSpecifications
+                  maxGuests={booking.venue?.maxGuests}
+                  meta={booking.venue?.meta}
+                />
 
                 <div>
                   <h3>Venue Owner</h3>
