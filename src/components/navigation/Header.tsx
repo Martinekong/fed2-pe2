@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import headerBg from '../../assets/header-bg.jpg';
@@ -23,23 +23,23 @@ export default function Header() {
       {!isHome && (
         <>
           <div
-            className="absolute inset-0 mx-auto max-w-[1240px] bg-cover bg-center sm:rounded-2xl"
+            className="absolute inset-0 mx-auto max-w-[1240px] bg-cover bg-center shadow-xl sm:rounded-2xl"
             style={{
               backgroundImage: `url('${headerBg}')`,
             }}
           />
-          <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/30 sm:rounded-2xl" />
+          <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/40 sm:rounded-2xl" />
         </>
       )}
 
       {isHome && (
-        <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/50 backdrop-blur-sm sm:rounded-2xl" />
+        <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/55 shadow-xl backdrop-blur-md sm:rounded-2xl" />
       )}
 
       <div
         className={[
           'relative z-10 mx-auto flex max-w-[1240px] items-center justify-between p-4 text-white sm:py-3 md:px-6 lg:px-8',
-          !isHome ? '' : 'px-6',
+          !isHome ? '' : '',
         ].join(' ')}
       >
         <Link to="/" className="font-heading text-lg font-bold tracking-wider">
