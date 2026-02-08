@@ -11,6 +11,7 @@ import toast from 'react-hot-toast';
 
 import CalendarModal from '../../components/booking/CalendarModal';
 import ConfirmModal from '../../components/ui/ConfirmModal';
+import LoadingLine from '../../components/ui/LoadingLine';
 
 export default function MyBookingsPage() {
   const { username } = useAuth();
@@ -57,10 +58,12 @@ export default function MyBookingsPage() {
   const bookingToEdit = bookings.find((b) => b.id === editId) ?? null;
 
   function handleEditClick(id: string) {
+    if (isEditing || isDeleting || isLoading) return;
     setEditId(id);
   }
 
   function handleDeleteClick(id: string) {
+    if (isEditing || isDeleting || isLoading) return;
     setDeleteId(id);
   }
 
@@ -84,8 +87,8 @@ export default function MyBookingsPage() {
     <div className="page-wrapper gap-8">
       <h1>My Bookings</h1>
 
-      {isLoading && <p>Loading...</p>}
-      {error && <p className="text-error">{error}</p>}
+      {isLoading && <LoadingLine text="Getting your bookings..." />}
+      {!isLoading && error && <p className="text-error">{error}</p>}
       {!isLoading && !error && bookings.length === 0 && (
         <p>You have no bookings yet.</p>
       )}

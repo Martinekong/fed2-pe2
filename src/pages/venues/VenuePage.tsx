@@ -4,6 +4,7 @@ import { getVenue, type Venue } from '../../api/venues';
 import VenueImgCarousel from '../../components/venues/VenueImgCarousel';
 import VenueDetails from '../../components/venues/VenueDetails';
 import VenueRightPanel from '../../components/venues/VenueRightPanel';
+import LoadingLine from '../../components/ui/LoadingLine';
 
 export default function VenuePage() {
   const [venue, setVenue] = useState<Venue | null>(null);
@@ -19,6 +20,7 @@ export default function VenuePage() {
 
       try {
         if (!id) {
+          setError('Missing venue id.');
           setVenue(null);
           return;
         }
@@ -35,27 +37,28 @@ export default function VenuePage() {
     loadVenue();
   }, [id]);
 
-  if (isLoading) return <div className="page-wrapper">Loading...</div>;
-  if (error) return <div className="page-wrapper text-error">{error}</div>;
-  if (!venue) return <div className="page-wrapper">Venue not found</div>;
-
-  console.log('venue', venue);
-
   return (
     <section className="page-wrapper gap-8">
-      <VenueImgCarousel
-        venueId={venue.id}
-        media={venue.media}
-        name={venue.name}
-      />
+      {isLoading && <LoadingLine text="Getting venue..." />}
+      {!isLoading && error && <p className="text-error">{error}</p>}
+      {!isLoading && !error && !venue && <p>Venue not found.</p>}
+      {!isLoading && !error && venue && (
+        <>
+          <VenueImgCarousel
+            venueId={venue.id}
+            media={venue.media}
+            name={venue.name}
+          />
 
-      <div className="flex flex-col gap-20 md:grid md:grid-cols-2">
-        <VenueDetails venue={venue} />
+          <div className="flex flex-col gap-20 md:grid md:grid-cols-2">
+            <VenueDetails venue={venue} />
 
-        <div>
-          <VenueRightPanel venue={venue} />
-        </div>
-      </div>
+            <div>
+              <VenueRightPanel venue={venue} />
+            </div>
+          </div>
+        </>
+      )}
     </section>
   );
 }

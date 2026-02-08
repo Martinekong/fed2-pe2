@@ -323,7 +323,7 @@ export default function CreateVenuePage() {
           </Link>
         </div>
 
-        {apiError && <p className="pl-2 text-error">{apiError}</p>}
+        {apiError && <p className="pl-2 text-error">Error: {apiError}</p>}
       </form>
     </div>
   );

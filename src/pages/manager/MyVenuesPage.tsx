@@ -11,6 +11,7 @@ import { deleteVenue, type Venue } from '../../api/venues';
 import { getVenuesByProfile } from '../../api/profiles';
 
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import LoadingLine from '../../components/ui/LoadingLine';
 
 export default function MyVenuesPage() {
   const navigate = useNavigate();
@@ -85,8 +86,10 @@ export default function MyVenuesPage() {
         </Link>
       </div>
 
-      {isLoading && <p>Loading...</p>}
-      {error && <p className="text-error">{error}</p>}
+      {isLoading && <LoadingLine text="Getting your venues..." />}
+
+      {!isLoading && error && <p className="text-error">{error}</p>}
+
       {!isLoading && !error && venues.length === 0 && (
         <p>You have no venues yet.</p>
       )}

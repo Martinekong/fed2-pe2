@@ -25,6 +25,7 @@ import WifiOutlinedIcon from '@mui/icons-material/WifiOutlined';
 import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
 import LocalParkingOutlinedIcon from '@mui/icons-material/LocalParkingOutlined';
 import PetsOutlinedIcon from '@mui/icons-material/PetsOutlined';
+import LoadingLine from '../../components/ui/LoadingLine';
 
 export default function BookingPage() {
   const navigate = useNavigate();
@@ -77,194 +78,204 @@ export default function BookingPage() {
     return `${format(from, 'dd/MM/yy')} - ${format(to, 'dd/MM/yy')}`;
   }
 
-  if (isLoading) return <div className="page-wrapper">Loading...</div>;
-  if (error) return <div className="page-wrapper text-error">{error}</div>;
-  if (!booking) return <div className="page-wrapper">Booking not found</div>;
-
-  const nights = nightsBetween(booking?.dateFrom, booking?.dateTo);
-  const dateRange = formatRange(booking.dateFrom, booking.dateTo);
-
-  const pricePerNight = booking.venue?.price ?? 0;
-  const total = nights * pricePerNight;
-
-  console.log('Booking:', booking);
-
   return (
-    <div className="page-wrapper md: grid gap-8 md:grid-cols-2">
+    <div className="page-wrapper gap-8 md:grid md:grid-cols-2">
       <h1 className="md:col-span-2">Your booking</h1>
 
-      <div className="md:col-span-2">
-        <VenueImgCarousel
-          venueId={booking.venue!.id}
-          media={booking.venue!.media}
-          name={booking.venue!.name}
-        />
-      </div>
+      {isLoading && <LoadingLine text="Getting your booking..." />}
 
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col gap-8">
-          <h2>Booking details</h2>
+      {!isLoading && error && <p className="text-error">{error}</p>}
 
-          <div className="flex items-center gap-4">
-            <PersonOutlineOutlinedIcon fontSize="small" />
-            <p>{booking.customer.name}</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <BedOutlinedIcon fontSize="small" />
-            <p>{booking.guests} guests</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <BedtimeOutlinedIcon fontSize="small" />
-            <p>{nights} nights</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <AccountBalanceWalletOutlinedIcon fontSize="small" />
-            <p>{booking.venue?.price} NOK per night </p>
-          </div>
-          <div className="flex items-center gap-4">
-            <CalendarMonthOutlinedIcon fontSize="small" />
-            <p>{dateRange}</p>
-          </div>
-        </div>
+      {!isLoading && !error && !booking && <p>Booking not found.</p>}
 
-        <div className="flex flex-col gap-4">
-          <h3 className="border-b border-t border-tertiary py-8 tracking-wider">
-            Total: {total} NOK
-          </h3>
-          <div className="mt-auto">
-            <Button
-              variant="primary"
-              className="mb-4 w-72"
-              type="button"
-              onClick={() => setEditOpen(true)}
-            >
-              Edit booking
-            </Button>
-            <Button
-              variant="tertiary"
-              className="w-72"
-              type="button"
-              onClick={() => setDeleteOpen(true)}
-            >
-              Delete booking
-            </Button>
-          </div>
-        </div>
-      </div>
+      {!isLoading &&
+        !error &&
+        booking &&
+        (() => {
+          const nights = nightsBetween(booking.dateFrom, booking.dateTo);
+          const dateRange = formatRange(booking.dateFrom, booking.dateTo);
+          const pricePerNight = booking.venue?.price ?? 0;
+          const total = nights * pricePerNight;
 
-      <div className="flex flex-col gap-8">
-        <h2>Venue details</h2>
+          return (
+            <>
+              <div className="md:col-span-2">
+                <VenueImgCarousel
+                  venueId={booking.venue!.id}
+                  media={booking.venue!.media}
+                  name={booking.venue!.name}
+                />
+              </div>
 
-        <div>
-          <h3>{booking.venue?.name}</h3>
-          <div className="flex opacity-70">
-            <FmdGoodOutlinedIcon fontSize="small" />
-            <p className="text-sm">
-              {booking.venue?.location.city || 'Unknown'},{' '}
-              {booking.venue?.location.country || 'Unknown'}
-            </p>
-          </div>
-        </div>
+              <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-8">
+                  <h2>Booking details</h2>
 
-        <div>
-          <h3>Description</h3>
-          <p>{booking.venue?.description}</p>
-        </div>
+                  <div className="flex items-center gap-4">
+                    <PersonOutlineOutlinedIcon fontSize="small" />
+                    <p>{booking.customer.name}</p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <BedOutlinedIcon fontSize="small" />
+                    <p>{booking.guests} guests</p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <BedtimeOutlinedIcon fontSize="small" />
+                    <p>{nights} nights</p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <AccountBalanceWalletOutlinedIcon fontSize="small" />
+                    <p>{booking.venue?.price} NOK per night </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <CalendarMonthOutlinedIcon fontSize="small" />
+                    <p>{dateRange}</p>
+                  </div>
+                </div>
 
-        <div className="flex flex-col gap-4">
-          <h3>Specifications</h3>
+                <div className="flex flex-col gap-4">
+                  <h3 className="border-b border-t border-tertiary py-8 tracking-wider">
+                    Total: {total} NOK
+                  </h3>
+                  <div className="mt-auto">
+                    <Button
+                      variant="primary"
+                      className="mb-4 w-72"
+                      type="button"
+                      onClick={() => setEditOpen(true)}
+                      disabled={isEditing || isDeleting}
+                    >
+                      Edit booking
+                    </Button>
+                    <Button
+                      variant="tertiary"
+                      className="w-72"
+                      type="button"
+                      onClick={() => setDeleteOpen(true)}
+                      disabled={isEditing || isDeleting}
+                    >
+                      Delete booking
+                    </Button>
+                  </div>
+                </div>
+              </div>
 
-          <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
-            <BedOutlinedIcon />
-            <p className="text-sm">Up to {booking.venue?.maxGuests} guests</p>
-          </div>
+              <div className="flex flex-col gap-8">
+                <h2>Venue details</h2>
 
-          {booking.venue?.meta.wifi && (
-            <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
-              <WifiOutlinedIcon />
-              <p className="text-sm">Wifi</p>
-            </div>
-          )}
+                <div>
+                  <h3>{booking.venue?.name}</h3>
+                  <div className="flex opacity-70">
+                    <FmdGoodOutlinedIcon fontSize="small" />
+                    <p className="text-sm">
+                      {booking.venue?.location.city || 'Unknown'},{' '}
+                      {booking.venue?.location.country || 'Unknown'}
+                    </p>
+                  </div>
+                </div>
 
-          {booking.venue?.meta.breakfast && (
-            <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
-              <RestaurantOutlinedIcon />
-              <p className="text-sm">Breakfast</p>
-            </div>
-          )}
+                <div>
+                  <h3>Description</h3>
+                  <p>{booking.venue?.description}</p>
+                </div>
 
-          {booking.venue?.meta.parking && (
-            <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
-              <LocalParkingOutlinedIcon />
-              <p className="text-sm">Parking</p>
-            </div>
-          )}
+                <div className="flex flex-col gap-4">
+                  <h3>Specifications</h3>
 
-          {booking.venue?.meta.pets && (
-            <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
-              <PetsOutlinedIcon />
-              <p className="text-sm">Pets allowed</p>
-            </div>
-          )}
-        </div>
+                  <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
+                    <BedOutlinedIcon />
+                    <p className="text-sm">
+                      Up to {booking.venue?.maxGuests} guests
+                    </p>
+                  </div>
 
-        <div>
-          <h3>Venue Owner</h3>
-          <div className="flex items-center gap-4 pt-4">
-            <img
-              src={booking.venue?.owner.avatar.url}
-              alt={booking.venue?.owner.avatar.alt}
-              className="h-10 w-10 rounded-full object-cover"
-            />
-            <p>{booking.venue?.owner.name}</p>
-          </div>
-        </div>
-      </div>
+                  {booking.venue?.meta.wifi && (
+                    <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
+                      <WifiOutlinedIcon />
+                      <p className="text-sm">Wifi</p>
+                    </div>
+                  )}
 
-      <CalendarModal
-        open={editOpen}
-        booking={booking}
-        isSaving={isEditing}
-        onClose={() => !isEditing && setEditOpen(false)}
-        onSave={async (next) => {
-          if (!booking) return;
+                  {booking.venue?.meta.breakfast && (
+                    <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
+                      <RestaurantOutlinedIcon />
+                      <p className="text-sm">Breakfast</p>
+                    </div>
+                  )}
 
-          setIsEditing(true);
-          try {
-            const updated = await updateBooking(booking.id, next);
+                  {booking.venue?.meta.parking && (
+                    <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
+                      <LocalParkingOutlinedIcon />
+                      <p className="text-sm">Parking</p>
+                    </div>
+                  )}
 
-            setBooking((prev) => (prev ? { ...prev, ...updated } : prev));
+                  {booking.venue?.meta.pets && (
+                    <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
+                      <PetsOutlinedIcon />
+                      <p className="text-sm">Pets allowed</p>
+                    </div>
+                  )}
+                </div>
 
-            toast.success('Booking updated!');
-            setEditOpen(false);
-          } catch {
-            toast.error('Could not update booking');
-          } finally {
-            setIsEditing(false);
-          }
-        }}
-      />
+                <div>
+                  <h3>Venue Owner</h3>
+                  <div className="flex items-center gap-4 pt-4">
+                    <img
+                      src={booking.venue?.owner.avatar.url}
+                      alt={booking.venue?.owner.avatar.alt}
+                      className="h-10 w-10 rounded-full object-cover"
+                    />
+                    <p>{booking.venue?.owner.name}</p>
+                  </div>
+                </div>
+              </div>
 
-      <ConfirmModal
-        open={deleteOpen}
-        title="booking"
-        isConfirming={isDeleting}
-        onClose={() => !isDeleting && setDeleteOpen(false)}
-        onConfirm={async () => {
-          if (!booking) return;
+              <CalendarModal
+                open={editOpen}
+                booking={booking}
+                isSaving={isEditing}
+                onClose={() => !isEditing && setEditOpen(false)}
+                onSave={async (next) => {
+                  setIsEditing(true);
+                  try {
+                    const updated = await updateBooking(booking.id, next);
 
-          setIsDeleting(true);
-          try {
-            await deleteBooking(booking.id);
-            toast.success('Booking deleted');
-            navigate('/bookings');
-          } catch {
-            toast.error('Could not delete booking');
-          } finally {
-            setIsDeleting(false);
-          }
-        }}
-      />
+                    setBooking((prev) =>
+                      prev ? { ...prev, ...updated } : prev,
+                    );
+
+                    toast.success('Booking updated!');
+                    setEditOpen(false);
+                  } catch {
+                    toast.error('Could not update booking');
+                  } finally {
+                    setIsEditing(false);
+                  }
+                }}
+              />
+
+              <ConfirmModal
+                open={deleteOpen}
+                title="booking"
+                isConfirming={isDeleting}
+                onClose={() => !isDeleting && setDeleteOpen(false)}
+                onConfirm={async () => {
+                  setIsDeleting(true);
+                  try {
+                    await deleteBooking(booking.id);
+                    toast.success('Booking deleted');
+                    navigate('/bookings');
+                  } catch {
+                    toast.error('Could not delete booking');
+                  } finally {
+                    setIsDeleting(false);
+                  }
+                }}
+              />
+            </>
+          );
+        })()}
     </div>
   );
 }

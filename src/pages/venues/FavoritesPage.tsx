@@ -48,9 +48,9 @@ export default function FavoritesPage() {
     <div className="page-wrapper gap-8">
       <h1>Favorites</h1>
 
-      {error && <p className="text-error">{error}</p>}
-
       {isLoading && <VenueGridSkeleton count={12} />}
+
+      {!isLoading && error && <p className="text-error">{error}</p>}
 
       {!isLoading && !error && venues.length === 0 && (
         <p>You have no favorited venues</p>

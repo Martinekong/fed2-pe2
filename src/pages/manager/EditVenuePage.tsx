@@ -8,6 +8,7 @@ import { getVenue, updateVenue, type VenueInput } from '../../api/venues';
 import Input from '../../components/ui/Input';
 import Textarea from '../../components/ui/Textarea';
 import Button from '../../components/ui/Button';
+import LoadingLine from '../../components/ui/LoadingLine';
 
 type MediaRow = { url: string; alt: string };
 
@@ -46,7 +47,11 @@ export default function EditVenuePage() {
 
   useEffect(() => {
     async function loadVenue() {
-      if (!id) return;
+      if (!id) {
+        setIsLoading(false);
+        setApiError('Missing venue id.');
+        return;
+      }
 
       setIsLoading(true);
       try {
@@ -74,9 +79,8 @@ export default function EditVenuePage() {
         setBreakfast(Boolean(venue.meta?.breakfast));
         setParking(Boolean(venue.meta?.parking));
         setPets(Boolean(venue.meta?.pets));
-      } catch {
-        toast.error('Could not load venue. Please try again.');
-        navigate('/manager/venues');
+      } catch (err) {
+        setApiError('Could not load venue. Please try again');
       } finally {
         setIsLoading(false);
       }
@@ -176,7 +180,7 @@ export default function EditVenuePage() {
     <div className="page-wrapper gap-8">
       <h1>Edit Venue</h1>
 
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <LoadingLine text="Getting your venue..." />}
 
       {!isLoading && (
         <form onSubmit={handleSubmit} className="flex flex-col gap-12">

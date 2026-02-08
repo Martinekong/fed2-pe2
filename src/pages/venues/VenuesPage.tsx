@@ -6,10 +6,9 @@ import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
 import VenueGrid from '../../components/venues/VenueGrid';
 import VenueGridSkeleton from '../../components/venues/VenueGridSkeleton';
-import Pagination from '../../components/ui/Pagination';
+import MuiPagination from '../../components/ui/Pagination';
 
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
-import MuiPagination from '../../components/ui/Pagination';
 
 export default function VenuesPage() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -49,7 +48,7 @@ export default function VenuesPage() {
     }
 
     load();
-  }, [searchParams]);
+  }, [q, page]);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -89,11 +88,13 @@ export default function VenuesPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className="mt-0"
+            disabled={isLoading}
           />
           <Button
             variant="primary"
             type="submit"
             className="absolute bottom-0 right-0 top-0 sm:w-28"
+            disabled={isLoading}
           >
             Search
           </Button>
@@ -103,7 +104,7 @@ export default function VenuesPage() {
           type="button"
           onClick={handleViewAll}
           aria-label="View all venues"
-          disabled={!searchParams.get('search')}
+          disabled={!searchParams.get('search') || isLoading}
           title="View all venues"
           className="flex h-12 items-center gap-2"
         >
@@ -112,8 +113,9 @@ export default function VenuesPage() {
         </button>
       </div>
 
-      {error && <p className="text-error">{error}</p>}
       {isLoading && <VenueGridSkeleton count={limit} />}
+
+      {!isLoading && error && <p className="text-error">{error}</p>}
 
       {!isLoading && !error && venues.length === 0 && (
         <p>No venues match your search.</p>
@@ -122,11 +124,6 @@ export default function VenuesPage() {
       {!isLoading && !error && venues.length > 0 && (
         <>
           <VenueGrid venues={venues} />
-          {/* <Pagination
-            page={page}
-            totalPages={totalPages}
-            onPageChange={goToPage}
-          /> */}
           <MuiPagination
             page={page}
             totalPages={totalPages}

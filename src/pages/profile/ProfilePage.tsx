@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
+import LoadingLine from '../../components/ui/LoadingLine';
 
 export default function ProfilePage() {
   const { profile, isLoadingProfile, isVenueManager, loggedIn } = useAuth();
@@ -13,7 +14,7 @@ export default function ProfilePage() {
     <div className="page-wrapper gap-8">
       <h1>Profile</h1>
 
-      {isLoadingProfile && <p>Loading...</p>}
+      {isLoadingProfile && <LoadingLine text="Getting your profile..." />}
 
       {!isLoadingProfile && (!loggedIn || !profile) && (
         <p className="text-error">Profile not found. Please log in again.</p>
