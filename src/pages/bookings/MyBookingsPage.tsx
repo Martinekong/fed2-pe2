@@ -12,6 +12,7 @@ import toast from 'react-hot-toast';
 import CalendarModal from '../../components/booking/CalendarModal';
 import ConfirmModal from '../../components/ui/ConfirmModal';
 import LoadingLine from '../../components/ui/LoadingLine';
+import BookingCardSkeleton from '../../components/booking/CardSkeleton';
 
 export default function MyBookingsPage() {
   const { username } = useAuth();
@@ -87,7 +88,15 @@ export default function MyBookingsPage() {
     <div className="page-wrapper gap-8">
       <h1>My Bookings</h1>
 
-      {isLoading && <LoadingLine text="Getting your bookings..." />}
+      {isLoading && (
+        <>
+          <LoadingLine text="Getting your bookings..." />
+          <BookingCardSkeleton />
+          <BookingCardSkeleton />
+          <BookingCardSkeleton />
+        </>
+      )}
+
       {!isLoading && error && <p className="text-error">{error}</p>}
       {!isLoading && !error && bookings.length === 0 && (
         <p>You have no bookings yet.</p>

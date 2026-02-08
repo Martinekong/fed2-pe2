@@ -12,6 +12,7 @@ import { getVenuesByProfile } from '../../api/profiles';
 
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import LoadingLine from '../../components/ui/LoadingLine';
+import CardSkeleton from '../../components/booking/CardSkeleton';
 
 export default function MyVenuesPage() {
   const navigate = useNavigate();
@@ -86,7 +87,14 @@ export default function MyVenuesPage() {
         </Link>
       </div>
 
-      {isLoading && <LoadingLine text="Getting your venues..." />}
+      {isLoading && (
+        <>
+          <LoadingLine text="Getting your venues..." />
+          <CardSkeleton />
+          <CardSkeleton />
+          <CardSkeleton />
+        </>
+      )}
 
       {!isLoading && error && <p className="text-error">{error}</p>}
 
