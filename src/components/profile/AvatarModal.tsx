@@ -44,6 +44,9 @@ export default function AvatarModal({
             onChange={(e) => onChangeUrl(e.target.value)}
             placeholder="https://image.unsplash.com/..."
           />
+          {!url.trim() && (
+            <p className="text-sm text-error">Image URL is required</p>
+          )}
           <Input
             label="Description"
             value={alt}
@@ -56,7 +59,7 @@ export default function AvatarModal({
               variant="primary"
               type="button"
               onClick={onSave}
-              disabled={isSaving}
+              disabled={isSaving || !url.trim()}
               className="w-full"
             >
               {isSaving ? 'Saving...' : 'Save'}
