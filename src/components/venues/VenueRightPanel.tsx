@@ -9,6 +9,8 @@ import CalendarCard from '../booking/CalendarCard';
 import ConfirmModal from '../ui/ConfirmModal';
 import Button from '../ui/Button';
 
+import { formatDateRange } from '../../utils/date';
+
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
@@ -17,17 +19,6 @@ import { useAuth } from '../../app/authContext';
 type Props = {
   venue: Venue;
 };
-
-function formatDateRange(from: string, to: string) {
-  const start = new Date(from);
-  const end = new Date(to);
-  const fmt = new Intl.DateTimeFormat('en-GB', {
-    day: '2-digit',
-    month: 'short',
-    year: 'numeric',
-  });
-  return `${fmt.format(start)} - ${fmt.format(end)}`;
-}
 
 export default function VenueRightPanel({ venue }: Props) {
   const navigate = useNavigate();

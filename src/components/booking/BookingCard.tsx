@@ -1,7 +1,8 @@
 import type { Booking } from '../../api/bookings';
 import { Link } from 'react-router-dom';
-import { differenceInCalendarDays, format } from 'date-fns';
 import PlaceholderImage from '../../assets/placeholder_image.jpg';
+
+import { nightsBetween, formatDateRange } from '../../utils/date';
 
 import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
@@ -13,16 +14,6 @@ type Props = {
   onEdit: (id: string) => void;
   onDelete: (id: string) => void;
 };
-
-function formatDateRange(from: string, to: string) {
-  const start = new Date(from);
-  const end = new Date(to);
-  return `${format(start, 'MMM d')} - ${format(end, 'MMM d, yyyy')}`;
-}
-
-function nightsBetween(from: string, to: string) {
-  return Math.max(0, differenceInCalendarDays(new Date(to), new Date(from)));
-}
 
 export default function BookingCard({ booking, onEdit, onDelete }: Props) {
   const venue = booking.venue;

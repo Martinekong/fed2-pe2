@@ -1,4 +1,4 @@
-import { nightsBetween, formatRange } from '../../utils/date';
+import { nightsBetween, formatDateRange } from '../../utils/date';
 
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import BedOutlinedIcon from '@mui/icons-material/BedOutlined';
@@ -22,7 +22,7 @@ export default function BookingDetails({
   dateTo,
 }: Props) {
   const nights = nightsBetween(dateFrom, dateTo);
-  const dateRange = formatRange(dateFrom, dateTo);
+  const dateRange = formatDateRange(dateFrom, dateTo);
 
   return (
     <>
