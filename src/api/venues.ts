@@ -12,7 +12,7 @@ export type Venue = {
   meta: { wifi: boolean; parking: boolean; breakfast: boolean; pets: boolean };
   created: string;
   owner: VenueOwner;
-  bookings: Booking[];
+  bookings?: Booking[];
 };
 
 export type VenueOwner = {

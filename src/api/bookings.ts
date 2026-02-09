@@ -12,6 +12,7 @@ type BookingVenue = Pick<
   | 'description'
   | 'meta'
   | 'owner'
+  | 'created'
 >;
 
 export type Booking = {
