@@ -1,9 +1,11 @@
-import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import { ApiError } from '../../api/client';
 
 import { createVenue, type VenueInput } from '../../api/venues';
+import { ApiError } from '../../api/client';
+
+import { venueSchema } from '../../lib/validation';
 
 import Input from '../../components/ui/Input';
 import Textarea from '../../components/ui/Textarea';
@@ -42,28 +44,42 @@ export default function CreateVenuePage() {
   const [apiError, setApiError] = useState<string | null>(null);
 
   function validate() {
-    const error: FieldErrors = {};
+    const result = venueSchema.safeParse({
+      name,
+      description,
+      maxGuests,
+      price,
+    });
 
-    if (!name.trim()) error.name = 'Venue name is required';
-    if (!description.trim()) error.description = 'Description is required';
-
-    const maxGuestsNum = Number(maxGuests);
-    const priceNum = Number(price);
-
-    if (
-      !maxGuests.trim() ||
-      !Number.isFinite(maxGuestsNum) ||
-      maxGuestsNum < 1
-    ) {
-      error.maxGuests = 'Max guests must be at least 1';
+    if (result.success) {
+      setErrors({});
+      return { ok: true as const, data: result.data };
     }
 
-    if (!price.trim() || !Number.isFinite(priceNum) || priceNum <= 0) {
-      error.price = 'Price must be greater than 0';
+    const fieldErrors: FieldErrors = {};
+    for (const issue of result.error.issues) {
+      const field = issue.path[0];
+      if (
+        field === 'name' ||
+        field === 'description' ||
+        field === 'maxGuests' ||
+        field === 'price'
+      ) {
+        fieldErrors[field] = issue.message;
+      }
     }
 
-    setErrors(error);
-    return { ok: Object.keys(error).length === 0 };
+    setErrors(fieldErrors);
+    return { ok: false as const };
+  }
+
+  function clearFieldError<K extends keyof FieldErrors>(key: K) {
+    setErrors((prev) => {
+      if (!prev[key]) return prev;
+      const next = { ...prev };
+      delete next[key];
+      return next;
+    });
   }
 
   function addImageRow() {
@@ -87,6 +103,7 @@ export default function CreateVenuePage() {
     const validation = validate();
     if (!validation.ok) {
       toast.error('Please fix the errors in the form');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
@@ -109,10 +126,10 @@ export default function CreateVenuePage() {
           : undefined;
 
       const body: VenueInput = {
-        name: name.trim(),
-        description: description.trim(),
-        price: Number(price),
-        maxGuests: Number(maxGuests),
+        name: validation.data.name,
+        description: validation.data.description,
+        price: validation.data.price,
+        maxGuests: validation.data.maxGuests,
         meta: { wifi, breakfast, parking, pets },
         ...(cleanedMedia.length > 0 ? { media: cleanedMedia } : {}),
         ...(location && { location }),
@@ -142,7 +159,10 @@ export default function CreateVenuePage() {
             label="Name*"
             type="text"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value);
+              clearFieldError('name');
+            }}
             placeholder="Name of the venue"
             disabled={isSubmitting}
             error={errors.name}
@@ -150,7 +170,10 @@ export default function CreateVenuePage() {
           <Textarea
             label="Description*"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(e) => {
+              setDescription(e.target.value);
+              clearFieldError('description');
+            }}
             placeholder="Describe your venue"
             disabled={isSubmitting}
             error={errors.description}
@@ -163,7 +186,10 @@ export default function CreateVenuePage() {
               min={1}
               placeholder="Max guests (number)"
               value={maxGuests}
-              onChange={(e) => setMaxGuests(e.target.value)}
+              onChange={(e) => {
+                setMaxGuests(e.target.value);
+                clearFieldError('maxGuests');
+              }}
               disabled={isSubmitting}
               error={errors.maxGuests}
             />
@@ -173,7 +199,10 @@ export default function CreateVenuePage() {
               min={1}
               placeholder="800"
               value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              onChange={(e) => {
+                setPrice(e.target.value);
+                clearFieldError('price');
+              }}
               disabled={isSubmitting}
               error={errors.price}
             />
