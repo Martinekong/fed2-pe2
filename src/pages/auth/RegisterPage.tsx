@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 
 import { register } from '../../api/auth';
 import { ApiError } from '../../api/client';
-import { registerSchema } from '../../lib/validation';
+import { registerSchema } from '../../lib/authValidation';
 
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';

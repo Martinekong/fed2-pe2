@@ -7,7 +7,7 @@ import { useAuth } from '../../app/authContext';
 import { login } from '../../api/auth';
 import { ApiError } from '../../api/client';
 
-import { loginSchema } from '../../lib/validation';
+import { loginSchema } from '../../lib/authValidation';
 
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
