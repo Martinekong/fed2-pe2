@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom';
+
 import type { Venue } from '../../api/venues';
 import PlaceholderImage from '../../assets/placeholder_image.jpg';
 
 import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-import { Link } from 'react-router-dom';
 
 type Props = {
   venue: Venue;

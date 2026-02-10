@@ -4,7 +4,7 @@ import { useAuth } from '../../app/authContext';
 import toast from 'react-hot-toast';
 
 import Button from '../../components/ui/Button';
-import MyVenueCard from '../../components/venues/MyVenueCard';
+import MyVenueCard from '../../components/manager/MyVenueCard';
 import ConfirmModal from '../../components/ui/ConfirmModal';
 
 import { deleteVenue, type Venue } from '../../api/venues';
