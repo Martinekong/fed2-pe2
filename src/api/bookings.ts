@@ -25,7 +25,6 @@ export type Booking = {
     name: string;
   };
   venue?: BookingVenue;
-  // Just use type Venue ??
 };
 
 export type BookingResponse = { data: Booking[] };
@@ -36,6 +35,25 @@ export async function getSingleBooking(id: string): Promise<Booking> {
     `/holidaze/bookings/${encodeURIComponent(id)}?_venue=true&_customer=true`,
     { auth: true },
   );
+
+  return res.data;
+}
+
+export type CreateBookingInput = {
+  venueId: string;
+  dateFrom: string;
+  dateTo: string;
+  guests: number;
+};
+
+export async function createBooking(
+  body: CreateBookingInput,
+): Promise<Booking> {
+  const res = await request<BookingSingleResponse>(`/holidaze/bookings`, {
+    method: 'POST',
+    auth: true,
+    body,
+  });
 
   return res.data;
 }

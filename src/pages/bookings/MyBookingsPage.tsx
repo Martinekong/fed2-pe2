@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../app/authContext';
 
 import Button from '../../components/ui/Button';
@@ -15,6 +15,8 @@ import LoadingLine from '../../components/ui/LoadingLine';
 import BookingCardSkeleton from '../../components/booking/CardSkeleton';
 
 export default function MyBookingsPage() {
+  const navigate = useNavigate();
+
   const { username } = useAuth();
 
   const [bookings, setBookings] = useState<Booking[]>([]);
@@ -45,7 +47,6 @@ export default function MyBookingsPage() {
             new Date(a.dateFrom).getTime() - new Date(b.dateFrom).getTime(),
         );
         setBookings(sorted);
-        console.log('data:', data);
       } catch {
         setError('Could not load bookings. Please try again.');
       } finally {
@@ -133,17 +134,7 @@ export default function MyBookingsPage() {
                 await updateBooking(bookingToEdit.id, next);
 
                 toast.success('Booking updated!');
-                setEditId(null);
-
-                if (username) {
-                  const data = await getBookingsByProfile(username);
-                  const sorted = [...data].sort(
-                    (a, b) =>
-                      new Date(a.dateFrom).getTime() -
-                      new Date(b.dateFrom).getTime(),
-                  );
-                  setBookings(sorted);
-                }
+                navigate(`/bookings/${bookingToEdit.id}`);
               } catch {
                 toast.error('Could not update booking. Please try again.');
               } finally {
