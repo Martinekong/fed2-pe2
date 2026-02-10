@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
+import { useAuth } from '../../app/authContext';
+
 import { login } from '../../api/auth';
 import { ApiError } from '../../api/client';
-import { loginSchema } from '../../lib/validation';
 
-import { useAuth } from '../../app/authContext';
+import { loginSchema } from '../../lib/validation';
 
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
@@ -18,15 +19,14 @@ type FieldErrors = {
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { setAuth } = useAuth();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { setAuth } = useAuth();
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [apiError, setApiError] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function validate() {
     const result = loginSchema.safeParse({ email, password });

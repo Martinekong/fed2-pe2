@@ -24,9 +24,9 @@ export default function RegisterPage() {
 
   const [venueManager, setVenueManager] = useState(false);
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
   const [apiError, setApiError] = useState<string | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   function validate() {
     const result = registerSchema.safeParse({ name, email, password });
