@@ -1,19 +1,22 @@
 import { useState } from 'react';
-import { DayPicker, type DateRange } from 'react-day-picker';
-import { addDays, differenceInCalendarDays, parseISO } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-import Button from '../ui/Button';
+import { type DateRange } from 'react-day-picker';
+import { addDays, parseISO } from 'date-fns';
+import Calendar from './Calendar';
+
+import { createBooking, type CreateBookingInput } from '../../api/bookings';
+import { ApiError } from '../../api/client';
 import type { Venue } from '../../api/venues';
-import { request } from '../../api/client';
+
+import Button from '../ui/Button';
+
+import { nightsBetween } from '../../utils/date';
+import GuestButtons from './GuestButtons';
+import BookingTotal from './BookingTotal';
 
 type Props = { venue: Venue };
-
-function nightsBetween(from?: Date, to?: Date) {
-  if (!from || !to) return 0;
-  return Math.max(0, differenceInCalendarDays(to, from));
-}
 
 export default function CalendarCard({ venue }: Props) {
   const navigate = useNavigate();
@@ -45,94 +48,42 @@ export default function CalendarCard({ venue }: Props) {
     setIsSubmitting(true);
     setError(null);
 
+    const body: CreateBookingInput = {
+      venueId: venue.id,
+      dateFrom: range.from.toISOString(),
+      dateTo: range.to.toISOString(),
+      guests,
+    };
+
     try {
-      await request('/holidaze/bookings', {
-        method: 'POST',
-        auth: true,
-        body: {
-          venueId: venue.id,
-          dateFrom: range.from.toISOString(),
-          dateTo: range.to.toISOString(),
-          guests,
-        },
-      });
+      const booking = await createBooking(body);
 
       toast.success('Booking created!');
-      navigate('/bookings');
-
-      setRange(undefined);
-      setGuests(1);
-    } catch (e) {
-      const msg = 'Something went wrong. Please try again.';
-      setError(msg);
+      navigate(`/bookings/${booking.id}`);
+    } catch (err) {
+      err instanceof ApiError
+        ? setError(err.message)
+        : setError('Something went wrong. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
   }
 
   return (
-    <div className="max-w-[300px] rounded-2xl border border-tertiary bg-white p-4 shadow-md sm:max-w-[398px] sm:p-6 md:max-w-[314px] lg:max-w-[398px]">
-      <DayPicker
-        mode="range"
-        selected={range}
-        onSelect={setRange}
-        defaultMonth={new Date()}
-        weekStartsOn={1}
-        disabled={[{ before: new Date() }, ...bookedRanges]}
-        classNames={{
-          root: 'text-secondary relative',
-          day_button: 'h-9 w-9 sm:h-12 sm:w-12 md:h-9 md:w-9 lg:h-12 lg:w-12',
-          caption_label: 'font-heading font-normal text-secondary pb-8',
-          weekday: 'font-normal uppercase',
-          disabled: 'opacity-50',
-        }}
-        modifiersClassNames={{
-          selected: 'bg-primary text-secondary',
-          range_start: 'rounded-tl-2xl rounded-bl-2xl !text-white',
-          range_end: 'rounded-tr-2xl rounded-br-2xl text-white',
-          range_middle: 'bg-primary/30',
-        }}
-      />
+    <div className="max-w-[300px] rounded-2xl bg-tertiary/70 p-4 text-secondary shadow-lg sm:max-w-[398px] sm:p-6 md:mx-auto md:max-w-[314px] lg:max-w-[398px]">
+      <Calendar range={range} onSelect={setRange} disabled={bookedRanges} />
 
       <div className="mt-6 flex flex-col gap-4">
-        <div className="flex items-center justify-between">
-          <p>Total {nights} nights:</p>
-          <p className="font-semibold tracking-wide">$ {totalPrice}</p>
-        </div>
+        <BookingTotal nights={nights} totalPrice={totalPrice} />
 
-        <div className="flex items-center justify-between">
-          <p>Guests:</p>
+        <GuestButtons
+          value={guests}
+          onChange={setGuests}
+          max={venue.maxGuests}
+          disabled={isSubmitting}
+        />
 
-          <div className="flex items-center gap-4">
-            <button
-              type="button"
-              onClick={() => setGuests((g) => Math.max(1, g - 1))}
-              className="grid h-8 w-8 place-items-center rounded-full bg-primary text-white disabled:opacity-50"
-              disabled={guests <= 1}
-              aria-label="Decrease guests"
-            >
-              -
-            </button>
-
-            <p className="w-6 text-center font-semibold">{guests}</p>
-
-            <button
-              type="button"
-              onClick={() => setGuests((g) => Math.min(venue.maxGuests, g + 1))}
-              className="grid h-8 w-8 place-items-center rounded-full bg-primary text-white disabled:opacity-50"
-              aria-label="Increae guests"
-              disabled={guests >= venue.maxGuests}
-            >
-              +
-            </button>
-          </div>
-        </div>
-
-        {error && (
-          <p className="text-sm text-error">
-            Something went wrong. Please try again.
-          </p>
-        )}
+        {error && <p className="text-sm text-error">{error}</p>}
 
         <Button
           variant="primary"
