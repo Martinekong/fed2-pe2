@@ -1,17 +1,19 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import toast from 'react-hot-toast';
+
 import type { Venue } from '../../api/venues';
+
+import SafeImage from '../ui/SafeImage';
+
+import { toggleFavorite, isFavorite } from '../../lib/storage';
+
 import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 import WifiIcon from '@mui/icons-material/Wifi';
 import RestaurantIcon from '@mui/icons-material/Restaurant';
 import PetsIcon from '@mui/icons-material/Pets';
-
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import toast from 'react-hot-toast';
-import { useState } from 'react';
-import { toggleFavorite, isFavorite } from '../../lib/storage';
-
-import PlaceholderImage from '../../assets/placeholder_image.jpg';
 
 type Props = {
   venue: Venue;
@@ -34,20 +36,22 @@ export default function VenueCard({ venue, onFavoriteChange }: Props) {
     onFavoriteChange?.(venue.id, nowFavorite);
   }
 
-  const imageUrl = venue.media[0]?.url || PlaceholderImage;
-  const imageAlt = venue.media[0]?.alt || venue.name;
-
   return (
     <Link
       to={`/venues/${venue.id}`}
       className="group relative flex flex-col rounded-2xl shadow-md transition hover:shadow-lg"
     >
       <div className="overflow-hidden rounded-t-2xl">
-        <img
+        <SafeImage
+          src={venue.media[0]?.url}
+          alt={venue.media[0]?.alt ?? venue.name}
+          className="h-60 w-full rounded-t-2xl object-cover transition-transform duration-300 ease-out group-hover:scale-105"
+        />
+        {/* <img
           src={imageUrl}
           alt={imageAlt}
           className="h-60 w-full rounded-t-2xl object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-        />
+        /> */}
       </div>
 
       <div className="flex flex-1 flex-col gap-4 p-4">

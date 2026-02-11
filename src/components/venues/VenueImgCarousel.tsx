@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+
 import { isFavorite, toggleFavorite } from '../../lib/storage';
 
 import PlaceholderImage from '../../assets/placeholder_image.jpg';
-import toast from 'react-hot-toast';
+import SafeImage from '../ui/SafeImage';
 
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -50,7 +52,7 @@ export default function VenueImgCarousel({ venueId, media = [], name }: Props) {
 
   return (
     <div className="relative overflow-hidden rounded-2xl shadow-md">
-      <img
+      <SafeImage
         src={active.url}
         alt={active.alt || name}
         className="h-64 w-full object-cover md:h-[460px]"
