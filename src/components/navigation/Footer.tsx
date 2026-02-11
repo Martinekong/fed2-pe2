@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import headerBg from '../../assets/header-bg.jpg';
+import FooterBg from '../../assets/bg.webp';
 import { useAuth } from '../../app/authContext';
 
 export default function Footer() {
@@ -13,7 +13,7 @@ export default function Footer() {
     <footer className="relative mt-16 flex flex-col items-center gap-4 bg-secondary p-8 text-white">
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url('${headerBg}')` }}
+        style={{ backgroundImage: `url('${FooterBg}')` }}
       />
 
       <div className="absolute inset-0 bg-black/50"></div>

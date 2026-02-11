@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
-import headerBg from '../../assets/header-bg.jpg';
+import headerBg from '../../assets/bg.webp';
 import MenuIcon from '@mui/icons-material/Menu';
 import MenuDropdown from './MenuDropdown';
 
