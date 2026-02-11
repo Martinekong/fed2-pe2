@@ -34,7 +34,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   );
 
   const [profile, setProfile] = useState<Profile | null>(null);
-  const [isLoadingProfile, setIsLoadingProfile] = useState(false);
+  const [isLoadingProfile, setIsLoadingProfile] = useState<boolean>(() =>
+    Boolean(getToken),
+  );
 
   const loggedIn = Boolean(token);
   const isVenueManager = Boolean(profile?.venueManager);
