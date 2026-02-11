@@ -24,7 +24,7 @@ export default function TopVenuesSection() {
       setError(null);
 
       try {
-        const venues = await getVenuesByIds(topVenuesIds);
+        const { venues } = await getVenuesByIds(topVenuesIds);
         setTopVenues(venues);
       } catch {
         setError('Failed to load top venues. Please try again later.');

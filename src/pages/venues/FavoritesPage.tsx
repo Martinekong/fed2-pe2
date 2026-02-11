@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import VenueGrid from '../../components/venues/VenueGrid';
 import VenueGridSkeleton from '../../components/venues/VenueGridSkeleton';
-import { getFavorites } from '../../lib/storage';
+import { getFavorites, setFavorites } from '../../lib/storage';
 import { getVenuesByIds, type Venue } from '../../api/venues';
 
 export default function FavoritesPage() {
@@ -25,8 +25,17 @@ export default function FavoritesPage() {
           return;
         }
 
-        const data = await getVenuesByIds(favoritesIds);
-        setVenues(data);
+        const { venues, failedIds } = await getVenuesByIds(favoritesIds);
+        setVenues(venues);
+
+        if (failedIds.length > 0) {
+          const updatedIds = favoritesIds.filter(
+            (id) => !failedIds.includes(id),
+          );
+
+          setFavoritesIds(updatedIds);
+          setFavorites(updatedIds);
+        }
       } catch {
         setError('Could not load favorites. Please try again.');
       } finally {

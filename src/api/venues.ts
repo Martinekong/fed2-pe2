@@ -39,7 +39,6 @@ export async function getAllVenues(
     },
   );
 
-  console.log(res);
   return {
     data: res.data,
     meta: res.meta,
@@ -57,8 +56,24 @@ export async function getVenue(id: string) {
 }
 
 export async function getVenuesByIds(ids: string[]) {
-  const venues = await Promise.all(ids.map((id) => getVenue(id)));
-  return venues;
+  const res = await Promise.all(
+    ids.map(async (id) => {
+      try {
+        const venue = await getVenue(id);
+        return { venue };
+      } catch {
+        return { failedId: id };
+      }
+    }),
+  );
+
+  const venues = res
+    .map((r) => ('venue' in r ? r.venue : undefined))
+    .filter((v): v is Venue => Boolean(v));
+
+  const failedIds = res.filter((r) => 'failedId' in r).map((r) => r.failedId);
+
+  return { venues, failedIds };
 }
 
 export async function searchVenues(
