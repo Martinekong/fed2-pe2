@@ -112,7 +112,7 @@ export default function HeroSection() {
           href="#discover"
           className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/90 hover:text-white"
         >
-          View more
+          More destinations
           <KeyboardDoubleArrowDownIcon />
         </a>
       </div>
