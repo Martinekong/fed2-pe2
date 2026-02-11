@@ -137,7 +137,7 @@ export default function VenueRightPanel({ venue }: Props) {
 
   return (
     <div className="flex flex-col gap-4">
-      <h3>Booking</h3>
+      <h3 className="md:mx-auto">Booking</h3>
       <CalendarCard venue={venue} />
     </div>
   );
