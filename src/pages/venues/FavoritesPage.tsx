@@ -5,35 +5,28 @@ import { getFavorites, setFavorites } from '../../lib/storage';
 import { getVenuesByIds, type Venue } from '../../api/venues';
 
 export default function FavoritesPage() {
-  const [favoritesIds, setFavoritesIds] = useState<string[]>([]);
   const [venues, setVenues] = useState<Venue[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setFavoritesIds(getFavorites());
-  }, []);
 
   useEffect(() => {
     async function loadFavorites() {
       setIsLoading(true);
       setError(null);
 
+      const ids = getFavorites();
+
       try {
-        if (favoritesIds.length === 0) {
+        if (ids.length === 0) {
           setVenues([]);
           return;
         }
 
-        const { venues, failedIds } = await getVenuesByIds(favoritesIds);
+        const { venues, failedIds } = await getVenuesByIds(ids);
         setVenues(venues);
 
         if (failedIds.length > 0) {
-          const updatedIds = favoritesIds.filter(
-            (id) => !failedIds.includes(id),
-          );
-
-          setFavoritesIds(updatedIds);
+          const updatedIds = ids.filter((id) => !failedIds.includes(id));
           setFavorites(updatedIds);
         }
       } catch {
@@ -44,12 +37,16 @@ export default function FavoritesPage() {
     }
 
     loadFavorites();
-  }, [favoritesIds]);
+  }, []);
 
   function handleFavoriteChange(venueId: string, nowFavorite: boolean) {
     if (!nowFavorite) {
       setVenues((prev) => prev.filter((v) => v.id !== venueId));
-      setFavoritesIds((prev) => prev.filter((id) => id !== venueId));
+
+      const currentIds = getFavorites();
+      const updatedIds = currentIds.filter((id) => id !== venueId);
+      setFavorites(updatedIds);
+      return updatedIds;
     }
   }
 
