@@ -28,20 +28,15 @@ export default function Header() {
               backgroundImage: `url('${headerBg}')`,
             }}
           />
-          <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/40 sm:rounded-2xl" />
+          <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/45 sm:rounded-2xl" />
         </>
       )}
 
       {isHome && (
-        <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/55 shadow-xl backdrop-blur-md sm:rounded-2xl" />
+        <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/60 shadow-xl backdrop-blur-md sm:rounded-2xl" />
       )}
 
-      <div
-        className={[
-          'relative z-10 mx-auto flex max-w-[1240px] items-center justify-between p-4 text-white sm:py-3 md:px-6 lg:px-8',
-          !isHome ? '' : '',
-        ].join(' ')}
-      >
+      <div className="relative z-10 mx-auto flex max-w-[1240px] items-center justify-between p-4 text-white sm:py-3 md:px-6 lg:px-8">
         <Link to="/" className="font-heading text-lg font-bold tracking-wider">
           Holidaze
         </Link>
@@ -51,7 +46,7 @@ export default function Header() {
             to="/"
             end
             className={({ isActive }) =>
-              `pb-2 pt-[10px] text-sm tracking-wider transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
+              `pb-2 pt-[10px] text-sm tracking-wider transition md:tracking-widest ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
             }
           >
             Home
@@ -59,7 +54,7 @@ export default function Header() {
           <NavLink
             to="/venues"
             className={({ isActive }) =>
-              `pb-2 pt-[10px] text-sm tracking-wider transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
+              `pb-2 pt-[10px] text-sm tracking-wider transition md:tracking-widest ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
             }
           >
             Venues
@@ -67,7 +62,7 @@ export default function Header() {
           <NavLink
             to="/favorites"
             className={({ isActive }) =>
-              `pb-2 pt-[10px] text-sm tracking-wider transition ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
+              `pb-2 pt-[10px] text-sm tracking-wider transition md:tracking-widest ${isActive ? 'border-b-2 border-white' : 'border-b-2 border-transparent'}`
             }
           >
             Favorites
