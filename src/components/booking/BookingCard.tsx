@@ -1,6 +1,7 @@
 import type { Booking } from '../../api/bookings';
-import { Link } from 'react-router-dom';
-import PlaceholderImage from '../../assets/placeholder_image.jpg';
+
+import HorizontalCard from '../profile/HorizontalCard';
+import CardActions from '../profile/CardActions';
 
 import { nightsBetween, formatDateRange } from '../../utils/date';
 
@@ -18,81 +19,51 @@ type Props = {
 export default function BookingCard({ booking, onEdit, onDelete }: Props) {
   const venue = booking.venue;
 
-  const imageUrl = venue?.media[0]?.url || PlaceholderImage;
-  const imageAlt = venue?.media[0]?.alt || venue?.name || 'Venue image';
-
   const nights = nightsBetween(booking.dateFrom, booking.dateTo);
-  const total = venue?.price ? nights * venue.price : null;
+  const total = venue ? nights * venue.price : null;
 
   return (
-    <Link
+    <HorizontalCard
       to={`/bookings/${booking.id}`}
-      className="flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-lg transition hover:shadow-xl sm:max-h-40 sm:flex-row"
+      imageSrc={venue?.media[0]?.url}
+      imageAlt={venue?.media[0]?.alt || venue?.name || 'Venue image'}
     >
-      <img
-        src={imageUrl}
-        alt={imageAlt}
-        className="h-40 w-full object-cover sm:h-auto sm:min-h-40 sm:w-56 sm:shrink-0"
-      />
-
-      <div className="flex w-full justify-between gap-4 p-4">
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <h3>{venue?.name}</h3>
-            <div className="flex items-center gap-2">
-              <FmdGoodOutlinedIcon fontSize="small" />
-              <p className="text-sm">
-                {venue?.location.city ?? 'Unknown'},{' '}
-                {venue?.location.country ?? 'unknown'}
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-auto flex flex-wrap items-center gap-5">
-            <div className="flex items-center gap-2">
-              <BedOutlinedIcon fontSize="small" />
-              <p className="text-sm">{booking.guests} guests</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <AccountBalanceWalletOutlinedIcon fontSize="small" />
-              <p className="text-sm">
-                {total !== null ? `$${total.toLocaleString('en-GB')}` : '-'}
-              </p>
-            </div>
-            <div className="flex items-center gap-2">
-              <CalendarMonthOutlinedIcon fontSize="small" />
-              <p className="text-sm">
-                {formatDateRange(booking.dateFrom, booking.dateTo)}
-              </p>
-            </div>
+      <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
+          <h3>{venue?.name}</h3>
+          <div className="flex items-center gap-2">
+            <FmdGoodOutlinedIcon fontSize="small" />
+            <p className="text-sm">
+              {venue?.location.city ?? 'Unknown'},{' '}
+              {venue?.location.country ?? 'unknown'}
+            </p>
           </div>
         </div>
 
-        <div className="flex flex-col justify-between">
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onEdit(booking.id);
-            }}
-            className="hover:underline"
-          >
-            Edit
-          </button>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              onDelete(booking.id);
-            }}
-            className="text-error hover:underline"
-          >
-            Delete
-          </button>
+        <div className="mt-auto flex flex-wrap items-center gap-5">
+          <div className="flex items-center gap-2">
+            <BedOutlinedIcon fontSize="small" />
+            <p className="text-sm">{booking.guests} guests</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <AccountBalanceWalletOutlinedIcon fontSize="small" />
+            <p className="text-sm">
+              {total !== null ? `$${total.toLocaleString('en-GB')}` : '-'}
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <CalendarMonthOutlinedIcon fontSize="small" />
+            <p className="text-sm">
+              {formatDateRange(booking.dateFrom, booking.dateTo)}
+            </p>
+          </div>
         </div>
       </div>
-    </Link>
+
+      <CardActions
+        onEdit={() => onEdit(booking.id)}
+        onDelete={() => onDelete(booking.id)}
+      />
+    </HorizontalCard>
   );
 }
