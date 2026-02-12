@@ -62,7 +62,7 @@ export default function VenueImgCarousel({ venueId, media = [], name }: Props) {
         type="button"
         onClick={handleToggleFavorite}
         aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
-        className="absolute right-0 top-0 rounded-bl-2xl rounded-tr-2xl bg-black/50 p-3 text-white backdrop-blur"
+        className="absolute right-0 top-0 rounded-bl-2xl rounded-tr-2xl bg-black/50 p-3 text-white shadow-xl backdrop-blur transition duration-300 hover:bg-black/60"
       >
         {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
       </button>
@@ -73,7 +73,7 @@ export default function VenueImgCarousel({ venueId, media = [], name }: Props) {
             type="button"
             onClick={prev}
             aria-label="Previous image"
-            className="absolute bottom-0 left-0 rounded-bl-2xl rounded-tr-2xl bg-black/50 p-3 text-white backdrop-blur"
+            className="absolute bottom-0 left-0 rounded-bl-2xl rounded-tr-2xl bg-black/50 p-3 text-white backdrop-blur transition duration-300 hover:bg-black/60"
           >
             <ArrowBackIcon />
           </button>
@@ -82,7 +82,7 @@ export default function VenueImgCarousel({ venueId, media = [], name }: Props) {
             type="button"
             onClick={next}
             aria-label="Next image"
-            className="absolute bottom-0 right-0 rounded-br-2xl rounded-tl-2xl bg-black/50 p-3 text-white backdrop-blur"
+            className="absolute bottom-0 right-0 rounded-br-2xl rounded-tl-2xl bg-black/50 p-3 text-white backdrop-blur transition duration-300 hover:bg-black/60"
           >
             <ArrowForwardIcon />
           </button>

@@ -27,7 +27,7 @@ export default function BookingCard({ booking, onEdit, onDelete }: Props) {
   return (
     <Link
       to={`/bookings/${booking.id}`}
-      className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-lg sm:max-h-40 sm:flex-row"
+      className="flex flex-col overflow-hidden rounded-2xl border border-black/5 bg-white shadow-lg transition hover:shadow-xl sm:max-h-40 sm:flex-row"
     >
       <img
         src={imageUrl}

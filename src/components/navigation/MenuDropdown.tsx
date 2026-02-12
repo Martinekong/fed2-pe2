@@ -27,7 +27,7 @@ export default function MenuDropdown({ open, onClose }: Props) {
 
   return (
     <div
-      className="absolute right-4 top-[74px] z-50 rounded-2xl border-2 border-[#F5F6F7] bg-white text-secondary shadow-lg sm:right-0 sm:top-[66px]"
+      className="absolute right-4 top-[74px] z-50 rounded-2xl border-2 border-black/5 bg-white text-secondary shadow-xl sm:right-0 sm:top-[66px]"
       aria-label="User menu"
     >
       {!loggedIn ? (

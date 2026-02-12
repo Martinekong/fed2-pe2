@@ -8,7 +8,7 @@ type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const base =
-  'flex items-center justify-center rounded-2xl px-4 py-2 shadow-md hover:shadow-lg transition duration-300 disabled:opacity-60 disabled:cursor-not-allowed';
+  'flex items-center justify-center rounded-full px-4 py-2 shadow-md hover:shadow-lg transition duration-300 disabled:opacity-60 disabled:cursor-not-allowed';
 
 const variants: Record<Variant, string> = {
   primary: 'bg-primary hover:bg-primary_hover text-white',

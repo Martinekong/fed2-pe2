@@ -28,7 +28,7 @@ export default function Header() {
               backgroundImage: `url('${headerBg}')`,
             }}
           />
-          <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/45 sm:rounded-2xl" />
+          <div className="absolute inset-0 mx-auto max-w-[1240px] border border-white/30 bg-black/45 shadow-lg sm:rounded-2xl" />
         </>
       )}
 

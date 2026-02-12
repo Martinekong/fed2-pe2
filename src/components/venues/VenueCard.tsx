@@ -39,7 +39,7 @@ export default function VenueCard({ venue, onFavoriteChange }: Props) {
   return (
     <Link
       to={`/venues/${venue.id}`}
-      className="group relative flex flex-col rounded-2xl shadow-md transition hover:shadow-lg"
+      className="group relative flex flex-col rounded-2xl border border-white/60 bg-white shadow-lg transition hover:shadow-xl"
     >
       <div className="overflow-hidden rounded-t-2xl">
         <SafeImage
@@ -47,11 +47,6 @@ export default function VenueCard({ venue, onFavoriteChange }: Props) {
           alt={venue.media[0]?.alt ?? venue.name}
           className="h-60 w-full rounded-t-2xl object-cover transition-transform duration-300 ease-out group-hover:scale-105"
         />
-        {/* <img
-          src={imageUrl}
-          alt={imageAlt}
-          className="h-60 w-full rounded-t-2xl object-cover transition-transform duration-300 ease-out group-hover:scale-105"
-        /> */}
       </div>
 
       <div className="flex flex-1 flex-col gap-4 p-4">
@@ -99,7 +94,7 @@ export default function VenueCard({ venue, onFavoriteChange }: Props) {
         type="button"
         onClick={handleFavoriteClick}
         aria-label={favorite ? 'Remove from favorites' : 'Add to favorites'}
-        className="absolute right-0 top-0 rounded-bl-2xl rounded-tr-2xl bg-black/50 p-3 text-white backdrop-blur"
+        className="absolute right-0 top-0 rounded-bl-2xl rounded-tr-2xl bg-black/50 p-3 text-white shadow-xl backdrop-blur transition duration-300 hover:bg-black/60"
       >
         {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
       </button>
