@@ -60,13 +60,13 @@ export default function HeroSection() {
   }
 
   return (
-    <section className="relative -mt-[76px] mb-8 h-[100svh] w-full sm:-mt-[66px]">
+    <section className="relative -mt-[76px] mb-8 h-[100svh] w-full bg-black sm:-mt-[66px]">
       <img
         src={active.image}
         alt={active.alt}
         className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-black/35" />
+      <div className="absolute inset-0 bg-black/15" />
 
       <div className="relative h-full">
         <div className="mx-auto flex h-full max-w-5xl flex-row items-center gap-6 px-5 sm:gap-10 sm:px-8 md:gap-12">
@@ -79,7 +79,7 @@ export default function HeroSection() {
                   type="button"
                   onClick={() => setActiveIndex(i)}
                   aria-label={`Show ${item.title}`}
-                  className={`grid h-8 w-8 place-items-center rounded-full border-2 font-semibold transition sm:h-10 sm:w-10 ${isActive ? 'border-white bg-white text-black' : 'border-white/60 bg-white/20 text-white/80 hover:border-white hover:text-white'}`}
+                  className={`grid h-8 w-8 place-items-center rounded-full border font-semibold backdrop-blur-sm transition sm:h-10 sm:w-10 ${isActive ? 'border-white bg-white text-black' : 'border-white/60 bg-black/35 text-white/80 hover:border-white hover:bg-black/45 hover:text-white'}`}
                 >
                   {i + 1}
                 </button>
@@ -100,7 +100,7 @@ export default function HeroSection() {
                 variant="secondary"
                 type="button"
                 onClick={goToVenues}
-                className="flex w-52 items-center border-white text-white hover:bg-white/10 hover:text-white"
+                className="flex w-52 items-center rounded-full border border-white/60 bg-black/35 text-white backdrop-blur-sm hover:border-white hover:bg-black/45 hover:text-white"
               >
                 Venues
                 <KeyboardArrowRightOutlinedIcon className="pt-0.5" />
@@ -110,7 +110,7 @@ export default function HeroSection() {
         </div>
         <a
           href="#discover"
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/90 hover:text-white"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 rounded-full bg-black/35 px-4 py-2 text-sm tracking-wide text-white shadow-lg ring-1 ring-white/10 backdrop-blur-sm hover:bg-black/45 hover:text-white"
         >
           More destinations
           <KeyboardDoubleArrowDownIcon />
