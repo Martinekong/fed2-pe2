@@ -1,5 +1,6 @@
 import Input from '../ui/Input';
 import Button from '../ui/Button';
+import ModalWrapper from '../ui/ModalWrapper';
 
 type Props = {
   open: boolean;
@@ -25,58 +26,51 @@ export default function AvatarModal({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4">
-      <div className="relative w-full max-w-lg rounded-2xl bg-white p-6 shadow-lg">
-        <h2>Profile image</h2>
-        <button
-          type="button"
-          onClick={onClose}
-          className="absolute right-1 top-1 px-3 py-1 text-xl"
-          aria-label="Close"
-        >
-          x
-        </button>
+    <ModalWrapper
+      open={open}
+      title="Edit Profile Image"
+      onClose={onSave}
+      maxWidthClassName="max-w-lg"
+    >
+      <div className="mt-6 flex flex-col gap-4">
+        <Input
+          label="Image URL"
+          value={url}
+          onChange={(e) => onChangeUrl(e.target.value)}
+          placeholder="https://image.unsplash.com/..."
+        />
+        {!url.trim() && (
+          <p className="text-sm text-error">Image URL is required</p>
+        )}
+        <Input
+          label="Description"
+          value={alt}
+          onChange={(e) => onChangeAlt(e.target.value)}
+          placeholder="Describe your image"
+        />
 
-        <div className="mt-6 flex flex-col gap-4">
-          <Input
-            label="Image URL"
-            value={url}
-            onChange={(e) => onChangeUrl(e.target.value)}
-            placeholder="https://image.unsplash.com/..."
-          />
-          {!url.trim() && (
-            <p className="text-sm text-error">Image URL is required</p>
-          )}
-          <Input
-            label="Description"
-            value={alt}
-            onChange={(e) => onChangeAlt(e.target.value)}
-            placeholder="Describe your image"
-          />
+        <div className="mt-4 flex flex-wrap gap-4">
+          <Button
+            variant="primary"
+            type="button"
+            onClick={onSave}
+            disabled={isSaving || !url.trim()}
+            className="w-full"
+          >
+            {isSaving ? 'Saving...' : 'Save'}
+          </Button>
 
-          <div className="mt-4 flex flex-wrap gap-4">
-            <Button
-              variant="primary"
-              type="button"
-              onClick={onSave}
-              disabled={isSaving || !url.trim()}
-              className="w-full"
-            >
-              {isSaving ? 'Saving...' : 'Save'}
-            </Button>
-
-            <Button
-              variant="secondary"
-              type="button"
-              onClick={onClose}
-              disabled={isSaving}
-              className="w-full"
-            >
-              Cancel
-            </Button>
-          </div>
+          <Button
+            variant="secondary"
+            type="button"
+            onClick={onClose}
+            disabled={isSaving}
+            className="w-full"
+          >
+            Cancel
+          </Button>
         </div>
       </div>
-    </div>
+    </ModalWrapper>
   );
 }
