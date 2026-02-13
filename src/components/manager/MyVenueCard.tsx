@@ -25,7 +25,7 @@ export default function MyVenueCard({ venue, onEdit, onDelete }: Props) {
     <HorizontalCard
       to={`/venues/${venue.id}`}
       imageSrc={venue.media?.[0]?.url}
-      imageAlt={venue.media?.[0]?.alt || venue.name}
+      imageAlt={venue.media?.[0]?.alt || venue.name || 'Venue image'}
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
@@ -33,8 +33,8 @@ export default function MyVenueCard({ venue, onEdit, onDelete }: Props) {
           <div className="flex items-center gap-2">
             <FmdGoodOutlinedIcon fontSize="small" />
             <p className="text-sm">
-              {venue.location.city ?? 'Unknown'},{' '}
-              {venue.location.country ?? 'unknown'}
+              {venue.location?.city ?? 'Unknown'},{' '}
+              {venue.location?.country ?? 'unknown'}
             </p>
           </div>
         </div>
