@@ -5,6 +5,8 @@ import { getVenuesByIds, type Venue } from '../../api/venues';
 import Button from '../ui/Button';
 import LoadingLine from '../ui/LoadingLine';
 
+import SafeImage from '../ui/SafeImage';
+
 import FmdGoodOutlinedIcon from '@mui/icons-material/FmdGoodOutlined';
 
 const topVenuesIds = [
@@ -24,8 +26,12 @@ export default function TopVenuesSection() {
       setError(null);
 
       try {
-        const { venues } = await getVenuesByIds(topVenuesIds);
+        const { venues, failedIds } = await getVenuesByIds(topVenuesIds);
         setTopVenues(venues);
+
+        if (failedIds.length === topVenuesIds.length) {
+          setError('Top venues are unavailable right now.');
+        }
       } catch {
         setError('Failed to load top venues. Please try again later.');
       } finally {
@@ -55,10 +61,10 @@ export default function TopVenuesSection() {
               key={venue.id}
               className="flex flex-col border-b border-tertiary py-8 md:grid md:grid-cols-2 md:gap-6"
             >
-              <img
+              <SafeImage
+                src={venue.media[0].url}
+                alt={venue.media[0].alt || venue.name}
                 className="h-52 w-full rounded-2xl object-cover md:h-80"
-                src={venue.media[0].url ?? ''}
-                alt={venue.media[0].alt ?? venue.name}
               />
 
               <div className="flex flex-col gap-6 md:justify-between">
@@ -67,8 +73,8 @@ export default function TopVenuesSection() {
                   <div className="flex opacity-70">
                     <FmdGoodOutlinedIcon fontSize="small" />
                     <p className="text-sm">
-                      {venue.location.city ?? 'Unknown'},{' '}
-                      {venue.location.country ?? 'unknown'}
+                      {venue.location?.city ?? 'Unknown'},{' '}
+                      {venue.location?.country ?? 'unknown'}
                     </p>
                   </div>
                 </div>

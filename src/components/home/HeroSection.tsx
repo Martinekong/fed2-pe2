@@ -18,39 +18,39 @@ type HeroItem = {
   query: string;
 };
 
+const items: HeroItem[] = [
+  {
+    id: 1,
+    title: 'vietnam',
+    image: hero1,
+    alt: 'water temple in between mountains',
+    query: 'vietnam',
+  },
+  {
+    id: 2,
+    title: 'greece',
+    image: hero2,
+    alt: 'seaside town with an island',
+    query: 'greece',
+  },
+  {
+    id: 3,
+    title: 'kenya',
+    image: hero3,
+    alt: 'a lone tree in sunset on safari',
+    query: 'kenya',
+  },
+  {
+    id: 4,
+    title: 'canada',
+    image: hero4,
+    alt: 'white mountains over lake',
+    query: 'canada',
+  },
+];
+
 export default function HeroSection() {
   const navigate = useNavigate();
-
-  const items: HeroItem[] = [
-    {
-      id: 1,
-      title: 'vietnam',
-      image: hero1,
-      alt: 'water temple in between mountains',
-      query: 'vietnam',
-    },
-    {
-      id: 2,
-      title: 'greece',
-      image: hero2,
-      alt: 'seaside town with an island',
-      query: 'greece',
-    },
-    {
-      id: 3,
-      title: 'kenya',
-      image: hero3,
-      alt: 'a lone tree in sunset on safari',
-      query: 'kenya',
-    },
-    {
-      id: 4,
-      title: 'canada',
-      image: hero4,
-      alt: 'white mountains over lake',
-      query: 'canada',
-    },
-  ];
 
   const [activeIndex, setActiveIndex] = useState(0);
   const active = items[activeIndex];
@@ -79,6 +79,7 @@ export default function HeroSection() {
                   type="button"
                   onClick={() => setActiveIndex(i)}
                   aria-label={`Show ${item.title}`}
+                  aria-current={isActive ? 'true' : undefined}
                   className={`grid h-8 w-8 place-items-center rounded-full border font-semibold backdrop-blur-sm transition sm:h-10 sm:w-10 ${isActive ? 'border-white bg-white text-black' : 'border-white/60 bg-black/35 text-white/80 hover:border-white hover:bg-black/45 hover:text-white'}`}
                 >
                   {i + 1}

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../ui/Button';
 import Input from '../ui/Input';
+import toast from 'react-hot-toast';
 
 export default function DiscoverSection() {
   const navigate = useNavigate();
@@ -12,7 +13,10 @@ export default function DiscoverSection() {
     e.preventDefault();
 
     const query = search.trim();
-    if (!query) return;
+    if (!query) {
+      toast('Looks like you forgot to type your search...');
+      return;
+    }
 
     navigate(`/venues?search=${encodeURIComponent(query)}`);
   }
@@ -20,10 +24,10 @@ export default function DiscoverSection() {
   return (
     <section className="flex scroll-mt-24 flex-col gap-5" id="discover">
       <h2>discover</h2>
-      <p>
-        Search through all venues hosted by Holidaze. Wether you dream about the
-        tropics or mountains, want to sleep in a cabin or castle, experience
-        city life or the beach - we've got you!
+      <p className="leading-relaxed tracking-wide">
+        Search through all venues hosted by Holidaze. Whether you dream about
+        the tropics or mountains, want to sleep in a cabin or castle, experience
+        city life or the beach - we've got you covered!
       </p>
       <form className="relative" onSubmit={handleSearchSubmit}>
         <Input

@@ -1,11 +1,9 @@
 import DestinationCards from './DestinationCards';
 import { Destinations, type DestinationVariant } from '../../data/destinations';
 
-export default function DestinationSection({
-  variant,
-}: {
-  variant: DestinationVariant;
-}) {
+type Props = { variant: DestinationVariant };
+
+export default function DestinationSection({ variant }: Props) {
   const section = Destinations[variant];
 
   return (
