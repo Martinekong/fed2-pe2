@@ -26,12 +26,16 @@ export default function MuiPagination({
         shape="rounded"
         size={isSmall ? 'small' : 'medium'}
         sx={{
+          '& .MuiPaginationItem-root': {
+            borderRadius: '100%',
+          },
           '& .MuiPaginationItem-root.Mui-selected': {
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
             backdropFilter: 'blur(12px)',
             boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
             color: 'white',
             fontWeight: '500',
+            borderRadius: '100%',
           },
         }}
       />

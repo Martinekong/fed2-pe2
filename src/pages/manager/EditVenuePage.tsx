@@ -132,7 +132,7 @@ export default function EditVenuePage() {
 
       const updated = await updateVenue(venueId, body);
 
-      toast.success('Venue updated!');
+      toast.success('Your venue has been updated!');
 
       navigate(`/venues/${updated.id}`);
     } catch (err) {
