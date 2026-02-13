@@ -3,11 +3,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import { register } from '../../api/auth';
-import { ApiError } from '../../api/client';
 import { registerSchema } from '../../lib/authValidation';
 
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
+import { getErrorMessage } from '../../api/getErrorMessage';
 
 type FieldErrors = {
   name?: string;
@@ -26,7 +26,6 @@ export default function RegisterPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [apiError, setApiError] = useState<string | null>(null);
 
   function validate() {
     const result = registerSchema.safeParse({ name, email, password });
@@ -50,8 +49,7 @@ export default function RegisterPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
-    setApiError(null);
+    if (isSubmitting) return;
 
     const validation = validate();
     if (!validation.ok) {
@@ -66,9 +64,9 @@ export default function RegisterPage() {
       toast.success('Account created! You can now log in.');
       navigate('/login');
     } catch (err) {
-      err instanceof ApiError
-        ? setApiError(err.message)
-        : setApiError('Something went wrong. Please try again.');
+      toast.error(
+        getErrorMessage(err, 'Something went wrong. Please try again.'),
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -130,6 +128,7 @@ export default function RegisterPage() {
             aria-pressed={venueManager}
             className={`relative h-10 w-20 rounded-full shadow-md transition duration-300 hover:shadow-lg ${venueManager ? 'bg-primary' : 'bg-tertiary'}`}
             disabled={isSubmitting}
+            aria-label="Toggle venue manager"
           >
             <span
               className={`absolute top-1 h-8 w-8 rounded-full bg-white transition duration-300 ${venueManager ? 'left-11' : 'left-1'}`}
@@ -145,8 +144,6 @@ export default function RegisterPage() {
         >
           {isSubmitting ? 'Signing up...' : 'Sign up'}
         </Button>
-
-        {apiError && <p className="text-error">{apiError}</p>}
 
         <p>
           Already have an account?{' '}

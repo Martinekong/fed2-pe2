@@ -5,12 +5,11 @@ import toast from 'react-hot-toast';
 import { useAuth } from '../../app/authContext';
 
 import { login } from '../../api/auth';
-import { ApiError } from '../../api/client';
-
 import { loginSchema } from '../../lib/authValidation';
 
 import Button from '../../components/ui/Button';
 import Input from '../../components/ui/Input';
+import { getErrorMessage } from '../../api/getErrorMessage';
 
 type FieldErrors = {
   email?: string;
@@ -26,7 +25,6 @@ export default function LoginPage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<FieldErrors>({});
-  const [apiError, setApiError] = useState<string | null>(null);
 
   function validate() {
     const result = loginSchema.safeParse({ email, password });
@@ -50,8 +48,7 @@ export default function LoginPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
-    setApiError(null);
+    if (isSubmitting) return;
 
     const validation = validate();
     if (!validation.ok) {
@@ -67,9 +64,9 @@ export default function LoginPage() {
       toast.success(`Welcome back ${user.name}`);
       navigate('/');
     } catch (err) {
-      err instanceof ApiError
-        ? setApiError(err.message)
-        : setApiError('Something went wrong. Please try again.');
+      toast.error(
+        getErrorMessage(err, 'Something went wrong. Please try again'),
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -111,8 +108,6 @@ export default function LoginPage() {
         >
           {isSubmitting ? 'Logging in...' : 'Log in'}
         </Button>
-
-        {apiError && <p className="text-error">{apiError}</p>}
 
         <p>
           Don't have an account?{' '}
