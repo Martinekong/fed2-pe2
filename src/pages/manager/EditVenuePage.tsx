@@ -22,7 +22,7 @@ export default function EditVenuePage() {
   if (!id) {
     return (
       <div className="page-wrapper gap-8">
-        <h1>Edit venue</h1>
+        <h1>Edit Venue</h1>
         <p className="text-error">Missing venue id.</p>
       </div>
     );

@@ -65,7 +65,7 @@ export default function BookingPage() {
 
   return (
     <div className="page-wrapper gap-8 md:grid md:grid-cols-2">
-      <h1 className="md:col-span-2">Your booking</h1>
+      <h1 className="md:col-span-2">Your Booking</h1>
       {isLoading && <LoadingLine text="Getting your booking..." />}
       {!isLoading && error && <p className="text-error">{error}</p>}
       {!isLoading && !error && !booking && <p>Booking not found.</p>}
