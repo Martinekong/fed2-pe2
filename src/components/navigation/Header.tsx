@@ -13,13 +13,12 @@ export default function Header() {
 
   return (
     <header
-      className={[
-        'relative',
-        isHome
-          ? 'absolute top-0 z-50 sm:top-4 sm:mx-4 md:top-6 md:mx-6'
-          : 'mb-4 sm:m-4 md:m-6',
-      ].join(' ')}
+      className={`relative ${isHome ? 'absolute top-0 z-50 sm:top-4 sm:mx-4 md:top-6 md:mx-6' : 'mb-4 sm:m-4 md:m-6'} `}
     >
+      {isHome && (
+        <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/60 shadow-xl backdrop-blur-md sm:rounded-2xl" />
+      )}
+
       {!isHome && (
         <>
           <div
@@ -30,10 +29,6 @@ export default function Header() {
           />
           <div className="absolute inset-0 mx-auto max-w-[1240px] border border-white/30 bg-black/45 shadow-lg sm:rounded-2xl" />
         </>
-      )}
-
-      {isHome && (
-        <div className="absolute inset-0 mx-auto max-w-[1240px] bg-black/60 shadow-xl backdrop-blur-md sm:rounded-2xl" />
       )}
 
       <div className="relative z-10 mx-auto flex max-w-[1240px] items-center justify-between p-4 text-white sm:py-3 md:px-6 lg:px-8">
@@ -75,6 +70,7 @@ export default function Header() {
           onClick={() => setMenuOpen((v) => !v)}
           aria-haspopup="menu"
           aria-expanded={menuOpen}
+          aria-label="Open menu"
         >
           <MenuIcon />
         </button>

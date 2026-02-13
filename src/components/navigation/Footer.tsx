@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import FooterBg from '../../assets/bg.webp';
 import { useAuth } from '../../app/authContext';
 
 export default function Footer() {
-  const [currentYear] = useState(() => new Date().getFullYear());
+  const currentYear = new Date().getFullYear();
 
   const { loggedIn, isVenueManager } = useAuth();
 
