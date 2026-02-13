@@ -50,6 +50,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const p = await getProfile(username);
       setProfile(p);
+    } catch {
+      setProfile(null);
     } finally {
       setIsLoadingProfile(false);
     }
@@ -64,7 +66,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   function logout() {
-    toast.success(`Goodbye for now ${profile?.name}!`);
+    toast.success(
+      profile?.name ? `Goodbye for now ${profile?.name}!` : 'Logged out!',
+    );
     clearAuthStorage();
     setTokenState(null);
     setUsernameState(null);
