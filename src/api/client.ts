@@ -24,6 +24,9 @@ export async function request<T>(
   path: string,
   options: RequestOptions = {},
 ): Promise<T> {
+  if (!BASE_URL) throw new Error('Missing VITE_API_BASE_URL');
+  if (!API_KEY) throw new Error('Missing VITE_API_KEY');
+
   const { method = 'GET', body, auth = true } = options;
 
   const headers: HeadersInit = {
@@ -34,8 +37,8 @@ export async function request<T>(
     const token = getToken();
     if (token) {
       headers.Authorization = `Bearer ${token}`;
-      headers['X-Noroff-API-Key'] = API_KEY;
     }
+    headers['X-Noroff-API-Key'] = API_KEY;
   }
 
   const res = await fetch(`${BASE_URL}${path}`, {
