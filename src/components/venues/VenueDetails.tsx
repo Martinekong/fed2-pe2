@@ -24,8 +24,8 @@ export default function VenueDetails({
       <div>
         <Title>{venue.name}</Title>
         <VenueLocation
-          city={venue.location.city}
-          country={venue.location.country}
+          city={venue.location?.city}
+          country={venue.location?.country}
         />
       </div>
 

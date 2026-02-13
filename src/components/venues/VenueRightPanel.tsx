@@ -25,7 +25,7 @@ export default function VenueRightPanel({ venue }: Props) {
 
   const { username, loggedIn } = useAuth();
 
-  const ownerName = venue.owner?.name.toLowerCase();
+  const ownerName = venue.owner.name.toLowerCase();
   const isOwner = loggedIn && username?.toLowerCase() === ownerName;
 
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -101,7 +101,7 @@ export default function VenueRightPanel({ venue }: Props) {
         />
 
         <div>
-          <h3 className="py-4">Upcoming bookings</h3>
+          <h3 className="py-4">Upcoming bookings ({upcoming.length})</h3>
 
           {upcoming.length === 0 ? (
             <p>No upcoming bookings yet.</p>

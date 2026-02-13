@@ -6,7 +6,7 @@ type Props = {
 };
 
 export default function VenueLocation({ city, country }: Props) {
-  const safeCity = city ?? 'Uknown';
+  const safeCity = city ?? 'Unknown';
   const safeCountry = country ?? 'Unknown';
 
   return (

@@ -25,6 +25,7 @@ export default function VenueCard({ venue, onFavoriteChange }: Props) {
 
   function handleFavoriteClick(e: React.MouseEvent) {
     e.preventDefault();
+    e.stopPropagation();
 
     const nowFavorite = toggleFavorite(venue.id);
     setFavorite(nowFavorite);
@@ -55,8 +56,8 @@ export default function VenueCard({ venue, onFavoriteChange }: Props) {
           <div className="flex opacity-70">
             <FmdGoodOutlinedIcon fontSize="small" />
             <p className="text-sm">
-              {venue.location.city ?? 'Unknown'},{' '}
-              {venue.location.country ?? 'unknown'}
+              {venue.location?.city ?? 'Unknown'},{' '}
+              {venue.location?.country ?? 'unknown'}
             </p>
           </div>
         </div>

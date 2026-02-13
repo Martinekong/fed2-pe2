@@ -1,4 +1,4 @@
-import PlaceholderImg from '../../assets/placeholder_image.jpg';
+import SafeImage from '../ui/SafeImage';
 
 type Props = {
   name?: string;
@@ -8,16 +8,14 @@ type Props = {
 
 export default function VenueOwner({ name, avatarUrl, avatarAlt }: Props) {
   const safeName = name ?? 'Unknown';
-  const safeUrl = avatarUrl ?? PlaceholderImg;
-  const safeAlt = avatarAlt ?? safeName;
 
   return (
     <div>
       <h3>Venue Owner</h3>
       <div className="flex items-center gap-4 pt-4">
-        <img
-          src={safeUrl}
-          alt={safeAlt}
+        <SafeImage
+          src={avatarUrl}
+          alt={avatarAlt || safeName}
           className="h-10 w-10 rounded-full object-cover"
         />
         <p>{safeName}</p>
