@@ -93,7 +93,7 @@ export default function CreateVenuePage() {
 
   return (
     <div className="m-8 mx-auto flex max-w-[800px] flex-col gap-8 px-4">
-      <h1>Create venue</h1>
+      <h1>Create Venue</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-12">
         <VenueForm
           name={name}

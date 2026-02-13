@@ -58,9 +58,11 @@ export default function CalendarModal({
       maxWidthClassName="max-w-[314px] sm:max-w-[398px]"
     >
       <Calendar
+        key={range?.from?.toISOString() ?? 'empty'}
         range={range}
         onSelect={setRange}
         defaultMonth={range?.from ?? new Date()}
+        size="modal"
       />
 
       <div className="mt-6 flex flex-col gap-4">

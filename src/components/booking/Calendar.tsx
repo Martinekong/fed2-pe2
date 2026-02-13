@@ -1,11 +1,14 @@
 import { DayPicker } from 'react-day-picker';
 import type { DateRange, Matcher } from 'react-day-picker';
 
+type CalendarSize = 'card' | 'modal';
+
 type Props = {
   range: DateRange | undefined;
   onSelect: (range: DateRange | undefined) => void;
   defaultMonth?: Date;
   disabled?: Matcher | Matcher[];
+  size?: CalendarSize;
 };
 
 export default function Calendar({
@@ -13,6 +16,7 @@ export default function Calendar({
   onSelect,
   defaultMonth,
   disabled = [],
+  size,
 }: Props) {
   const today = new Date();
 
@@ -20,6 +24,11 @@ export default function Calendar({
     { before: today },
     ...(Array.isArray(disabled) ? disabled : [disabled]),
   ];
+
+  const dayButtonSize =
+    size === 'card'
+      ? 'h-9 w-9 sm:h-12 sm:w-12 md:h-9 md:w-9 lg:h-12 lg:w-12'
+      : 'h-9 w-9 sm:h-12 sm:w-12';
 
   return (
     <DayPicker
@@ -31,8 +40,7 @@ export default function Calendar({
       disabled={disabledMatchers}
       classNames={{
         root: 'text-secondary relative',
-        day_button:
-          'h-9 w-9 sm:h-12 sm:w-12 md:h-9 md:w-9 lg:h-12 lg:w-12 rounded-full hover:bg-primary/10 transition',
+        day_button: `${dayButtonSize} rounded-full hover:bg-primary/10 transition disabled:hover:bg-transparent`,
         day: 'text-sm',
         caption_label:
           'font-heading font-normal tracking-wider text-secondary pb-8',
