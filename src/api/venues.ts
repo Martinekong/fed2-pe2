@@ -5,9 +5,9 @@ export type Venue = {
   id: string;
   name: string;
   description: string;
-  media: { url: string; alt: string }[];
+  media: { url: string; alt?: string }[];
   price: number;
-  location: { city: string; country: string; address: string };
+  location?: { city?: string; country?: string; address?: string };
   maxGuests: number;
   meta: { wifi: boolean; parking: boolean; breakfast: boolean; pets: boolean };
   created: string;
@@ -18,10 +18,10 @@ export type Venue = {
 export type VenueOwner = {
   name: string;
   email: string;
-  bio: string;
+  bio?: string;
   avatar: {
     url: string;
-    alt: string;
+    alt?: string;
   };
 };
 
@@ -47,7 +47,7 @@ export async function getAllVenues(
 
 export async function getVenue(id: string) {
   const res = await request<VenueResponse>(
-    `/holidaze/venues/${id}?_owner=true&_bookings=true`,
+    `/holidaze/venues/${encodeURIComponent(id)}?_owner=true&_bookings=true`,
     {
       auth: false,
     },
@@ -89,7 +89,6 @@ export async function searchVenues(
     { auth: false },
   );
 
-  console.log(res);
   return {
     data: res.data,
     meta: res.meta,
@@ -131,11 +130,14 @@ export async function updateVenue(
   id: string,
   body: VenueInput,
 ): Promise<Venue> {
-  const res = await request<VenueResponse>(`/holidaze/venues/${id}`, {
-    method: 'PUT',
-    auth: true,
-    body,
-  });
+  const res = await request<VenueResponse>(
+    `/holidaze/venues/${encodeURIComponent(id)}`,
+    {
+      method: 'PUT',
+      auth: true,
+      body,
+    },
+  );
 
   return res.data;
 }
