@@ -23,6 +23,7 @@ export default function ModalWrapper({
     >
       <div
         className={`relative w-full ${maxWidthClassName} flex flex-col gap-6 rounded-2xl bg-white p-6 shadow-lg`}
+        onClick={(e) => e.stopPropagation()}
       >
         {title && <h2>{title}</h2>}
 
