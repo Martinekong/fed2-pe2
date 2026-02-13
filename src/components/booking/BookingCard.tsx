@@ -20,7 +20,7 @@ export default function BookingCard({ booking, onEdit, onDelete }: Props) {
   const venue = booking.venue;
 
   const nights = nightsBetween(booking.dateFrom, booking.dateTo);
-  const total = venue ? nights * venue.price : null;
+  const total = venue && nights > 0 ? nights * venue.price : null;
 
   return (
     <HorizontalCard
@@ -30,12 +30,12 @@ export default function BookingCard({ booking, onEdit, onDelete }: Props) {
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <h3>{venue?.name}</h3>
+          <h3>{venue?.name ?? 'Venue'}</h3>
           <div className="flex items-center gap-2">
             <FmdGoodOutlinedIcon fontSize="small" />
             <p className="text-sm">
-              {venue?.location.city ?? 'Unknown'},{' '}
-              {venue?.location.country ?? 'unknown'}
+              {venue?.location?.city ?? 'Unknown'},{' '}
+              {venue?.location?.country ?? 'Unknown'}
             </p>
           </div>
         </div>

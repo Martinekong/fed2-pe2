@@ -43,7 +43,7 @@ export default function CalendarCard({ venue }: Props) {
     !isSubmitting;
 
   async function handleBook() {
-    if (!range?.from || !range?.to) return;
+    if (!canSubmit || !range?.from || !range?.to) return;
 
     setIsSubmitting(true);
     setError(null);

@@ -26,7 +26,7 @@ export default function Calendar({
       mode="range"
       selected={range}
       onSelect={onSelect}
-      defaultMonth={defaultMonth ?? new Date()}
+      defaultMonth={defaultMonth ?? range?.from ?? new Date()}
       weekStartsOn={1}
       disabled={disabledMatchers}
       classNames={{
@@ -43,7 +43,7 @@ export default function Calendar({
       modifiersClassNames={{
         selected: 'bg-primary text-secondary',
         range_start: 'rounded-full !text-white',
-        range_end: ' rounded-full text-white',
+        range_end: 'rounded-full text-white',
         range_middle: 'bg-tertiary rounded-full',
       }}
     />
