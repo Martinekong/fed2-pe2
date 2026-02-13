@@ -16,7 +16,11 @@ export default function ModalWrapper({
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/60">
+    <div
+      className="fixed inset-0 z-50 grid place-items-center bg-black/60 p-4"
+      onClick={onClose}
+      aria-modal="true"
+    >
       <div
         className={`relative w-full ${maxWidthClassName} flex flex-col gap-6 rounded-2xl bg-white p-6 shadow-lg`}
       >

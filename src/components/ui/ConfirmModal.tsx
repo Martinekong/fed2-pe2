@@ -20,8 +20,6 @@ export default function ConfirmModal({
   onConfirm,
   onClose,
 }: Props) {
-  if (!open) return null;
-
   return (
     <ModalWrapper
       open={open}

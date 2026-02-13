@@ -2,7 +2,7 @@ import PlaceholderImage from '../../assets/placeholder_image.jpg';
 
 type Props = {
   src?: string;
-  alt?: string;
+  alt: string;
   className?: string;
 };
 

@@ -18,7 +18,7 @@ export default function MuiPagination({
   const isSmall = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <div className="mx-auto mt-6 items-center">
+    <div className="mx-auto mt-6">
       <Pagination
         page={page}
         count={totalPages}

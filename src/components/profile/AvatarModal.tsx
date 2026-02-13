@@ -23,8 +23,6 @@ export default function AvatarModal({
   onClose,
   onSave,
 }: Props) {
-  if (!open) return null;
-
   return (
     <ModalWrapper
       open={open}

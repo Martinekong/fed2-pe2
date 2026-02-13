@@ -26,6 +26,7 @@ export default function Button({
 
   return (
     <button
+      type={props.type ?? 'button'}
       className={`${base} ${variants[variant]} ${width} ${className}`}
       {...props}
     />
