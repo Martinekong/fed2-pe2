@@ -78,9 +78,7 @@ export function VenueForm({
           label="Name*"
           type="text"
           value={name}
-          onChange={(e) => {
-            setName(e.target.value);
-          }}
+          onChange={(e) => setName(e.target.value)}
           placeholder="Name of the venue"
           disabled={isSubmitting}
           error={errors.name}
@@ -88,9 +86,7 @@ export function VenueForm({
         <Textarea
           label="Description*"
           value={description}
-          onChange={(e) => {
-            setDescription(e.target.value);
-          }}
+          onChange={(e) => setDescription(e.target.value)}
           placeholder="Describe your venue"
           disabled={isSubmitting}
           error={errors.description}
@@ -103,9 +99,7 @@ export function VenueForm({
             min={1}
             placeholder="Max guests (number)"
             value={maxGuests}
-            onChange={(e) => {
-              setMaxGuests(e.target.value);
-            }}
+            onChange={(e) => setMaxGuests(e.target.value)}
             disabled={isSubmitting}
             error={errors.maxGuests}
           />
@@ -115,9 +109,7 @@ export function VenueForm({
             min={1}
             placeholder="800"
             value={price}
-            onChange={(e) => {
-              setPrice(e.target.value);
-            }}
+            onChange={(e) => setPrice(e.target.value)}
             disabled={isSubmitting}
             error={errors.price}
           />
