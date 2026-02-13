@@ -29,7 +29,7 @@ export default function AvatarModal({
     <ModalWrapper
       open={open}
       title="Edit Profile Image"
-      onClose={onSave}
+      onClose={onClose}
       maxWidthClassName="max-w-lg"
     >
       <div className="mt-6 flex flex-col gap-4">
@@ -38,6 +38,7 @@ export default function AvatarModal({
           value={url}
           onChange={(e) => onChangeUrl(e.target.value)}
           placeholder="https://image.unsplash.com/..."
+          disabled={isSaving}
         />
         {!url.trim() && (
           <p className="text-sm text-error">Image URL is required</p>
@@ -47,6 +48,7 @@ export default function AvatarModal({
           value={alt}
           onChange={(e) => onChangeAlt(e.target.value)}
           placeholder="Describe your image"
+          disabled={isSaving}
         />
 
         <div className="mt-4 flex flex-wrap gap-4">
