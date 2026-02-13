@@ -3,7 +3,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import { getVenue, updateVenue, type VenueInput } from '../../api/venues';
-import { ApiError } from '../../api/client';
 
 import {
   validateVenue,
@@ -16,6 +15,7 @@ import { VenueForm } from '../../components/manager/VenueForm';
 
 import Button from '../../components/ui/Button';
 import LoadingLine from '../../components/ui/LoadingLine';
+import { getErrorMessage } from '../../api/getErrorMessage';
 
 export default function EditVenuePage() {
   const { id } = useParams();
@@ -53,7 +53,6 @@ export default function EditVenuePage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<VenueFieldErrors>({});
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [submitError, setSubmitError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadVenue() {
@@ -84,7 +83,7 @@ export default function EditVenuePage() {
         setBreakfast(Boolean(venue.meta?.breakfast));
         setParking(Boolean(venue.meta?.parking));
         setPets(Boolean(venue.meta?.pets));
-      } catch (err) {
+      } catch {
         setLoadError('Could not load venue. Please try again');
       } finally {
         setIsLoading(false);
@@ -96,7 +95,6 @@ export default function EditVenuePage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setSubmitError(null);
 
     const validation = validateVenue({ name, description, maxGuests, price });
     if (!validation.ok) {
@@ -138,9 +136,9 @@ export default function EditVenuePage() {
 
       navigate(`/venues/${updated.id}`);
     } catch (err) {
-      err instanceof ApiError
-        ? setSubmitError(err.message)
-        : setSubmitError('Something went wrong. Please try again.');
+      toast.error(
+        getErrorMessage(err, 'Something went wrong. Please try again.'),
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -210,10 +208,6 @@ export default function EditVenuePage() {
               </Button>
             </Link>
           </div>
-
-          {submitError && (
-            <p className="pl-2 text-error">Error: {submitError}</p>
-          )}
         </form>
       )}
     </div>

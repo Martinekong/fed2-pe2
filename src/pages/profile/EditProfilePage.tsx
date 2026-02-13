@@ -3,14 +3,15 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../app/authContext';
 import toast from 'react-hot-toast';
 
-import Button from '../../components/ui/Button';
-import Textarea from '../../components/ui/Textarea';
-
 import { updateProfile } from '../../api/profiles';
 
-import AvatarModal from '../../components/profile/AvatarModal';
-import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import Button from '../../components/ui/Button';
+import Textarea from '../../components/ui/Textarea';
 import LoadingLine from '../../components/ui/LoadingLine';
+import SafeImage from '../../components/ui/SafeImage';
+import AvatarModal from '../../components/profile/AvatarModal';
+
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 
 export default function EditProfilePage() {
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ export default function EditProfilePage() {
       });
 
       setProfile(updated);
-      toast.success('Profile updated!');
+      toast.success('Your profile has been updated!');
       navigate('/profile');
     } catch {
       toast.error('Could not update profile. Please try again.');
@@ -101,9 +102,9 @@ export default function EditProfilePage() {
         <>
           <div className="flex flex-wrap gap-8">
             <div className="relative">
-              <img
+              <SafeImage
                 src={profile.avatar.url}
-                alt={profile.avatar.alt}
+                alt={profile.avatar.alt || `${profile.name}'s avatar`}
                 className="h-48 w-48 rounded-full object-cover"
               />
               <button

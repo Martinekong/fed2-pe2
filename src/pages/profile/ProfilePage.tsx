@@ -2,10 +2,12 @@ import { useAuth } from '../../app/authContext';
 import Button from '../../components/ui/Button';
 import { Link } from 'react-router-dom';
 
+import SafeImage from '../../components/ui/SafeImage';
+import LoadingLine from '../../components/ui/LoadingLine';
+
 import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
-import LoadingLine from '../../components/ui/LoadingLine';
 
 export default function ProfilePage() {
   const { profile, isLoadingProfile, isVenueManager, loggedIn } = useAuth();
@@ -23,15 +25,15 @@ export default function ProfilePage() {
       {!isLoadingProfile && loggedIn && profile && (
         <>
           <div className="flex flex-wrap gap-8">
-            <img
+            <SafeImage
               src={profile.avatar.url}
-              alt={profile.avatar.alt}
+              alt={profile.avatar.alt || `${profile.name}'s avatar`}
               className="h-48 w-48 rounded-full object-cover"
             />
             <div className="flex flex-col items-start justify-center gap-4">
               <h2>{profile.name}</h2>
               <p>{profile.email}</p>
-              {profile.venueManager && (
+              {isVenueManager && (
                 <span className="rounded-2xl bg-tertiary px-4 py-2 text-center">
                   Venue Manager
                 </span>

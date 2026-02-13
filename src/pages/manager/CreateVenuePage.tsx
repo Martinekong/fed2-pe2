@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 import { createVenue, type VenueInput } from '../../api/venues';
-import { ApiError } from '../../api/client';
+import { getErrorMessage } from '../../api/getErrorMessage';
 
 import {
   validateVenue,
@@ -11,9 +11,7 @@ import {
 } from '../../lib/venueValidation';
 
 import { useVenueMedia } from '../../components/manager/useVenueMedia';
-
 import { VenueForm } from '../../components/manager/VenueForm';
-
 import Button from '../../components/ui/Button';
 
 export default function CreateVenuePage() {
@@ -38,11 +36,9 @@ export default function CreateVenuePage() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errors, setErrors] = useState<VenueFieldErrors>({});
-  const [apiError, setApiError] = useState<string | null>(null);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setApiError(null);
 
     const validation = validateVenue({ name, description, maxGuests, price });
     if (!validation.ok) {
@@ -83,13 +79,13 @@ export default function CreateVenuePage() {
 
       const created = await createVenue(body);
 
-      toast.success('Venue created!');
+      toast.success('Your venue has been created!');
 
       navigate(`/venues/${created.id}`);
     } catch (err) {
-      err instanceof ApiError
-        ? setApiError(err.message)
-        : setApiError('Something went wrong. Please try again.');
+      toast.error(
+        getErrorMessage(err, 'Something went wrong. Please try again.'),
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -151,8 +147,6 @@ export default function CreateVenuePage() {
             </Button>
           </Link>
         </div>
-
-        {apiError && <p className="pl-2 text-error">Error: {apiError}</p>}
       </form>
     </div>
   );

@@ -40,7 +40,7 @@ export default function BookingDetails({
       </div>
       <div className="flex items-center gap-4">
         <AccountBalanceWalletOutlinedIcon fontSize="small" />
-        <p>{price} NOK per night </p>
+        <p>${price} per night </p>
       </div>
       <div className="flex items-center gap-4">
         <CalendarMonthOutlinedIcon fontSize="small" />

@@ -49,7 +49,7 @@ export default function VenueRightPanel({ venue }: Props) {
 
   if (!loggedIn) {
     return (
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 md:ml-auto">
         <h3>Booking</h3>
         <p>You must be logged in to book this venue.</p>
         <Link to="/login">
@@ -136,8 +136,8 @@ export default function VenueRightPanel({ venue }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <h3 className="md:mx-auto">Booking</h3>
+    <div className="flex flex-col gap-4 md:ml-auto">
+      <h3>Booking</h3>
       <CalendarCard venue={venue} />
     </div>
   );

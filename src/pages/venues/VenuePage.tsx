@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import { getVenue, type Venue } from '../../api/venues';
+
+import LoadingLine from '../../components/ui/LoadingLine';
 import VenueImgCarousel from '../../components/venues/VenueImgCarousel';
 import VenueDetails from '../../components/venues/VenueDetails';
 import VenueRightPanel from '../../components/venues/VenueRightPanel';
-import LoadingLine from '../../components/ui/LoadingLine';
 
 export default function VenuePage() {
   const [venue, setVenue] = useState<Venue | null>(null);
@@ -52,10 +54,7 @@ export default function VenuePage() {
 
           <div className="flex flex-col gap-20 md:grid md:grid-cols-2">
             <VenueDetails venue={venue} />
-
-            <div>
-              <VenueRightPanel venue={venue} />
-            </div>
+            <VenueRightPanel venue={venue} />
           </div>
         </>
       )}

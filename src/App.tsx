@@ -9,9 +9,9 @@ function App() {
   return (
     <>
       <ToastContainer />
+      <ScrollToTop />
       <Header />
       <main>
-        <ScrollToTop />
         <AppRoutes />
       </main>
       <ScrollToTopButton />

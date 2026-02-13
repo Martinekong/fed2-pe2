@@ -96,7 +96,7 @@ export default function BookingPage() {
 
             <div className="flex flex-col gap-4">
               <h3 className="border-b border-t border-tertiary py-8 tracking-wider">
-                Total: {total} NOK
+                Total: ${total}
               </h3>
 
               <div className="mt-auto">
@@ -145,7 +145,7 @@ export default function BookingPage() {
 
                 setBooking((prev) => (prev ? { ...prev, ...updated } : prev));
 
-                toast.success('Booking updated!');
+                toast.success('Your booking has been updated!');
                 setEditOpen(false);
               } catch {
                 toast.error('Could not update booking. Please try again.');
@@ -164,7 +164,7 @@ export default function BookingPage() {
               setIsDeleting(true);
               try {
                 await deleteBooking(booking.id);
-                toast.success('Booking deleted!');
+                toast.success('Your booking has been deleted!');
                 navigate('/bookings');
               } catch {
                 toast.error('Could not delete booking. Please try again.');

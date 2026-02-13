@@ -76,7 +76,7 @@ export default function MyBookingsPage() {
     try {
       await deleteBooking(deleteId);
       setBookings((prev) => prev.filter((b) => b.id !== deleteId));
-      toast.success('Booking deleted!');
+      toast.success('Your booking has been deleted!');
       setDeleteId(null);
     } catch {
       toast.error('Could not delete booking. Please try again.');
@@ -133,7 +133,7 @@ export default function MyBookingsPage() {
               try {
                 await updateBooking(bookingToEdit.id, next);
 
-                toast.success('Booking updated!');
+                toast.success('Your booking has been updated!');
                 navigate(`/bookings/${bookingToEdit.id}`);
               } catch {
                 toast.error('Could not update booking. Please try again.');

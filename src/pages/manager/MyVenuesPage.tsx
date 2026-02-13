@@ -13,6 +13,7 @@ import { getVenuesByProfile } from '../../api/profiles';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import LoadingLine from '../../components/ui/LoadingLine';
 import CardSkeleton from '../../components/booking/CardSkeleton';
+import { getErrorMessage } from '../../api/getErrorMessage';
 
 export default function MyVenuesPage() {
   const navigate = useNavigate();
@@ -40,7 +41,6 @@ export default function MyVenuesPage() {
 
         const data = await getVenuesByProfile(username);
         setVenues(data);
-        console.log('data:', data);
       } catch {
         setError('Could not load venues. Please try again');
       } finally {
@@ -68,8 +68,8 @@ export default function MyVenuesPage() {
       setVenues((prev) => prev.filter((b) => b.id !== deleteId));
       toast.success('Venue deleted');
       setDeleteId(null);
-    } catch {
-      toast.error('Could not delete venue');
+    } catch (err) {
+      toast.error(getErrorMessage(err, 'Could not delete venue'));
     } finally {
       setIsDeleting(false);
     }
