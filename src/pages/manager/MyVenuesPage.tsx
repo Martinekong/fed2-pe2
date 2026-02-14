@@ -76,7 +76,7 @@ export default function MyVenuesPage() {
   }
 
   return (
-    <div className="page-wrapper gap-8">
+    <div className="page-wrapper">
       <div className="flex flex-wrap justify-between gap-6">
         <h1>My Venues</h1>
         <Link to={'/manager/venues/create'} className="mb-2 mt-auto">

@@ -51,7 +51,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <div className="page-wrapper gap-8">
+    <div className="page-wrapper">
       <h1>Favorites</h1>
 
       {isLoading && <VenueGridSkeleton count={12} />}

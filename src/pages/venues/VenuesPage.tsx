@@ -78,7 +78,7 @@ export default function VenuesPage() {
   }
 
   return (
-    <div className="page-wrapper gap-8">
+    <div className="page-wrapper">
       <h1>Venues</h1>
       <div className="flex flex-wrap items-center gap-4 sm:gap-8">
         <form className="relative flex-1" onSubmit={handleSubmit}>

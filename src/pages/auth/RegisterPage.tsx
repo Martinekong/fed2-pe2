@@ -73,8 +73,8 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="m-8 mx-auto flex max-w-[450px] flex-col items-center px-4">
-      <h1 className="mb-8">Register</h1>
+    <div className="page-wrapper max-w-[450px] items-center">
+      <h1>Register</h1>
 
       <form
         onSubmit={handleSubmit}

@@ -85,7 +85,7 @@ export default function EditProfilePage() {
   }
 
   return (
-    <div className="page-wrapper gap-8">
+    <div className="page-wrapper">
       <h1>Edit Profile</h1>
 
       {isLoadingProfile && <LoadingLine text="Getting your profile..." />}

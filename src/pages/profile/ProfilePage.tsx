@@ -13,7 +13,7 @@ export default function ProfilePage() {
   const { profile, isLoadingProfile, isVenueManager, loggedIn } = useAuth();
 
   return (
-    <div className="page-wrapper gap-8">
+    <div className="page-wrapper">
       <h1>Profile</h1>
 
       {isLoadingProfile && <LoadingLine text="Getting your profile..." />}

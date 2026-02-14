@@ -40,7 +40,7 @@ export default function VenuePage() {
   }, [id]);
 
   return (
-    <section className="page-wrapper gap-8">
+    <section className="page-wrapper">
       {isLoading && <LoadingLine text="Getting venue..." />}
       {!isLoading && error && <p className="text-error">{error}</p>}
       {!isLoading && !error && !venue && <p>Venue not found.</p>}

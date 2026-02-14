@@ -34,7 +34,7 @@
 
 @layer components {
   .page-wrapper {
-    @apply mx-auto flex max-w-5xl flex-col p-8;
+    @apply mx-auto flex max-w-5xl flex-col gap-8 p-8;
   }
 
   .input-field {

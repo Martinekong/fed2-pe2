@@ -145,7 +145,7 @@ export default function EditVenuePage() {
   }
 
   return (
-    <div className="page-wrapper gap-8">
+    <div className="page-wrapper">
       <h1>Edit Venue</h1>
 
       {isLoading && <LoadingLine text="Getting your venue..." />}

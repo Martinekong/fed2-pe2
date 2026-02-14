@@ -64,7 +64,7 @@ export default function BookingPage() {
   const total = nights * pricePerNight;
 
   return (
-    <div className="page-wrapper gap-8 md:grid md:grid-cols-2">
+    <div className="page-wrapper md:grid md:grid-cols-2">
       <h1 className="md:col-span-2">Your Booking</h1>
       {isLoading && <LoadingLine text="Getting your booking..." />}
       {!isLoading && error && <p className="text-error">{error}</p>}

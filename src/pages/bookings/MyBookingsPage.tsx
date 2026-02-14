@@ -86,7 +86,7 @@ export default function MyBookingsPage() {
   }
 
   return (
-    <div className="page-wrapper gap-8">
+    <div className="page-wrapper">
       <h1>My Bookings</h1>
 
       {isLoading && (
