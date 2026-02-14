@@ -3,6 +3,8 @@ import VenueGrid from '../../components/venues/VenueGrid';
 import VenueGridSkeleton from '../../components/venues/VenueGridSkeleton';
 import { getFavorites, setFavorites } from '../../lib/storage';
 import { getVenuesByIds, type Venue } from '../../api/venues';
+import Button from '../../components/ui/Button';
+import { Link } from 'react-router-dom';
 
 export default function FavoritesPage() {
   const [venues, setVenues] = useState<Venue[]>([]);
@@ -59,7 +61,14 @@ export default function FavoritesPage() {
       {!isLoading && error && <p className="text-error">{error}</p>}
 
       {!isLoading && !error && venues.length === 0 && (
-        <p>You have no favorited venues</p>
+        <>
+          <p>You have no favorited venues.</p>
+          <Link to={'/venues'}>
+            <Button variant="primary" className="w-52">
+              Explore venues
+            </Button>
+          </Link>
+        </>
       )}
       {!isLoading && !error && venues.length > 0 && (
         <VenueGrid venues={venues} onFavoriteChange={handleFavoriteChange} />

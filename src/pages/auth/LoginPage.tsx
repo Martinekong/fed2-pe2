@@ -73,7 +73,6 @@ export default function LoginPage() {
   }
 
   return (
-    // <div className="mx-auto flex max-w-[450px] flex-col items-center p-8">
     <div className="page-wrapper max-w-[450px] items-center">
       <h1>Login</h1>
 

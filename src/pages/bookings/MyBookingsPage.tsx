@@ -98,7 +98,7 @@ export default function MyBookingsPage() {
 
       {!isLoading && error && <p className="text-error">{error}</p>}
       {!isLoading && !error && bookings.length === 0 && (
-        <p>You have no bookings yet.</p>
+        <p>You have no upcoming bookings.</p>
       )}
 
       {!isLoading && !error && bookings.length > 0 && (

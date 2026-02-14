@@ -95,7 +95,7 @@ export default function BookingPage() {
             </div>
 
             <div className="flex flex-col gap-4">
-              <h3 className="border-b border-t border-tertiary py-8 tracking-wider">
+              <h3 className="border-b border-t border-secondary py-8 tracking-wider">
                 Total: ${total}
               </h3>
 
