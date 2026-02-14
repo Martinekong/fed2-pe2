@@ -34,7 +34,7 @@ export default function ProfilePage() {
               <h2>{profile.name}</h2>
               <p>{profile.email}</p>
               {isVenueManager && (
-                <span className="rounded-2xl bg-tertiary px-4 py-2 text-center">
+                <span className="rounded-full bg-tertiary px-4 py-2 text-center">
                   Venue Manager
                 </span>
               )}
@@ -56,7 +56,7 @@ export default function ProfilePage() {
             <h3>Manage:</h3>
             <Link
               to="/bookings"
-              className="flex items-center justify-between rounded-2xl border border-secondary p-4 shadow-md hover:shadow-lg"
+              className="hober:bg-white/80 flex items-center justify-between rounded-full border border-black/10 bg-white/60 px-6 py-4 shadow-md transition hover:shadow-lg"
             >
               <div className="flex items-center gap-4">
                 <CalendarMonthOutlinedIcon />
@@ -67,7 +67,7 @@ export default function ProfilePage() {
             {isVenueManager && (
               <Link
                 to="/manager/venues"
-                className="flex items-center justify-between rounded-2xl border border-secondary p-4 shadow-md hover:shadow-lg"
+                className="hober:bg-white/80 flex items-center justify-between rounded-full border border-black/10 bg-white/60 px-6 py-4 shadow-md transition hover:shadow-lg"
               >
                 <div className="flex items-center gap-4">
                   <CottageOutlinedIcon />

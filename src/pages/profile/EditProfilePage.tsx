@@ -145,7 +145,7 @@ export default function EditProfilePage() {
                 type="button"
                 onClick={() => setVenueManager((v) => !v)}
                 aria-pressed={venueManager}
-                className={`relative h-10 w-20 rounded-full shadow-md transition duration-300 hover:shadow-lg ${venueManager ? 'bg-primary' : 'bg-tertiary'}`}
+                className={`relative h-10 w-20 rounded-full shadow-md transition duration-300 hover:shadow-lg ${venueManager ? 'bg-primary' : 'bg-[#918C8C]'}`}
                 disabled={isSaving || isSavingAvatar}
               >
                 <span

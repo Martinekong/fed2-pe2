@@ -40,7 +40,7 @@ export default function VenueCard({ venue, onFavoriteChange }: Props) {
   return (
     <Link
       to={`/venues/${venue.id}`}
-      className="group relative flex flex-col rounded-2xl border border-white/60 bg-white shadow-lg transition hover:shadow-xl"
+      className="group relative flex flex-col overflow-hidden rounded-2xl border border-white/60 bg-white shadow-lg transition hover:shadow-xl"
     >
       <div className="overflow-hidden rounded-t-2xl">
         <SafeImage

@@ -28,6 +28,7 @@ export default function MuiPagination({
         sx={{
           '& .MuiPaginationItem-root': {
             borderRadius: '100%',
+            fontFamily: 'lato',
           },
           '& .MuiPaginationItem-root.Mui-selected': {
             backgroundColor: 'rgba(0, 0, 0, 0.6)',
