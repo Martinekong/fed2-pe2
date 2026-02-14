@@ -34,7 +34,7 @@ export default function ProfilePage() {
               <h2>{profile.name}</h2>
               <p>{profile.email}</p>
               {isVenueManager && (
-                <span className="rounded-full bg-tertiary px-4 py-2 text-center">
+                <span className="rounded-full bg-secondary px-4 py-2 text-center">
                   Venue Manager
                 </span>
               )}

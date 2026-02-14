@@ -70,7 +70,7 @@ export default function CalendarCard({ venue }: Props) {
   }
 
   return (
-    <div className="max-w-[300px] rounded-2xl border border-black/5 bg-white p-4 text-secondary shadow-lg sm:max-w-[398px] sm:p-6 md:max-w-[314px] lg:max-w-[398px]">
+    <div className="max-w-[300px] rounded-2xl border border-black/5 bg-white p-4 text-tertiary shadow-lg sm:max-w-[398px] sm:p-6 md:max-w-[314px] lg:max-w-[398px]">
       <Calendar
         range={range}
         onSelect={setRange}

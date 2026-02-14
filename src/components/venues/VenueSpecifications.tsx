@@ -24,7 +24,7 @@ function Specification({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex items-center gap-4 rounded-2xl border border-tertiary bg-white p-4">
+    <div className="flex items-center gap-4 rounded-2xl border border-secondary bg-white p-4">
       {icon}
       <p className="text-sm">{children}</p>
     </div>

@@ -87,7 +87,7 @@ export default function VenueCard({ venue, onFavoriteChange }: Props) {
 
         <div className="mt-auto flex items-center gap-1">
           <p className="text-xl font-bold">${venue.price}</p>
-          <p className="pt-2 text-sm">/ night</p>
+          <p className="pt-1 text-sm">/ night</p>
         </div>
       </div>
 

@@ -110,7 +110,7 @@ export default function VenueRightPanel({ venue }: Props) {
               {upcoming.map((b) => (
                 <div
                   key={b.id}
-                  className="flex flex-col gap-3 rounded-2xl border border-tertiary bg-white p-4 shadow-md"
+                  className="flex flex-col gap-3 rounded-2xl border border-secondary bg-white p-4 shadow-md"
                 >
                   <div className="flex items-center gap-4">
                     <CalendarMonthOutlinedIcon fontSize="small" />

@@ -5,10 +5,13 @@ export default {
     extend: {
       colors: {
         primary: '#2C6754',
-        primary_hover: '#3A836C',
-        secondary: '#2E332F',
-        tertiary: '#DFE5DD',
+        primary_hover: '#245646',
+        secondary: '#DFE5DD',
+        secondary_hover: '#D1DBCE',
+        tertiary: '#2E332F',
         background: '#FBFBF9',
+        accent_cold: '#526E6B',
+        accent_warm: '#918C8C',
         error: '#BE2345',
       },
       fontFamily: {

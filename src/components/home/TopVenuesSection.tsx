@@ -59,7 +59,7 @@ export default function TopVenuesSection() {
           {topVenues.map((venue) => (
             <div
               key={venue.id}
-              className="flex flex-col border-b border-tertiary py-8 md:grid md:grid-cols-2 md:gap-6"
+              className="border-accent_warm flex flex-col border-b py-8 md:grid md:grid-cols-2 md:gap-6"
             >
               <SafeImage
                 src={venue.media[0].url}

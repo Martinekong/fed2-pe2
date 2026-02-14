@@ -12,7 +12,7 @@
   }
 
   body {
-    @apply bg-[#FBFBF9] font-body;
+    @apply bg-background font-body;
   }
 
   main {
@@ -37,20 +37,8 @@
     @apply mx-auto flex max-w-5xl flex-col p-8;
   }
 
-  .header-profile-btn {
-    @apply flex justify-center rounded-full bg-primary px-3 py-1 text-white shadow-md transition duration-300 hover:bg-primary_hover hover:shadow-lg;
-  }
-
-  .header-primary-btn {
-    @apply flex w-20 items-center justify-center rounded-2xl bg-primary p-1 text-white shadow-md transition duration-300 hover:bg-primary_hover hover:shadow-lg;
-  }
-
-  .header-secondary-btn {
-    @apply flex w-20 items-center justify-center rounded-2xl border border-secondary p-1 text-secondary shadow-md transition duration-300 hover:shadow-lg;
-  }
-
   .input-field {
-    @apply mt-2 rounded-3xl border-2 border-tertiary px-3 py-2 shadow-md focus:border-primary focus:outline-none;
+    @apply mt-2 rounded-3xl border-2 border-secondary px-3 py-2 shadow-md focus:border-primary focus:outline-none;
   }
 
   .input-field-error {

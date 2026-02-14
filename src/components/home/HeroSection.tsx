@@ -98,10 +98,10 @@ export default function HeroSection() {
 
             <div className="ml-2 mt-[30px]">
               <Button
-                variant="secondary"
+                variant="hero"
                 type="button"
                 onClick={goToVenues}
-                className="flex w-52 items-center rounded-full border border-white/60 bg-black/35 text-white backdrop-blur-sm hover:border-white hover:bg-black/45 hover:text-white"
+                className="w-52"
               >
                 Venues
                 <KeyboardArrowRightOutlinedIcon className="pt-0.5" />
@@ -111,7 +111,7 @@ export default function HeroSection() {
         </div>
         <a
           href="#discover"
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 rounded-full bg-black/35 px-4 py-2 text-sm tracking-wide text-white shadow-lg ring-1 ring-white/10 backdrop-blur-sm hover:bg-black/45 hover:text-white"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 rounded-full bg-black/35 px-4 py-2 text-sm tracking-wide text-white shadow-lg ring-1 ring-white/10 backdrop-blur-sm transition duration-300 hover:bg-black/45 hover:text-white"
         >
           More destinations
           <KeyboardDoubleArrowDownIcon />

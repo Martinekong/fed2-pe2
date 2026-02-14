@@ -126,7 +126,7 @@ export default function RegisterPage() {
             type="button"
             onClick={() => setVenueManager((v) => !v)}
             aria-pressed={venueManager}
-            className={`relative h-10 w-20 rounded-full shadow-md transition duration-300 hover:shadow-lg ${venueManager ? 'bg-primary' : 'bg-[#918C8C]'}`}
+            className={`relative h-10 w-20 rounded-full shadow-md transition duration-300 hover:shadow-lg ${venueManager ? 'bg-primary' : 'bg-accent_warm'}`}
             disabled={isSubmitting}
             aria-label="Toggle venue manager"
           >

@@ -9,7 +9,7 @@ export default function Footer() {
   const { loggedIn, isVenueManager } = useAuth();
 
   return (
-    <footer className="relative mt-16 flex flex-col items-center gap-4 bg-secondary p-8 text-white">
+    <footer className="relative mt-16 flex flex-col items-center gap-4 bg-tertiary p-8 text-white">
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{ backgroundImage: `url('${FooterBg}')` }}
@@ -64,5 +64,5 @@ export default function Footer() {
 }
 
 function Divider() {
-  return <span className="mt-2 h-3 w-px bg-[#526E6B]" />;
+  return <span className="bg-accent_cold mt-2 h-3 w-px" />;
 }

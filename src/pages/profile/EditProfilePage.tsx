@@ -122,7 +122,7 @@ export default function EditProfilePage() {
               <h2>{profile.name}</h2>
               <p>{profile.email}</p>
               {profile.venueManager && (
-                <span className="rounded-2xl bg-tertiary px-4 py-2 text-center">
+                <span className="rounded-2xl bg-secondary px-4 py-2 text-center">
                   Venue Manager
                 </span>
               )}
@@ -145,7 +145,7 @@ export default function EditProfilePage() {
                 type="button"
                 onClick={() => setVenueManager((v) => !v)}
                 aria-pressed={venueManager}
-                className={`relative h-10 w-20 rounded-full shadow-md transition duration-300 hover:shadow-lg ${venueManager ? 'bg-primary' : 'bg-[#918C8C]'}`}
+                className={`relative h-10 w-20 rounded-full shadow-md transition duration-300 hover:shadow-lg ${venueManager ? 'bg-primary' : 'bg-accent_warm'}`}
                 disabled={isSaving || isSavingAvatar}
               >
                 <span

@@ -39,20 +39,20 @@ export default function Calendar({
       weekStartsOn={1}
       disabled={disabledMatchers}
       classNames={{
-        root: 'text-secondary relative',
+        root: 'text-tertiary relative',
         day_button: `${dayButtonSize} rounded-full hover:bg-primary/10 transition disabled:hover:bg-transparent`,
         day: 'text-sm',
         caption_label:
-          'font-heading font-normal tracking-wider text-secondary pb-8',
+          'font-heading font-normal tracking-wider text-tertiary pb-8',
         weekday: 'font-normal',
         disabled: 'opacity-50',
         today: 'font-semibold',
       }}
       modifiersClassNames={{
-        selected: 'bg-primary text-secondary',
+        selected: 'bg-primary text-tertiary',
         range_start: 'rounded-full !text-white',
-        range_end: 'rounded-full text-white',
-        range_middle: 'bg-tertiary rounded-full',
+        range_end: 'rounded-full !text-white',
+        range_middle: 'bg-secondary rounded-full',
       }}
     />
   );

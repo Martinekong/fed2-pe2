@@ -43,7 +43,7 @@ export default function ConfirmModal({
         </Button>
 
         <Button
-          variant="primary"
+          variant="secondary"
           type="button"
           onClick={onClose}
           disabled={isConfirming}

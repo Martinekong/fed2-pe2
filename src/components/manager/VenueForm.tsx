@@ -192,7 +192,7 @@ export function VenueForm({
       <div className="flex flex-col gap-8">
         <h2>Includes</h2>
         <div className="grid gap-8 sm:grid-cols-2">
-          <label className="flex items-center gap-4 rounded-2xl border-2 border-tertiary bg-white px-6 py-3 shadow-md">
+          <label className="flex items-center gap-4 rounded-2xl border-2 border-secondary bg-white px-6 py-3 shadow-md">
             <input
               type="checkbox"
               className="h-4 w-4 accent-primary"
@@ -203,7 +203,7 @@ export function VenueForm({
             <span>Wifi</span>
           </label>
 
-          <label className="flex items-center gap-4 rounded-2xl border-2 border-tertiary bg-white px-6 py-3 shadow-md">
+          <label className="flex items-center gap-4 rounded-2xl border-2 border-secondary bg-white px-6 py-3 shadow-md">
             <input
               type="checkbox"
               className="h-4 w-4 accent-primary"
@@ -214,7 +214,7 @@ export function VenueForm({
             <span>Breakfast</span>
           </label>
 
-          <label className="flex items-center gap-4 rounded-2xl border-2 border-tertiary bg-white px-6 py-3 shadow-md">
+          <label className="flex items-center gap-4 rounded-2xl border-2 border-secondary bg-white px-6 py-3 shadow-md">
             <input
               type="checkbox"
               className="h-4 w-4 accent-primary"
@@ -225,7 +225,7 @@ export function VenueForm({
             <span>Parking</span>
           </label>
 
-          <label className="flex items-center gap-4 rounded-2xl border-2 border-tertiary bg-white px-6 py-3 shadow-md">
+          <label className="flex items-center gap-4 rounded-2xl border-2 border-secondary bg-white px-6 py-3 shadow-md">
             <input
               type="checkbox"
               className="h-4 w-4 accent-primary"
