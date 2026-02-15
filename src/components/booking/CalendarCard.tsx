@@ -7,7 +7,6 @@ import { addDays, parseISO } from 'date-fns';
 import Calendar from './Calendar';
 
 import { createBooking, type CreateBookingInput } from '../../api/bookings';
-import { ApiError } from '../../api/client';
 import type { Venue } from '../../api/venues';
 
 import Button from '../ui/Button';
@@ -15,6 +14,7 @@ import Button from '../ui/Button';
 import { nightsBetween } from '../../utils/date';
 import GuestButtons from './GuestButtons';
 import BookingTotal from './BookingTotal';
+import { getErrorMessage } from '../../api/getErrorMessage';
 
 type Props = { venue: Venue };
 
@@ -61,9 +61,7 @@ export default function CalendarCard({ venue }: Props) {
       toast.success('Booking created!');
       navigate(`/bookings/${booking.id}`);
     } catch (err) {
-      err instanceof ApiError
-        ? setError(err.message)
-        : setError('Something went wrong. Please try again.');
+      setError(getErrorMessage(err, 'Something went wrong. Please try again.'));
     } finally {
       setIsSubmitting(false);
     }
